@@ -2,6 +2,7 @@ package facade;
 
 import cartes.Carte;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import interfaces.exceptions.PartieNonTermineeException;
 import interfaces.facade.FacadeSevenWondersOnLine;
 import joueur.Joueur;
 import merveilles.Merveille;
@@ -41,14 +42,17 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine
 
         } catch (Exception ex) {
             ex.printStackTrace();
-        }    }
+        }
+    }
 
     @Override
-    public void inscriptionUser(String nom) {
-
-
-        //mongodb soit creer instance si non existant soit emmener sur connexion
-        this.user = new User(nom);
+    public void inscriptionUser(String nom) { //Exceptions à ajouter (identifiant déjà utilisé, les mdp correspondent pas, ...)
+        if (true){ //Si l'inscription se passe parfaitement
+            this.user = new User(nom);
+            this.connexionUser(this.user.getPseudo()); //L'utilisateur se connecte
+        } else {
+            //Répète l'inscription avec les exceptions + msg d'erreur (la méthode à refaire avec boucle while)
+        }
     }
 
     @Override
@@ -59,8 +63,6 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine
 
     @Override
     public void ajouterJoueurEnAmi(String pseudo) {
-        //test si pseudo dans db si oui ajouter
-
 
     }
 
@@ -73,8 +75,9 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine
     public String creePartie(String joueur) {
 
         //Partie p = new Partie(this.userDansPreLobby,this.lesCartes,this.lesMerveilles);
-        return null;
+        //p.getListeDesJoueurs().add(this.userDansPreLobby);`
 
+        return "YUDAZUEUFIAZF";
     }
 
     @Override
@@ -153,7 +156,7 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine
     }
 
     @Override
-    public String getVainqueur(String joueur) {
+    public String getVainqueur(String joueur) throws PartieNonTermineeException {
         return null;
     }
 
