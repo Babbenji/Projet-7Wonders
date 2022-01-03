@@ -6,15 +6,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="clientJfx" />
+        <module name="rmiService" />
         <module name="Serveur" />
         <module name="model" />
         <module name="interfaces" />
-        <module name="Client" />
-        <module name="launcher" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Client" target="15" />
+      <module name="bddMongo" target="11" />
+      <module name="clientJfx" target="15" />
       <module name="interfaces" target="1.8" />
       <module name="launcher" target="15" />
       <module name="model" target="1.8" />
