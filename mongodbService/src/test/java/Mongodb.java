@@ -23,20 +23,22 @@ public class Mongodb {
         String connectionString = "mongodb+srv://root:root@cluster0.o30qp.mongodb.net/sevenwonders?retryWrites=true&w=majority";
         try (MongoClient mongoClient = MongoClients.create(connectionString)){
 
-            MongoCollection<Document> users = mongoClient.getDatabase("sevenwonders").getCollection("sevenwonders");
-            deleteDocument(users);
-            createDocument(users);
-            updatesDocument(users);
+            MongoCollection<Document> users = mongoClient.getDatabase("sevenwonders").getCollection("users");
+            //deleteDocument(users);
+            //createDocument(users);
+            //updatesDocument(users);
             findDocument(users);
         }
 
     }
 
     private static void findDocument(MongoCollection<Document> collection) {
-        List<Document> userWithId5 = collection.find(Filters.eq("user_id", 5)).into(new ArrayList<>());
-        printCollection(userWithId5);
-        List<Document> oldUser = collection.find(Filters.gte("age", 50)).into(new ArrayList<>());
-        printCollection(oldUser);
+        List<Document> allUsers = collection.find().into(new ArrayList<>());
+        printCollection(allUsers);
+        List<Document> userWithId1 = collection.find(Filters.eq("user_id", 1)).into(new ArrayList<>());
+        //printCollection(userWithId1);
+        List<Document> userWithAge48 = collection.find(Filters.gte("age", 48)).into(new ArrayList<>());
+        //printCollection(userWithAge48);
 
     }
 
@@ -50,7 +52,7 @@ public class Mongodb {
             Document filter = new Document("_id", id);
             Bson update = set("age", random.nextInt(100));
             item = collection.findOneAndUpdate(filter, update, findOneAndUpdateOptions);
-//            System.out.println(item.toJson());
+            //System.out.println(item.toJson());
         });
     }
 
@@ -60,11 +62,14 @@ public class Mongodb {
 
     private static void createDocument(MongoCollection<Document> collection) {
         List<Document> usersList = new ArrayList<>();
-        Map<String,String> hobbies = Map.of("5","sport","1", "videogame", "3","lecture","1000", "music");
-        for (int i = 0; i <10; i++) {
-
-            usersList.add(new Document("user_id", i).append("name", "Julien").append("hobbies", hobbies));
-        }
+        Map<String,String> identifiants1 = Map.of("id","jlietard","password", "jlietard");
+        Map<String,String> identifiants2 = Map.of("id","tdurand","password", "tdurand");
+        Map<String,String> identifiants3 = Map.of("id","abenjazia","password", "abenjazia");
+        Map<String,String> identifiants4 = Map.of("id","mblond","password", "mblond");
+        usersList.add(new Document("user_id", 1).append("name", "Julien").append("identifiants", identifiants1));
+        usersList.add(new Document("user_id", 2).append("name", "Timothé").append("identifiants", identifiants2));
+        usersList.add(new Document("user_id", 3).append("name", "Aziz").append("identifiants", identifiants3));
+        usersList.add(new Document("user_id", 4).append("name", "Matthieu").append("identifiants", identifiants4));
         collection.insertMany(usersList);
     }
 
