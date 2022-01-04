@@ -1,9 +1,14 @@
 package programme;
 
-import cartes.Carte;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoDatabase;
 import merveilles.Merveille;
-import partie.Partie;
+
 
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -25,6 +30,13 @@ public class Programme {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://root:root@cluster0.o30qp.mongodb.net/sevenwonders?retryWrites=true&w=majority");
+        MongoClientSettings settings = MongoClientSettings.builder()
+                .applyConnectionString(connectionString)
+                .build();
+        MongoClient mongoClient = MongoClients.create(settings);
+        MongoDatabase database = mongoClient.getDatabase("test");
 
 
 
