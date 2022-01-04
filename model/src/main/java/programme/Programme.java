@@ -30,15 +30,5 @@ public class Programme {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://root:root@cluster0.o30qp.mongodb.net/sevenwonders?retryWrites=true&w=majority");
-        MongoClientSettings settings = MongoClientSettings.builder()
-                .applyConnectionString(connectionString)
-                .build();
-        MongoClient mongoClient = MongoClients.create(settings);
-        MongoDatabase database = mongoClient.getDatabase("test");
-
-
-
     }
 }
