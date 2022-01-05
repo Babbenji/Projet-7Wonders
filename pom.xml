@@ -76,7 +76,6 @@
         <module>model</module>
         <module>rmiService</module>
         <module>clientJfx</module>
-        <module>bddMongo</module>
         <module>interfaces</module>
     </modules>
 </project>
