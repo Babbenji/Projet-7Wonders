@@ -40,7 +40,6 @@ public interface FacadeSevenWondersOnLine {
 
     /**
      * Permet de créer une partie
-     * @param joueur : nom du créateur
      *
      */
     void creePartie() throws RemoteException;
