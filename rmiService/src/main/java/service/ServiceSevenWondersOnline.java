@@ -1,15 +1,15 @@
 package service;
-import cartes.Carte;
+
+
 import interfaces.exceptions.JoueurDejaAjouteException;
 import interfaces.exceptions.JoueurNonExistantException;
 import interfaces.exceptions.MaxJoueursAtteintException;
-import joueur.Joueur;
 
-import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.Map;
 
-public interface ServiceSevenWondersOnline {
+
+public interface ServiceSevenWondersOnline
+{
     void creePartie() throws RemoteException;
     void rejoindreUnePartie(String nom) throws RemoteException, MaxJoueursAtteintException, JoueurNonExistantException, JoueurDejaAjouteException;
 

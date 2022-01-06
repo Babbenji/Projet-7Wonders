@@ -4,7 +4,6 @@ import cartes.Carte;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import interfaces.exceptions.PartieNonTermineeException;
 import interfaces.facade.FacadeSevenWondersOnLine;
-import invitation.Invitation;
 import joueur.Joueur;
 import merveilles.Merveille;
 import partie.Partie;

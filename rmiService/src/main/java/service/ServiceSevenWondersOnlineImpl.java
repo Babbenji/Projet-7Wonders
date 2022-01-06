@@ -1,26 +1,24 @@
 package service;
 
 import cartes.Carte;
-import facade.FacadeSevenWondersOnlineImpl;
 import interfaces.exceptions.JoueurDejaAjouteException;
 import interfaces.exceptions.JoueurNonExistantException;
 import interfaces.exceptions.MaxJoueursAtteintException;
 import interfaces.facade.FacadeSevenWondersOnLine;
 import joueur.Joueur;
-
 import java.rmi.server.RMIClientSocketFactory;
 import java.rmi.server.RMIServerSocketFactory;
 import java.rmi.server.UnicastRemoteObject;
 import java.rmi.RemoteException;
-import java.util.Map;
 
 public class ServiceSevenWondersOnlineImpl extends UnicastRemoteObject implements ServiceSevenWondersOnline {
 
     FacadeSevenWondersOnLine facadeSevenWondersOnLine;
 
-    protected ServiceSevenWondersOnlineImpl() throws RemoteException {
+    protected ServiceSevenWondersOnlineImpl() throws RemoteException
+    {
         super();
-        this.facadeSevenWondersOnLine = new FacadeSevenWondersOnlineImpl(); // a faire dans le Modele
+        this.facadeSevenWondersOnLine = new FacadeSevenWondersOnlineImpl();
     }
 
     protected ServiceSevenWondersOnlineImpl(int port) throws RemoteException {

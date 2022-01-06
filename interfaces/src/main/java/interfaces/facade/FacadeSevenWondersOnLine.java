@@ -1,12 +1,9 @@
 package interfaces.facade;
 
-import cartes.Carte;
 import interfaces.exceptions.*;
-import joueur.Joueur;
-import partie.Partie;
+
 
 import java.rmi.RemoteException;
-import java.util.Map;
 
 
 public interface FacadeSevenWondersOnLine {
