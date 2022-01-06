@@ -8,17 +8,16 @@
         <outputRelativeToContentRoot value="true" />
         <module name="clientJfx" />
         <module name="rmiService" />
-        <module name="Serveur" />
         <module name="model" />
         <module name="interfaces" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="14">
       <module name="clientJfx" target="14" />
-      <module name="interfaces" target="14" />
+      <module name="interfaces" target="9" />
       <module name="model" target="14" />
-      <module name="projet-7wonders-5" target="14" />
-      <module name="Serveur" target="14" />
+      <module name="projet-7wonders-5" target="9" />
+      <module name="rmiService" target="14" />
     </bytecodeTargetLevel>
   </component>
 </project>
