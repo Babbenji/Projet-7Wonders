@@ -1,13 +1,12 @@
 package interfaces.facade;
 
 import interfaces.exceptions.*;
-
+import interfaces.type.ICarte;
+import interfaces.type.IJoueur;
 
 import java.rmi.RemoteException;
 
-
 public interface FacadeSevenWondersOnLine {
-
 
     /**
      * Permet de s'inscrire à l'application
@@ -33,7 +32,7 @@ public interface FacadeSevenWondersOnLine {
      * Permet d'inviter un joueur
      * @param joueur
      */
-    void inviterJoueur(Joueur joueur);
+    void inviterJoueur(IJoueur joueur);
 
     /**
      * Permet de créer une partie
@@ -54,28 +53,28 @@ public interface FacadeSevenWondersOnLine {
      * TO DO
      * @throws RemoteException
      */
-    void miseEnPlaceDuJeu(Joueur joueur) throws RemoteException;
+    void miseEnPlaceDuJeu(IJoueur joueur) throws RemoteException;
 
     /**
      *
      * @param joueur
      * @param carte
      */
-    void jouerCarte(Joueur joueur, Carte carte) throws Exception;
+    void jouerCarte(IJoueur joueur, ICarte carte) throws Exception;
 
     /**
      *
      * @param joueur
      * @param carte
      */
-    void deffausserCarte (Joueur joueur, Carte carte) throws Exception;
+    void deffausserCarte (IJoueur joueur, ICarte carte) throws Exception;
 
 
     /**
      * TO DO
      * @param joueur
      */
-    void construireEtape(Joueur joueur) throws Exception;
+    void construireEtape(IJoueur joueur) throws Exception;
 
 
     /**
@@ -83,7 +82,7 @@ public interface FacadeSevenWondersOnLine {
      * @return : tous les joueurs avec leurs nombre de points
      * @throws PartieNonTermineeException : la partie n'est pas terminée, donc il n'y a pas encore de vainqueur
      */
-    String tableauScore(Joueur joueur) throws PartieNonTermineeException;
+    String tableauScore(IJoueur joueur) throws PartieNonTermineeException;
 
     /**
      * Permet de savoir si la partie est terminée ou non
@@ -92,8 +91,6 @@ public interface FacadeSevenWondersOnLine {
      *  - vrai : la partie est terminée
      *  - faux : la partie n'est pas encore terminée
      */
-    void partieTerminee(Joueur joueur) throws Exception;
-
-
+    void partieTerminee(IJoueur joueur) throws Exception;
 
 }

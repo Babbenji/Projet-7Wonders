@@ -26,5 +26,6 @@
     <orderEntry type="library" name="Maven: org.javatuples:javatuples:1.2" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-jdk14:2.0.0-alpha4" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:2.0.0-alpha4" level="project" />
+    <orderEntry type="module" module-name="model" />
   </component>
 </module>

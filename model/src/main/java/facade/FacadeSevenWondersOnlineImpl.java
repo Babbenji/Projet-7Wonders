@@ -3,7 +3,8 @@ package facade;
 import cartes.Carte;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import interfaces.exceptions.PartieNonTermineeException;
-import interfaces.facade.FacadeSevenWondersOnLine;
+import interfaces.type.ICarte;
+import interfaces.type.IJoueur;
 import joueur.Joueur;
 import merveilles.Merveille;
 import partie.Partie;
@@ -12,9 +13,7 @@ import user.User;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine
-
-{
+public class FacadeSevenWondersOnlineImpl {
     private Map<Integer,Partie> parties;
     private User user;
     private List<User> joueursInscrits;
@@ -66,7 +65,7 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine
     }
 
     @Override
-    public void inviterJoueur(Joueur joueur) {
+    public void inviterJoueur(IJoueur joueur) {
 
     }
 
@@ -92,21 +91,21 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine
     }
 
     @Override
-    public void miseEnPlaceDuJeu(Joueur joueur)
+    public void miseEnPlaceDuJeu(IJoueur joueur)
     {
         Partie partie = this.associationJoueurPartie.get(joueur);
         partie.miseEnPlacePartie();
     }
 
     @Override
-    public void jouerCarte(Joueur joueur, Carte carte) throws Exception {
+    public void jouerCarte(IJoueur joueur, ICarte carte) throws Exception {
         Partie partie = this.associationJoueurPartie.get(joueur);
         partie.jouerCarte(joueur,carte);
 
     }
 
     @Override
-    public void deffausserCarte(Joueur joueur, Carte carte) throws Exception {
+    public void deffausserCarte(Joueur joueur, ICarte carte) throws Exception {
         Partie partie = this.associationJoueurPartie.get(joueur);
         partie.deffausserCarte(joueur,carte);
     }

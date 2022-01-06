@@ -1,11 +1,11 @@
 package service;
 
-import cartes.Carte;
 import interfaces.exceptions.JoueurDejaAjouteException;
 import interfaces.exceptions.JoueurNonExistantException;
 import interfaces.exceptions.MaxJoueursAtteintException;
 import interfaces.facade.FacadeSevenWondersOnLine;
-import joueur.Joueur;
+import interfaces.type.ICarte;
+import interfaces.type.IJoueur;
 import java.rmi.server.RMIClientSocketFactory;
 import java.rmi.server.RMIServerSocketFactory;
 import java.rmi.server.UnicastRemoteObject;
@@ -18,7 +18,7 @@ public class ServiceSevenWondersOnlineImpl extends UnicastRemoteObject implement
     protected ServiceSevenWondersOnlineImpl() throws RemoteException
     {
         super();
-        this.facadeSevenWondersOnLine = new FacadeSevenWondersOnlineImpl();
+        //this.facadeSevenWondersOnLine = new FacadeSevenWondersOnlineImpl();
     }
 
     protected ServiceSevenWondersOnlineImpl(int port) throws RemoteException {
@@ -53,28 +53,28 @@ public class ServiceSevenWondersOnlineImpl extends UnicastRemoteObject implement
     }
 
     @Override
-    public void jouerCarte(Joueur joueur, Carte carte) throws Exception {
+    public void jouerCarte(IJoueur joueur, ICarte carte) throws Exception {
         this.facadeSevenWondersOnLine.jouerCarte(joueur,carte);
 
 
     }
 
     @Override
-    public void deffausserCarte(Joueur joueur, Carte carte) throws Exception {
+    public void deffausserCarte(IJoueur joueur, ICarte carte) throws Exception {
         this.facadeSevenWondersOnLine.deffausserCarte(joueur,carte);
 
 
     }
 
     @Override
-    public void construireEtape(Joueur joueur) throws Exception {
+    public void construireEtape(IJoueur joueur) throws Exception {
         this.facadeSevenWondersOnLine.construireEtape(joueur);
 
 
     }
 
     @Override
-    public void partieTerminee(Joueur joueur) throws RemoteException {
+    public void partieTerminee(IJoueur joueur) throws RemoteException {
 //        this.facadeSevenWondersOnLine.partieTerminee(joueur);
 
 
