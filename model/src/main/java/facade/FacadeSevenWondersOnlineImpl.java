@@ -10,10 +10,7 @@ import partie.Partie;
 import user.User;
 
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine
 
@@ -25,6 +22,8 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine
     private Map<User,Partie> userDansPreLobby;
     private List<Carte> lesCartes;
     private List<Merveille> lesMerveilles;
+    private Map<Joueur,Partie> associationJoueurPartie;
+
 
     public FacadeSevenWondersOnlineImpl() {
         //mongodb this.user = null;
@@ -72,98 +71,65 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine
     }
 
     @Override
-    public String creePartie(String joueur) {
-
-        //Partie p = new Partie(this.userDansPreLobby,this.lesCartes,this.lesMerveilles);
-        //p.getListeDesJoueurs().add(this.userDansPreLobby);`
-
-        return "YUDAZUEUFIAZF";
-    }
-
-    @Override
-    public void rejoindreUnePartie(String nom)  {
+    public void rejoindreUnePartie(String nom){
 
     }
 
     @Override
-    public void miseEnPlaceDuJeu() {
+    public void creePartie() {
+        ArrayList<Joueur> listJoueur = new ArrayList<>();
+        for (User user: userDansPreLobby.keySet())
+        {
+            Joueur joueur1 = new Joueur(user.getPseudo());
+            listJoueur.add(joueur1);
+        }
+        Partie partie = new Partie(listJoueur,lesCartes,lesMerveilles);
+        parties.put(partie.getIdPartie(),partie);
+
+        for (Joueur joueur: listJoueur) {
+            this.associationJoueurPartie.put(joueur,partie);
+        }
+    }
+
+    @Override
+    public void miseEnPlaceDuJeu(Joueur joueur)
+    {
+        Partie partie = this.associationJoueurPartie.get(joueur);
+        partie.miseEnPlacePartie();
+    }
+
+    @Override
+    public void jouerCarte(Joueur joueur, Carte carte) throws Exception {
+        Partie partie = this.associationJoueurPartie.get(joueur);
+        partie.jouerCarte(joueur,carte);
 
     }
 
     @Override
-    public void constructionDesListes() {
-
+    public void deffausserCarte(Joueur joueur, Carte carte) throws Exception {
+        Partie partie = this.associationJoueurPartie.get(joueur);
+        partie.deffausserCarte(joueur,carte);
     }
 
     @Override
-    public void joueursPret() {
+    public void construireEtape(Joueur joueur) throws Exception {
+        Partie partie = this.associationJoueurPartie.get(joueur);
+        partie.construireEtape(joueur);
+    }
 
+
+    @Override
+    public String tableauScore(Joueur joueur) throws PartieNonTermineeException
+    {
+        Partie partie = this.associationJoueurPartie.get(joueur);
+        return partie.affichageDesScores();
     }
 
     @Override
-    public void finAge() {
-
+    public void partieTerminee(Joueur joueur) throws Exception
+    {
+        Partie partie = this.associationJoueurPartie.get(joueur);
+        partie.partieTerminee();
     }
-
-    @Override
-    public void choixCarteAJouee(String joueur, String choix)  {
-
-    }
-
-    @Override
-    public void jouerCarteCommerce(int positionJoueur, String choix) {
-
-    }
-
-    @Override
-    public void defausserCarte(int postionCarte, String choix) {
-
-    }
-
-    @Override
-    public void debloquerUneEtapeMerveille(int positionJoueur, String choix) {
-
-    }
-
-    @Override
-    public void passerAgeSuivant() {
-
-    }
-
-    @Override
-    public void passerTourSuivant() {
-
-    }
-
-    @Override
-    public Map<String, Integer> listesDesRessourcesDesVoisinsDeChaqueJoueur(int positionJoueur) {
-        return null;
-    }
-
-    @Override
-    public void batailleMilitaire() {
-
-    }
-
-    @Override
-    public void nombreDePointsMilitaireAGagnerSelonAge() {
-
-    }
-
-    @Override
-    public void partieTerminee() {
-
-    }
-
-    @Override
-    public String getVainqueur(String joueur) throws PartieNonTermineeException {
-        return null;
-    }
-
-    @Override
-    public void finDePartie() {
-
-    }
-
 
 }

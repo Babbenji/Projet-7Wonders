@@ -7,14 +7,13 @@ import joueur.Joueur;
 import merveilles.GestionsEffetsEtape;
 import merveilles.Merveille;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Partie {
 
+    private int idPartie;
+    private static int s = 0;
 
     private ArrayList<Joueur> listeDesJoueurs;
     private final int NB_JOUEURS = 4;
@@ -36,7 +35,11 @@ public class Partie {
     private GestionsEffetCarte gestionsEffetCarte;
     private GestionsEffetsEtape gestionsEffetsEtape;
 
-    public Partie(ArrayList<Joueur> listeDesJoueurs, List<Carte> cartes, List<Merveille> merveilles) {
+    private boolean partieTerminee;
+
+    public Partie(ArrayList<Joueur> listeDesJoueurs, List<Carte> cartes, List<Merveille> merveilles)
+    {
+        this.idPartie = s++;
         this.listeDesJoueurs = listeDesJoueurs;
         this.cartes = cartes;
         this.merveilles = merveilles;
@@ -50,7 +53,10 @@ public class Partie {
         this.tourEnCours = 1;
         this.gestionsEffetCarte = new GestionsEffetCarte();
         this.gestionsEffetsEtape = new GestionsEffetsEtape();
+        this.partieTerminee = false;
     }
+
+
 
     public void constructionDesListes()
     {
@@ -84,9 +90,7 @@ public class Partie {
                 j.setMerveille(m);
                 this.merveilles.remove(m);
             });
-
         });
-
     }
 
     public void jouerCarte(Joueur joueur, Carte carte) throws Exception {
@@ -147,7 +151,8 @@ public class Partie {
                               pieceRedevableVoisinDroite +=(cout - joueur.getRessources().get(cle)) * 2;
                           }
                       }
-                      else {
+                      else
+                      {
                           achatPossible = false;
                       }
                   }
@@ -182,17 +187,17 @@ public class Partie {
         }
 
     }
-    public void deffausserCarte(Joueur joueur, Carte carte)
-    {
+    public void deffausserCarte(Joueur joueur, Carte carte) throws Exception {
         joueur.getDeck().enleverCarteDuDeck(carte);
         carteDefausse.add(carte);
         joueur.addPieces(3);
+        suitePartie();
     }
 
-    public void construireEtape(Joueur p)
-    {
+    public void construireEtape(Joueur p) throws Exception {
         this.gestionsEffetsEtape.appliquerEffetMerveille(p);
         p.getMerveille().setEtape(p.getMerveille().getEtape()+1);  //on incrémente le num de l'étape de la merveille
+        suitePartie();
     }
 
     public void passerAuTourSuivant()
@@ -349,7 +354,6 @@ public class Partie {
                 }
             }
         }
-
     }
 
     public boolean finAge()
@@ -371,7 +375,7 @@ public class Partie {
         }
         return true;
     }
-    public boolean finDePartie()
+    public boolean finDernierTourDernierAge()
     {
         if (ageEnCours == 3 && tourEnCours == 6 && toutLeMondeAJoue())
         {
@@ -379,10 +383,18 @@ public class Partie {
         }
         return false;
     }
+    public void partieTerminee() throws Exception {
+        if (partieTerminee)
+        {
+            ajoutPointVictoireEnFinPartie();
+            // ici on termine la partie
+        }
 
-    public void suitePartie()
-    {
-        if(!finDePartie())
+    }
+
+    public void suitePartie() throws Exception {
+
+        if(!finDernierTourDernierAge())
         {
             if (finAge())
             {
@@ -390,11 +402,19 @@ public class Partie {
                 deffausserCarteFinAge();
                 passerAgeSuivant();
             }
+
             if (toutLeMondeAJoue())
             {
                 passerAuTourSuivant();
             }
         }
+        else {
+            conflitsMilitaire();
+            deffausserCarteFinAge();
+            partieTerminee = true;
+        }
+
+
 
         // on arrete la partie ici
     }
@@ -420,7 +440,7 @@ public class Partie {
     }
     public void ajoutPointVictoireEnFinPartie() throws Exception
     {
-        if (finDePartie())
+        if (finDernierTourDernierAge())
         {
             for (Joueur joueur: listeDesJoueurs) {
                 comptagePointVictoirePourBatimentScientifique(joueur);
@@ -435,6 +455,16 @@ public class Partie {
                 }
             }
         }
+    }
+    public String affichageDesScores()
+    {
+
+        return "tata";
+    }
+
+
+    public int getIdPartie() {
+        return idPartie;
     }
 
     public void ajoutPointVictoireDuTresor(Joueur joueur)
