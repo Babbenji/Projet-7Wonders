@@ -1,4 +1,4 @@
-package facade;
+package interfaces.facade;
 
 import interfaces.exceptions.PartieNonTermineeException;
 import interfaces.facade.FacadeSevenWondersOnLine;

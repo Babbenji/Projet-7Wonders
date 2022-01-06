@@ -1,9 +1,10 @@
 package merveilles;
 
+import interfaces.type.IMerveille;
 import joueur.Joueur;
 import java.util.HashMap;
 
-public class Merveille {
+public class Merveille implements IMerveille {
 
 
     private String ressourceProduite; // ce que produit la merveille de base
@@ -48,90 +49,112 @@ public class Merveille {
     //getters et setters générés, à voir ensuite les fonctions inutiles à retirer
     //Je me passe de commentaires pour les getters et setters générés, ils n'ont rien de particulier
 
+    @Override
     public String getRessourceProduite() {
         return ressourceProduite;
     }
 
+    @Override
     public void setRessourceProduite(String ressourceProduite) {
         this.ressourceProduite = ressourceProduite;
     }
 
+    @Override
     public String getCite() {
         return cite;
     }
 
+    @Override
     public void setCite(String cite) {
         this.cite = cite;
     }
 
+    @Override
     public int getEtape() {
         return etape;
     }
 
+    @Override
     public void setEtape(int etape) {
         this.etape = etape;
     }
 
+    @Override
     public HashMap<String, Integer> getRessourcesPremiereEtape() {
         return ressourcesPremiereEtape;
     }
 
+    @Override
     public void setRessourcesPremiereEtape(HashMap<String, Integer> ressourcesPremiereEtape) {
         this.ressourcesPremiereEtape = ressourcesPremiereEtape;
     }
 
+    @Override
     public HashMap<String, String> getEffetPremiereEtape() {
         return effetPremiereEtape;
     }
 
+    @Override
     public void setEffetPremiereEtape(HashMap<String, String> effetPremiereEtape) {
         this.effetPremiereEtape = effetPremiereEtape;
     }
 
+    @Override
     public HashMap<String, Integer> getRessourcesDeuxiemeEtape() {
         return ressourcesDeuxiemeEtape;
     }
 
+    @Override
     public void setRessourcesDeuxiemeEtape(HashMap<String, Integer> ressourcesDeuxiemeEtape) {
         this.ressourcesDeuxiemeEtape = ressourcesDeuxiemeEtape;
     }
 
+    @Override
     public HashMap<String, String> getEffetDeuxiemeEtape() {
         return effetDeuxiemeEtape;
     }
 
+    @Override
     public void setEffetDeuxiemeEtape(HashMap<String, String> effetDeuxiemeEtape) {
         this.effetDeuxiemeEtape = effetDeuxiemeEtape;
     }
 
+    @Override
     public HashMap<String, Integer> getRessourcesTroisiemeEtape() {
         return ressourcesTroisiemeEtape;
     }
 
+    @Override
     public void setRessourcesTroisiemeEtape(HashMap<String, Integer> ressourcesTroisiemeEtape) {
         this.ressourcesTroisiemeEtape = ressourcesTroisiemeEtape;
     }
 
+    @Override
     public HashMap<String, String> getEffetTroisiemeEtape() {
         return effetTroisiemeEtape;
     }
 
+    @Override
     public void setEffetTroisiemeEtape(HashMap<String, String> effetTroisiemeEtape) {
         this.effetTroisiemeEtape = effetTroisiemeEtape;
     }
 
+    @Override
     public String getImage() {
         return image;
     }
 
+    @Override
     public void setImage(String image) {
         this.image = image;
     }
 
+    @Override
     public HashMap<String, Integer> getRessourceEtapeCourante() {
         return ressourceEtapeCourante;
     }
 
+    @Override
     public void setRessourceEtapeCourante(HashMap<String, Integer> ressourceEtapeCourante) {
         this.ressourceEtapeCourante = ressourceEtapeCourante;
     }
@@ -139,6 +162,7 @@ public class Merveille {
     //fonctions spécifiques (pas getters et setters)
 
     //retourne la prix en ressources de la prochaine étape
+    @Override
     public HashMap<String, Integer> prixEtapeSuivante() {
         switch(etape){
             case 0: //on retourne le coût de l'étape qui suit celle actuelle
@@ -152,6 +176,7 @@ public class Merveille {
     }
 
     //TO DO: finir cette méthode permettant de vérifier (avec la liste des ressources d'un joueur (liste ou joueur en parametre ?), si il peut construire l'étape suivante)
+    @Override
     public boolean peutAcheterEtape(){
         return true;
     }

@@ -1,9 +1,7 @@
 package interfaces.type;
 
-import cartes.Carte;
-import cartes.Deck;
-import joueur.Joueur;
-import merveilles.Merveille;
+
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +15,7 @@ public interface IJoueur {
     void setNom(String nouveauNom);
 
     //retourne toutes les cartes jouées par le joueur
-    ArrayList<Carte> getCartesJouees();
+    ArrayList<ICarte> getCartesJouees();
 
     // Ici on calcule le nombre de carte par type pour pouvoir appliquer les effets des Batiments de commerces et les Guildes
     int getNbreCarteMatierePremiere();
@@ -37,8 +35,6 @@ public interface IJoueur {
     //ajoute une carte à la liste des cartes jouées par le joueur
     void addCartesJouees(ICarte laCarte);
 
-    //Vérifie si le joueur a posé une carte en particulier et fournie en paramètre
-    boolean aCarte(Carte carte);
 
     //retourne une table de hachage listant toutes les ressources du joueur sous forme <nom, quantité>
     HashMap<String, Integer> getRessources();
@@ -61,10 +57,10 @@ public interface IJoueur {
     int getNbRessources(String nom);
 
     //retourne la Merveille du Joueur
-    Merveille getMerveille();
+    IMerveille getMerveille();
 
     //Assigne une merveille à un joueur et lui confère les éventuels bonus initiaux associés à celle-ci
-    void setMerveille(Merveille laMerveille);
+    void setMerveille(IMerveille laMerveille);
 
     //retourne la fortune du joueur
     int getPieces();
@@ -157,21 +153,19 @@ public interface IJoueur {
 
     void setPieces(int pieces);
 
-    void setCartesJouees(ArrayList<Carte> cartesJouees);
-
     void setNbTablettes(int nbTablettes);
 
     void setNbRouages(int nbRouages);
 
     void setNbCompas(int nbCompas);
 
-    Deck getDeck();
+    IDeck getDeck();
 
-    void setDeck(Deck deck);
+    void setDeck(IDeck deck);
 
-    List<Joueur> getAmis();
+    List<IJoueur> getAmis();
 
-    void setAmis(List<Joueur> amis);
+    void setAmis(List<IJoueur> amis);
 
     Boolean getAJoue();
 

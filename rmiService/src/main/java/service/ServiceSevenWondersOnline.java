@@ -14,12 +14,12 @@ public interface ServiceSevenWondersOnline
     void creePartie() throws RemoteException;
     void rejoindreUnePartie(String nom) throws RemoteException, MaxJoueursAtteintException, JoueurNonExistantException, JoueurDejaAjouteException;
 
-    void miseEnPlacePartie() throws RemoteException;
+    void miseEnPlacePartie(IJoueur joueur) throws RemoteException;
     void jouerCarte(IJoueur joueur, ICarte carte) throws Exception;
     void deffausserCarte (IJoueur joueur, ICarte carte) throws Exception;
     void construireEtape(IJoueur joueur) throws Exception;
 
-    void partieTerminee(IJoueur joueur) throws RemoteException;
+    void partieTerminee(IJoueur joueur) throws Exception;
     String tableauScore();
 
 }

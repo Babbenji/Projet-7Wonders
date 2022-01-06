@@ -1,5 +1,6 @@
 package service;
 
+import facade.FacadeSevenWondersOnlineImpl;
 import interfaces.exceptions.JoueurDejaAjouteException;
 import interfaces.exceptions.JoueurNonExistantException;
 import interfaces.exceptions.MaxJoueursAtteintException;
@@ -18,7 +19,7 @@ public class ServiceSevenWondersOnlineImpl extends UnicastRemoteObject implement
     protected ServiceSevenWondersOnlineImpl() throws RemoteException
     {
         super();
-        //this.facadeSevenWondersOnLine = new FacadeSevenWondersOnlineImpl();
+        this.facadeSevenWondersOnLine = new FacadeSevenWondersOnlineImpl();
     }
 
     protected ServiceSevenWondersOnlineImpl(int port) throws RemoteException {
@@ -45,9 +46,9 @@ public class ServiceSevenWondersOnlineImpl extends UnicastRemoteObject implement
     }
 
     @Override
-    public void miseEnPlacePartie() throws RemoteException {
+    public void miseEnPlacePartie(IJoueur joueur) throws RemoteException {
 
-        //this.facadeSevenWondersOnLine.miseEnPlacePartie();
+        this.facadeSevenWondersOnLine.miseEnPlaceDuJeu(joueur);
 
 
     }
@@ -74,10 +75,8 @@ public class ServiceSevenWondersOnlineImpl extends UnicastRemoteObject implement
     }
 
     @Override
-    public void partieTerminee(IJoueur joueur) throws RemoteException {
-//        this.facadeSevenWondersOnLine.partieTerminee(joueur);
-
-
+    public void partieTerminee(IJoueur joueur) throws Exception, RemoteException {
+        this.facadeSevenWondersOnLine.partieTerminee(joueur);
 
     }
 

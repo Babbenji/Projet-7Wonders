@@ -12,7 +12,6 @@ import java.rmi.RemoteException;
 public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
 {
 
-
     @Override
     public void creePartie() throws RemoteException {
 

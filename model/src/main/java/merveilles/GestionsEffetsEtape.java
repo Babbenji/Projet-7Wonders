@@ -1,12 +1,13 @@
 package merveilles;
 
+import interfaces.type.IJoueur;
 import joueur.Joueur;
 
 import java.util.Map;
 
 public class GestionsEffetsEtape {
 
-    public void appliquerEffetMerveille(Joueur joueur) {
+    public void appliquerEffetMerveille(IJoueur joueur) {
 
         if (joueur.getMerveille().getCite().equals("Olympia"))
         {

@@ -1,5 +1,6 @@
 package cartes;
 
+import interfaces.type.IJoueur;
 import joueur.Joueur;
 
 import java.util.HashMap;
@@ -7,7 +8,7 @@ import java.util.Map;
 
 public class GestionsEffetCarte {
 
-    public void appliquerEffetCarte (Map<String,String> effet, Joueur joueur,Joueur voisinGauche , Joueur voisinDroite) throws Exception
+    public void appliquerEffetCarte (Map<String,String> effet, IJoueur joueur, IJoueur voisinGauche , IJoueur voisinDroite) throws Exception
     {
         if (effet.get("nomEffet") == null)
         {
@@ -105,7 +106,7 @@ public class GestionsEffetCarte {
             }
         }
     }
-    public void appliquerEffetGuildesFinDePartie(Map<String,String> effet, Joueur joueur,Joueur voisinGauche , Joueur voisinDroite) throws Exception {
+    public void appliquerEffetGuildesFinDePartie(Map<String,String> effet, IJoueur joueur,IJoueur voisinGauche , IJoueur voisinDroite) throws Exception {
         if (effet.get("nomEffet") == null)
         {
             throw new Exception(" Il y'a un soucis cette carte n'a pas d effet");

@@ -1,6 +1,9 @@
 package joueur;
 
+import interfaces.type.ICarte;
+import interfaces.type.IDeck;
 import interfaces.type.IJoueur;
+import interfaces.type.IMerveille;
 import merveilles.*;
 import cartes.*;
 
@@ -11,11 +14,11 @@ import java.util.List;
 public class Joueur implements IJoueur {
 
     private String nom;
-    private ArrayList<Carte> cartesJouees; //les cartes jouées par le joueur
+    private ArrayList<ICarte> cartesJouees; //les cartes jouées par le joueur
     private HashMap<String,Integer> ressources; //ressources du joueur, ce qui comprend les matieres premieres et les produits manufactures
     private Merveille merveille; //merveille du joueur
     private Deck deck;
-    private List<Joueur> amis;
+    private List<IJoueur> amis;
     private int pieces;   //argent du joueur
     private boolean AJoue;
 
@@ -41,7 +44,7 @@ public class Joueur implements IJoueur {
     public Joueur(String nom){  //Constructeur, au début, seul le nom différencie les joueurs
         this.nom = nom;
         pieces = 3; //On débute avec 3 pièces
-        cartesJouees = new ArrayList<Carte>();
+        cartesJouees = new ArrayList<ICarte>();
         etatJeu = false;
         commerceMatieresPremieresDroite = false;
         commerceMatieresPremieresGauche = false;
@@ -94,7 +97,7 @@ public class Joueur implements IJoueur {
 
     //retourne toutes les cartes jouées par le joueur
     @Override
-    public ArrayList<Carte> getCartesJouees() {
+    public ArrayList<ICarte> getCartesJouees() {
         return cartesJouees;
     }
 
@@ -102,7 +105,7 @@ public class Joueur implements IJoueur {
     @Override
     public  int getNbreCarteMatierePremiere() {
         int nbreCarteMatierePremiere = 0;
-        for (Carte carte : cartesJouees) {
+        for (ICarte carte : cartesJouees) {
             if (carte.getType().equals("Matieres Premieres")) {
                 nbreCarteMatierePremiere += 1;
             }
@@ -113,7 +116,7 @@ public class Joueur implements IJoueur {
     @Override
     public  int getNbreCarteProduitManufacture() {
         int nbreCarteProduitManufacture = 0;;
-        for (Carte carte : cartesJouees) {
+        for (ICarte carte : cartesJouees) {
 
             if (carte.getType().equals("Produit Manufacture"))
             {
@@ -125,7 +128,7 @@ public class Joueur implements IJoueur {
     @Override
     public  int getNbreCarteBatimentCommercial() {
         int nbreCarteBatimentCommercial = 0;;
-        for (Carte carte : cartesJouees) {
+        for (ICarte carte : cartesJouees) {
 
             if (carte.getType().equals("Batiment Commercial"))
             {
@@ -137,7 +140,7 @@ public class Joueur implements IJoueur {
     @Override
     public  int getNbreCarteBatimentMilitaire() {
         int nbreCarteBatimentMilitaire = 0;;
-        for (Carte carte : cartesJouees) {
+        for (ICarte carte : cartesJouees) {
             if (carte.getType().equals("Batiment Commercial"))
             {
                 nbreCarteBatimentMilitaire += 1 ;
@@ -150,7 +153,7 @@ public class Joueur implements IJoueur {
     @Override
     public  int getNbreCarteBatimentCivil() {
         int nbreCarteBatimentCivil = 0;;
-        for (Carte carte : cartesJouees) {
+        for (ICarte carte : cartesJouees) {
             if (carte.getType().equals("Batiment Commercial"))
             {
                 nbreCarteBatimentCivil += 1 ;
@@ -163,7 +166,7 @@ public class Joueur implements IJoueur {
     @Override
     public  int getNbreCarteGuilde() {
         int nbreCarteGuilde = 0;;
-        for (Carte carte : cartesJouees) {
+        for (ICarte carte : cartesJouees) {
             if (carte.getType().equals("Guilde"))
             {
                 nbreCarteGuilde += 1 ;
@@ -176,7 +179,7 @@ public class Joueur implements IJoueur {
     public  int getNbreCarteBatimentScientifique()
     {
         int nbreCarteBatimentScientifique = 0;
-        for (Carte carte : cartesJouees) {
+        for (ICarte carte : cartesJouees) {
             if (carte.getType().equals("Guilde"))
             {
                 nbreCarteBatimentScientifique += 1 ;
@@ -187,14 +190,8 @@ public class Joueur implements IJoueur {
 
     //ajoute une carte à la liste des cartes jouées par le joueur
     @Override
-    public void addCartesJouees(Carte laCarte) {
+    public void addCartesJouees(ICarte laCarte) {
         cartesJouees.add(laCarte);
-    }
-
-    //Vérifie si le joueur a posé une carte en particulier et fournie en paramètre
-    @Override
-    public boolean aCarte(Carte carte){
-        return cartesJouees.contains(carte);
     }
 
 
@@ -258,8 +255,8 @@ public class Joueur implements IJoueur {
 
     //Assigne une merveille à un joueur et lui confère les éventuels bonus initiaux associés à celle-ci
     @Override
-    public void setMerveille(Merveille laMerveille) {
-        merveille = laMerveille;
+    public void setMerveille(IMerveille laMerveille) {
+        merveille = (Merveille) laMerveille;
         // TO DO : rajouter au passage les bénéfices initiaux de la merveille au joueur ! (ressources, pièces... ?)
     }
 
@@ -467,10 +464,6 @@ public class Joueur implements IJoueur {
         this.pieces = pieces;
     }
 
-    @Override
-    public void setCartesJouees(ArrayList<Carte> cartesJouees) {
-        this.cartesJouees = cartesJouees;
-    }
 
     @Override
     public void setNbTablettes(int nbTablettes) {
@@ -493,17 +486,17 @@ public class Joueur implements IJoueur {
     }
 
     @Override
-    public void setDeck(Deck deck) {
-        this.deck = deck;
+    public void setDeck(IDeck deck) {
+        this.deck = (Deck) deck;
     }
 
     @Override
-    public List<Joueur> getAmis() {
+    public List<IJoueur> getAmis() {
         return amis;
     }
 
     @Override
-    public void setAmis(List<Joueur> amis) {
+    public void setAmis(List<IJoueur> amis) {
         this.amis = amis;
     }
 

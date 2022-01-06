@@ -3,8 +3,10 @@ package facade;
 import cartes.Carte;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import interfaces.exceptions.PartieNonTermineeException;
+import interfaces.facade.IFacadeSevenWondersOnlineImpl;
 import interfaces.type.ICarte;
 import interfaces.type.IJoueur;
+import interfaces.type.IMerveille;
 import joueur.Joueur;
 import merveilles.Merveille;
 import partie.Partie;
@@ -13,15 +15,15 @@ import user.User;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class FacadeSevenWondersOnlineImpl {
+public class FacadeSevenWondersOnlineImpl implements IFacadeSevenWondersOnlineImpl {
     private Map<Integer,Partie> parties;
     private User user;
     private List<User> joueursInscrits;
     private Map<User,String> utilisateursConnectes;
     private Map<User,Partie> userDansPreLobby;
-    private List<Carte> lesCartes;
-    private List<Merveille> lesMerveilles;
-    private Map<Joueur,Partie> associationJoueurPartie;
+    private List<ICarte> lesCartes;
+    private List<IMerveille> lesMerveilles;
+    private Map<IJoueur,Partie> associationJoueurPartie;
 
 
     public FacadeSevenWondersOnlineImpl() {
@@ -76,7 +78,7 @@ public class FacadeSevenWondersOnlineImpl {
 
     @Override
     public void creePartie() {
-        ArrayList<Joueur> listJoueur = new ArrayList<>();
+        ArrayList<IJoueur> listJoueur = new ArrayList<>();
         for (User user: userDansPreLobby.keySet())
         {
             Joueur joueur1 = new Joueur(user.getPseudo());
@@ -85,7 +87,7 @@ public class FacadeSevenWondersOnlineImpl {
         Partie partie = new Partie(listJoueur,lesCartes,lesMerveilles);
         parties.put(partie.getIdPartie(),partie);
 
-        for (Joueur joueur: listJoueur) {
+        for (IJoueur joueur: listJoueur) {
             this.associationJoueurPartie.put(joueur,partie);
         }
     }
@@ -105,27 +107,27 @@ public class FacadeSevenWondersOnlineImpl {
     }
 
     @Override
-    public void deffausserCarte(Joueur joueur, ICarte carte) throws Exception {
+    public void deffausserCarte(IJoueur joueur, ICarte carte) throws Exception {
         Partie partie = this.associationJoueurPartie.get(joueur);
         partie.deffausserCarte(joueur,carte);
     }
 
     @Override
-    public void construireEtape(Joueur joueur) throws Exception {
+    public void construireEtape(IJoueur joueur) throws Exception {
         Partie partie = this.associationJoueurPartie.get(joueur);
         partie.construireEtape(joueur);
     }
 
 
     @Override
-    public String tableauScore(Joueur joueur) throws PartieNonTermineeException
+    public String tableauScore(IJoueur joueur) throws PartieNonTermineeException
     {
         Partie partie = this.associationJoueurPartie.get(joueur);
         return partie.affichageDesScores();
     }
 
     @Override
-    public void partieTerminee(Joueur joueur) throws Exception
+    public void partieTerminee(IJoueur joueur) throws Exception
     {
         Partie partie = this.associationJoueurPartie.get(joueur);
         partie.partieTerminee();

@@ -1,7 +1,8 @@
 module model {
 
 requires interfaces;
-exports joueur;
+    requires com.fasterxml.jackson.databind;
+    exports joueur;
 exports cartes;
 exports facade;
 }
