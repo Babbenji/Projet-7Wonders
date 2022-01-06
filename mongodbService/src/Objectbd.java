@@ -1,4 +1,4 @@
-package mongodbService.src.main.java;
+package mongodbService.src;
 
 public abstract class Objectbd {
     public String _id;

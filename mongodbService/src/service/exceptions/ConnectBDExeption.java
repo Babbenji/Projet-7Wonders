@@ -1,4 +1,4 @@
-package mongodbService.src.main.java.service;
+package mongodbService.src.service.exceptions;
 
 public class ConnectBDExeption extends Exception {
 }

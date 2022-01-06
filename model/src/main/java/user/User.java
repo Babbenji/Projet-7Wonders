@@ -2,13 +2,21 @@ package user;
 
 import interfaces.exceptions.JoueurDejaDansLaListeDAmisException;
 import interfaces.exceptions.JoueurNonExistantException;
+import org.bson.codecs.pojo.annotations.BsonProperty;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class User {
 
+    @BsonProperty(value ="pseudo")
     private String pseudo;
+
+    @BsonProperty(value ="password")
+    private String password;
+
+    @BsonProperty(value ="friends")
     private List<User> amis;
 
     /**
@@ -21,37 +29,27 @@ public class User {
     }
 
     /**
-     * Permet d'ajouter un utilisateur à sa liste d'amis
-     * @param pseudo
-     * @throws JoueurNonExistantException : Le joueur n'existe pas
-     * @throws JoueurDejaDansLaListeDAmisException : Le joueur est déjà dans la liste d'amis
-     */
-    public void addFriend(String pseudo) throws JoueurNonExistantException, JoueurDejaDansLaListeDAmisException {
-        for (User ami : this.amis) {
-            if(ami.getPseudo().equals(pseudo)){
-                throw new JoueurDejaDansLaListeDAmisException();
-            }
-            else {
-                this.amis.add(this.getUserByPseudo(pseudo)); //rajouter la condition du si le joueur existe quand la bdd sera faite
-            }
-        }
-    }
-
-    /**
-     * Permet de retrouver un joueur via son pseudo
-     * @param pseudo
-     * @return
-     */
-    public User getUserByPseudo(String pseudo){ //Cette méthode ne sera pas dans la classe User !!!!!!
-        return this;//requete mongodb
-    }
-
-    /**
      * Permet de retourner le pseudo de l'utilisateur
      * @return pseudo
      */
     public String getPseudo() {
         return this.pseudo;
+    }
+
+    /**
+     * Permet de retourner le mot de passe de l'utilisateur
+     * @return password
+     */
+    public String getPassword() {
+        return this.password;
+    }
+
+    /**
+     * Permet de modifier le mot de passe de l'utilisateur
+     * @param password
+     */
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     /**
@@ -61,4 +59,5 @@ public class User {
     public List<User> getAmis() {
         return this.amis;
     }
+
 }
