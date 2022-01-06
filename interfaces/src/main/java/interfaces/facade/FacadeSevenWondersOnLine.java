@@ -82,9 +82,6 @@ public interface FacadeSevenWondersOnLine {
     void construireEtape(Joueur joueur) throws Exception;
 
 
-
-
-
     /**
      * Permet d'avoir le vainqueur de la partie où joueur est impliqué
      * @return : tous les joueurs avec leurs nombre de points

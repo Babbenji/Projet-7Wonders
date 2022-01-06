@@ -387,8 +387,8 @@ public class Partie {
         if (partieTerminee)
         {
             ajoutPointVictoireEnFinPartie();
+            // ici on termine la partie
         }
-
 
     }
 
