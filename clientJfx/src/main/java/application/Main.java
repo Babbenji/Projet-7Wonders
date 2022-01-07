@@ -9,7 +9,7 @@ public class Main extends Application
     @Override
     public void start(Stage stage) throws Exception
     {
-//        Controleur controleur = new Controleur(stage);
-//        controleur.run();
+        Controleur controleur = new Controleur(stage);
+        controleur.run();
     }
 }

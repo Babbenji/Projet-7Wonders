@@ -26,7 +26,8 @@ public class RunServer {
             Naming.rebind(RMI_SERVEUR, (Remote) serviceSevenWondersOnLine);
 
             System.out.println("Serveur lancé");
-        } catch ( MalformedURLException | RemoteException e) {
+        } catch ( MalformedURLException | RemoteException e)
+        {
             e.printStackTrace();
         }
     }
