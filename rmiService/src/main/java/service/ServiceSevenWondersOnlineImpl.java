@@ -19,7 +19,7 @@ public class ServiceSevenWondersOnlineImpl extends UnicastRemoteObject implement
     protected ServiceSevenWondersOnlineImpl() throws RemoteException
     {
         super();
-        this.facadeSevenWondersOnLine = new FacadeSevenWondersOnlineImpl();
+        this.facadeSevenWondersOnLine =  new FacadeSevenWondersOnlineImpl();
     }
 
     protected ServiceSevenWondersOnlineImpl(int port) throws RemoteException {

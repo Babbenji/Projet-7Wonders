@@ -1,4 +1,5 @@
-module interfaces {
+module interfaces
+{
     requires java.rmi;
     exports interfaces.facade;
     exports interfaces.exceptions;

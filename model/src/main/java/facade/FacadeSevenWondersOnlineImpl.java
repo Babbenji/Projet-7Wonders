@@ -3,7 +3,7 @@ package facade;
 import cartes.Carte;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import interfaces.exceptions.PartieNonTermineeException;
-import interfaces.facade.IFacadeSevenWondersOnlineImpl;
+import interfaces.facade.FacadeSevenWondersOnLine;
 import interfaces.type.ICarte;
 import interfaces.type.IJoueur;
 import interfaces.type.IMerveille;
@@ -15,7 +15,7 @@ import user.User;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class FacadeSevenWondersOnlineImpl implements IFacadeSevenWondersOnlineImpl {
+public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
     private Map<Integer,Partie> parties;
     private User user;
     private List<User> joueursInscrits;
