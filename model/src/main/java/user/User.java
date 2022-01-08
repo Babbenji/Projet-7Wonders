@@ -19,8 +19,24 @@ public class User {
     @BsonProperty(value ="friends")
     private List<User> amis;
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "pseudo='" + pseudo + '\'' +
+                ", password='" + password + '\'' +
+                ", amis=" + amis +
+                '}';
+    }
+
     /**
-     * Permet d'ajouter un utilisateur à sa liste d'amis
+     * Permet de créer un user
+     */
+    public User() {
+        this.amis = new ArrayList<>();
+    }
+
+    /**
+     * Permet de créer un user
      * @param pseudo
      */
     public User(String pseudo) {
@@ -50,6 +66,22 @@ public class User {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * Permet d'ajouter/modifier le pseudo de l'user
+     * @param pseudo
+     */
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
+    }
+
+    /**
+     * Permet d'ajouter/modifier la liste d'amis
+     * @param amis
+     */
+    public void setAmis(List<User> amis) {
+        this.amis = amis;
     }
 
     /**
