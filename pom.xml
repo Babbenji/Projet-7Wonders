@@ -84,5 +84,6 @@
         <module>clientJfx</module>
         <module>bddMongo</module>
         <module>interfaces</module>
+        <module>dao</module>
     </modules>
 </project>

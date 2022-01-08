@@ -1,8 +1,7 @@
-package mongodbService.src.tests;
+package programmes;
 
-import mongodbService.src.service.exceptions.ConnectBDExeption;
-import mongodbService.src.service.MongodbService;
-
+import services.MongodbService;
+import services.exceptions.ConnectBDExeption;
 import user.User;
 
 public class testPOJO {

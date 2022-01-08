@@ -1,20 +1,17 @@
-package mongodbService.src.service;
+package services;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import interfaces.exceptions.JoueurDejaDansLaListeDAmisException;
 import interfaces.exceptions.JoueurNonExistantException;
-import mongodbService.src.service.exceptions.PseudoDejaPrisException;
-import mongodbService.src.service.exceptions.PseudoOuMotDePasseIncorrectException;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.conversions.Bson;
+import services.exceptions.PseudoDejaPrisException;
+import services.exceptions.PseudoOuMotDePasseIncorrectException;
 import user.User;
 
 import java.util.ArrayList;
@@ -36,6 +33,9 @@ public class MongodbService {
     MongoClient mongoClient = MongoClients.create(
             new ConnectionString("mongodb+srv://root:root@cluster0.o30qp.mongodb.net/sevenwonders?retryWrites=true&w=majority"));
 
+    /**
+     * Construit les services de la database sevenwonders avec POJO
+     */
     public MongodbService() {
         //CodecProvider pojoCodecProvider = PojoCodecProvider.builder().register(User.class).build();
         CodecRegistry pojoCodecRegistry =
@@ -47,7 +47,7 @@ public class MongodbService {
                 );
 
         // accès à la database sevenwonders
-        this.mongoDatabase = mongoClient.getDatabase(NOM_BD).withCodecRegistry(pojoCodecRegistry);
+        this.mongoDatabase = this.mongoClient.getDatabase(this.NOM_BD).withCodecRegistry(pojoCodecRegistry);
     }
 
     /**
@@ -67,7 +67,7 @@ public class MongodbService {
      */
     public void createUser(String pseudo, String pw) throws PseudoDejaPrisException {
         boolean pseudoDejaPrisBoolean = false;
-        MongoCollection<Document> users = mongoClient.getDatabase("sevenwonders").getCollection("users");
+        MongoCollection<Document> users = this.mongoDatabase.getCollection("users");
         for(User user : getAllUsers()){
             if (user.getPseudo().equals(pseudo)){
                 pseudoDejaPrisBoolean = true;
@@ -85,7 +85,7 @@ public class MongodbService {
 
     /**
      * Retourner tous les users
-     * @return
+     * @return allUsers
      */
     public Collection<User> getAllUsers(){
         MongoCollection<User> users = this.mongoDatabase.getCollection("user",User.class);
@@ -108,8 +108,8 @@ public class MongodbService {
 
     /**
      * Permet d'ajouter un utilisateur à la liste d'amis d'un User
-     * @param pseudo
-     * @param nouvelAmi
+     * @param pseudo pseudo de l'user qui ajoute un ami
+     * @param nouvelAmi pseudo de l'ami qu'on veut ajouter
      * @throws JoueurNonExistantException : Le joueur n'existe pas
      * @throws JoueurDejaDansLaListeDAmisException : Le joueur est déjà dans la liste d'amis
      */
@@ -139,7 +139,7 @@ public class MongodbService {
      * @throws PseudoOuMotDePasseIncorrectException
      * @param pseudo
      * @param pw
-     * @return
+     * @return finalUser
      */
     public User loginUser(String pseudo, String pw) throws PseudoOuMotDePasseIncorrectException {
         MongoCollection<User> collection = this.mongoDatabase.getCollection("users", User.class);
@@ -158,6 +158,11 @@ public class MongodbService {
         return finalUser;
     }
 
+    /**
+     * Permet de vérifier si le pseudo en paramètre existe dans la base de donnée
+     * @param pseudo
+     * @return verif : boolean, true si existe sinon false
+     */
     public boolean verifUserByPseudo(String pseudo){
         boolean verif = false;
         User user = getUserByPseudo(pseudo);
@@ -165,22 +170,5 @@ public class MongodbService {
             verif = true;
         }
         return verif;
-        /*
-        MongoCollection<User> collection = this.mongoDatabase.getCollection("users", User.class);
-        Collection<User> users = new ArrayList<>();
-        collection.find().forEach((Consumer<? super User>) e -> users.add(e));
-        int i = 0;
-        while(verif==false || i>=users.size()){
-            if (users.iterator().next().getPseudo().equals(pseudo)) {
-                verif = true;
-                break;
-            }
-            else {
-                verif = false;
-            }
-            i++;
-        }
-        return verif;
-        */
     }
 }

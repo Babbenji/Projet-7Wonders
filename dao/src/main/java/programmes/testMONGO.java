@@ -1,4 +1,4 @@
-package mongodbService.src.tests;
+package programmes;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -9,7 +9,9 @@ import com.mongodb.client.model.ReturnDocument;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import static com.mongodb.client.model.Projections.exclude;
 import static com.mongodb.client.model.Updates.set;
