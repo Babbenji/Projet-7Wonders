@@ -53,7 +53,11 @@ public class MongodbService {
                                 .automatic(true).build()
                         )
                 );
+        // Enable MongoDB logging in general
+        System.setProperty("DEBUG.MONGO", "false");
 
+        // Enable DB operation tracing
+        System.setProperty("DB.TRACE", "false");
         // accès à la database sevenwonders
         this.mongoDatabase = this.mongoClient.getDatabase(NOM_BD).withCodecRegistry(pojoCodecRegistry);
     }
@@ -139,7 +143,6 @@ public class MongodbService {
                 FindOneAndUpdateOptions findOneAndUpdateOptions = new FindOneAndUpdateOptions().returnDocument(ReturnDocument.AFTER);
                 Document newUser = usersInDatabase.find(Filters.eq("pseudo", nouvelAmi)).first();
                 List<Document> amis = usersInDatabase.find(Filters.eq("pseudo", pseudo)).projection(include("friends")).projection(exclude("_id", "pseudo", "password")).into(new ArrayList<>());
-                System.out.println(amis);
                 amis.add(newUser);
                 Bson filter = Filters.eq("pseudo", pseudo);
                 Bson update = Updates.push("friends", newUser);
@@ -161,17 +164,13 @@ public class MongodbService {
      * @return finalUser
      */
     public User loginUser(String pseudo, String pw) throws PseudoOuMotDePasseIncorrectException {
-        Collection<User> users = getAllUsers();
-        User finalUser = null;
+        User user = getUserByPseudo(pseudo);
+        User finalUser;
 
-        for (User u : users) {
-            System.out.println(u.getPseudo()+" : "+pseudo+" ---- "+u.getPassword()+" : "+pw);
-            if (u.getPseudo().equals(pseudo) && u.getPassword().equals(pw)) {
-                finalUser = u;
-                break;
-            } else {
-                throw new PseudoOuMotDePasseIncorrectException();
-            }
+        if (user.getPassword().equals(pw)){
+            finalUser = user;
+        } else {
+            throw new PseudoOuMotDePasseIncorrectException();
         }
         return finalUser;
     }
