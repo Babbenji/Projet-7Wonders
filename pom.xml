@@ -56,5 +56,6 @@
         <module>rmiService</module>
         <module>clientJfx</module>
         <module>interfaces</module>
+        <module>dao</module>
     </modules>
 </project>

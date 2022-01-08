@@ -1,4 +1,4 @@
-package mongodbService.src.service.exceptions;
+package services.exceptions;
 
 public class PseudoDejaPrisException extends Exception {
 }

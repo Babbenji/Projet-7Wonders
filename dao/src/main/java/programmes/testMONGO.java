@@ -1,4 +1,4 @@
-package mongodbService.src.tests;
+package programmes;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -9,7 +9,9 @@ import com.mongodb.client.model.ReturnDocument;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import static com.mongodb.client.model.Projections.exclude;
 import static com.mongodb.client.model.Updates.set;
@@ -17,7 +19,7 @@ import static com.mongodb.client.model.Updates.set;
 public class testMONGO {
     public static void main(String[] args) {
         //Connection a la bdd
-
+/*
         String connectionString = "mongodb+srv://root:root@cluster0.o30qp.mongodb.net/sevenwonders?retryWrites=true&w=majority";
         try (MongoClient mongoClient = MongoClients.create(connectionString)){
 
@@ -86,5 +88,7 @@ public class testMONGO {
 
     private static void printCollection(List<Document> collection) {
         collection.forEach(document -> System.out.println(document.toJson()));
+
+ */
     }
 }
