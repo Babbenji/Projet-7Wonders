@@ -90,7 +90,7 @@ public class MongodbService {
     public Collection<User> getAllUsers(){
         MongoCollection<User> users = this.mongoDatabase.getCollection("user",User.class);
         Collection<User> allUsers = new ArrayList<>();
-        users.find(Filters.eq("users",users)).forEach((Consumer<? super User>) u -> allUsers.add(u));
+        users.find().forEach((Consumer<? super User>) u -> allUsers.add(u));
         return allUsers;
     }
 
@@ -102,7 +102,7 @@ public class MongodbService {
     public List<User> getFriendsUser(String pseudo){
         MongoCollection<User> users = this.mongoDatabase.getCollection("user",User.class);
         List<User>friends = new ArrayList<>();
-        users.find(Filters.eq("pseudonyme", pseudo)).projection(exclude("friends")).forEach(f->friends.add(f));
+        users.find(Filters.eq("pseudonyme", pseudo)).projection(exclude("friends")).forEach((Consumer<? super User>) f->friends.add(f));
         return friends;
     }
 

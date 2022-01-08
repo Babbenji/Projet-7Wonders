@@ -19,7 +19,7 @@ import static com.mongodb.client.model.Updates.set;
 public class testMONGO {
     public static void main(String[] args) {
         //Connection a la bdd
-
+/*
         String connectionString = "mongodb+srv://root:root@cluster0.o30qp.mongodb.net/sevenwonders?retryWrites=true&w=majority";
         try (MongoClient mongoClient = MongoClients.create(connectionString)){
 
@@ -88,5 +88,7 @@ public class testMONGO {
 
     private static void printCollection(List<Document> collection) {
         collection.forEach(document -> System.out.println(document.toJson()));
+
+ */
     }
 }
