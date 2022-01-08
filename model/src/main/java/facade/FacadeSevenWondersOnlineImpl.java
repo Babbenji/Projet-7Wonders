@@ -50,7 +50,8 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
         if (true){ //Si l'inscription se passe parfaitement
             this.user = new User(nom);
             this.connexionUser(this.user.getPseudo()); //L'utilisateur se connecte
-        } else {
+        } else
+        {
             //Répète l'inscription avec les exceptions + msg d'erreur (la méthode à refaire avec boucle while)
         }
     }
