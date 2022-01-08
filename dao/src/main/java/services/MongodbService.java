@@ -90,7 +90,7 @@ public class MongodbService {
     public Collection<User> getAllUsers(){
         MongoCollection<User> users = this.mongoDatabase.getCollection("user",User.class);
         Collection<User> allUsers = new ArrayList<>();
-        users.find(Filters.eq("users",users)).forEach(u -> allUsers.add(u));
+        users.find(Filters.eq("users",users)).forEach((Consumer<? super User>) u -> allUsers.add(u));
         return allUsers;
     }
 
