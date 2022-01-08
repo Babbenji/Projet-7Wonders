@@ -1,15 +1,12 @@
 package interfaces.facade;
 
 import interfaces.exceptions.*;
-import joueur.Joueur;
+import interfaces.type.ICarte;
+import interfaces.type.IJoueur;
 
 import java.rmi.RemoteException;
-import java.util.Map;
-
 
 public interface FacadeSevenWondersOnLine {
-
-    Map<String,Integer> listesDesRessourcesDesVoisinsDeChaqueJoueur(int positionJoueur);
 
     /**
      * Permet de s'inscrire à l'application
@@ -35,93 +32,57 @@ public interface FacadeSevenWondersOnLine {
      * Permet d'inviter un joueur
      * @param joueur
      */
-    void inviterJoueur(Joueur joueur);
+    void inviterJoueur(IJoueur joueur);
 
     /**
      * Permet de créer une partie
-     * @param joueur : nom du créateur
-     * @return token à partager avec la personne que l'on veut inviter
+     *
      */
-    String creePartie(String joueur) throws RemoteException;
+    void creePartie() throws RemoteException;
 
     /**
      * Permet de rejoindre une partie
-     * @param nom : nom du joueur qui veut rejoindre la partie
+     * @param nomPartie : nom de la partie que le joueur createur va nommer
      * @throws JoueurNonExistantException : Le joueur ajouté n'existe pas
      * @throws MaxJoueursAtteintException : La partie est pleine
      * @throws JoueurDejaAjouteException : Le joueur est déjà dans la partie
      */
-    void rejoindreUnePartie(String nom) throws JoueurNonExistantException, MaxJoueursAtteintException, JoueurDejaAjouteException;
+    void rejoindreUnePartie(String nomPartie) throws JoueurNonExistantException, MaxJoueursAtteintException, JoueurDejaAjouteException;
 
     /**
      * TO DO
      * @throws RemoteException
      */
-    void miseEnPlaceDuJeu() throws RemoteException;
+    void miseEnPlaceDuJeu(IJoueur joueur) throws RemoteException;
 
     /**
-     * TO DO
+     *
+     * @param joueur
+     * @param carte
      */
-    void constructionDesListes();
+    void jouerCarte(IJoueur joueur, ICarte carte) throws Exception;
 
     /**
-     * TO DO
+     *
+     * @param joueur
+     * @param carte
      */
-    void joueursPret();
+    void deffausserCarte (IJoueur joueur, ICarte carte) throws Exception;
 
-    /**
-     * TO DO
-     */
-    void finAge();
 
     /**
      * TO DO
      * @param joueur
-     * @param choix
-     * @throws RemoteException
      */
-    void choixCarteAJouee(String joueur, String choix) throws RemoteException;
+    void construireEtape(IJoueur joueur) throws Exception;
+
 
     /**
-     * TO DO
-     * @param positionJoueur
-     * @param choix
+     * Permet d'avoir le vainqueur de la partie où joueur est impliqué
+     * @return : tous les joueurs avec leurs nombre de points
+     * @throws PartieNonTermineeException : la partie n'est pas terminée, donc il n'y a pas encore de vainqueur
      */
-    void jouerCarteCommerce(int positionJoueur, String choix);
-
-    /**
-     * TO DO
-     * @param postionCarte
-     * @param choix
-     */
-    void defausserCarte (int postionCarte, String choix);
-
-    /**
-     * TO DO
-     * @param positionJoueur
-     * @param choix
-     */
-    void debloquerUneEtapeMerveille(int positionJoueur, String choix);
-
-    /**
-     * TO DO
-     */
-    void passerAgeSuivant();
-
-    /**
-     * TO DO
-     */
-    void passerTourSuivant();
-
-    /**
-     * TO DO
-     */
-    void batailleMilitaire();
-
-    /**
-     * TO DO
-     */
-    void nombreDePointsMilitaireAGagnerSelonAge();
+    String tableauScore(IJoueur joueur) throws PartieNonTermineeException;
 
     /**
      * Permet de savoir si la partie est terminée ou non
@@ -130,20 +91,6 @@ public interface FacadeSevenWondersOnLine {
      *  - vrai : la partie est terminée
      *  - faux : la partie n'est pas encore terminée
      */
-    void partieTerminee();
-
-    /**
-     * Permet d'avoir le vainqueur de la partie où joueur est impliqué
-     * @param joueur
-     * @return : le pseudo du vainqueur
-     * @throws PartieNonTermineeException : la partie n'est pas terminée, donc il n'y a pas encore de vainqueur
-     */
-    String getVainqueur(String joueur) throws PartieNonTermineeException;
-
-    /**
-     * La partie est terminée, les joueurs quittent la partie
-     * @param
-     */
-    void finDePartie();
+    void partieTerminee(IJoueur joueur) throws Exception;
 
 }

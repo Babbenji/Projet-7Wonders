@@ -3,20 +3,23 @@ package partie;
 import cartes.Carte;
 import cartes.Deck;
 import cartes.GestionsEffetCarte;
+import interfaces.type.ICarte;
+import interfaces.type.IDeck;
+import interfaces.type.IJoueur;
+import interfaces.type.IMerveille;
 import joueur.Joueur;
 import merveilles.GestionsEffetsEtape;
 import merveilles.Merveille;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Partie {
 
+    private int idPartie;
+    private static int s = 0;
 
-    private ArrayList<Joueur> listeDesJoueurs;
+    private ArrayList<IJoueur> listeDesJoueurs;
     private final int NB_JOUEURS = 4;
     private final int NB_CARTES = 88;
     private final int NB_MERVEILLES = 7;
@@ -24,19 +27,23 @@ public class Partie {
     private int ageEnCours;
     private int tourEnCours;
 
-    private List<Carte> cartes;
-    private List<Merveille> merveilles;
+    private List<ICarte> cartes;
+    private List<IMerveille> merveilles;
 
 
     // Differentes listes pour différencier les cartes
-    private ArrayList<Carte> cartesAgeI;
-    private ArrayList<Carte> cartesAgeII;
-    private ArrayList<Carte> cartesAgeIII;
-    private ArrayList<Carte> carteDefausse;
+    private ArrayList<ICarte> cartesAgeI;
+    private ArrayList<ICarte> cartesAgeII;
+    private ArrayList<ICarte> cartesAgeIII;
+    private ArrayList<ICarte> carteDefausse;
     private GestionsEffetCarte gestionsEffetCarte;
     private GestionsEffetsEtape gestionsEffetsEtape;
 
-    public Partie(ArrayList<Joueur> listeDesJoueurs, List<Carte> cartes, List<Merveille> merveilles) {
+    private boolean partieTerminee;
+
+    public Partie(ArrayList<IJoueur> listeDesJoueurs, List<ICarte> cartes, List<IMerveille> merveilles)
+    {
+        this.idPartie = s++;
         this.listeDesJoueurs = listeDesJoueurs;
         this.cartes = cartes;
         this.merveilles = merveilles;
@@ -50,7 +57,10 @@ public class Partie {
         this.tourEnCours = 1;
         this.gestionsEffetCarte = new GestionsEffetCarte();
         this.gestionsEffetsEtape = new GestionsEffetsEtape();
+        this.partieTerminee = false;
     }
+
+
 
     public void constructionDesListes()
     {
@@ -84,12 +94,10 @@ public class Partie {
                 j.setMerveille(m);
                 this.merveilles.remove(m);
             });
-
         });
-
     }
 
-    public void jouerCarte(Joueur joueur, Carte carte) throws Exception {
+    public void jouerCarte(IJoueur joueur, ICarte carte) throws Exception {
         int indice = listeDesJoueurs.indexOf(joueur);
         boolean achatPossible = true;
         int pieceRedevableVoisinGauche = 0; // ces variables permettent d'appliquer l'achat de la carte que apres la verification de tous les conditions possible
@@ -147,7 +155,8 @@ public class Partie {
                               pieceRedevableVoisinDroite +=(cout - joueur.getRessources().get(cle)) * 2;
                           }
                       }
-                      else {
+                      else
+                      {
                           achatPossible = false;
                       }
                   }
@@ -173,7 +182,7 @@ public class Partie {
 
     public void deffausserCarteFinAge()
     {
-        for (Joueur joueur: listeDesJoueurs) {
+        for (IJoueur joueur: listeDesJoueurs) {
             for (int i =0; i< joueur.getDeck().getSizeDeck(); i++)
             {
                 carteDefausse.add(joueur.getDeck().getCarteDansDeck(i));
@@ -182,23 +191,23 @@ public class Partie {
         }
 
     }
-    public void deffausserCarte(Joueur joueur, Carte carte)
-    {
+    public void deffausserCarte(IJoueur joueur, ICarte carte) throws Exception {
         joueur.getDeck().enleverCarteDuDeck(carte);
         carteDefausse.add(carte);
         joueur.addPieces(3);
+        suitePartie();
     }
 
-    public void construireEtape(Joueur p)
-    {
+    public void construireEtape(IJoueur p) throws Exception {
         this.gestionsEffetsEtape.appliquerEffetMerveille(p);
         p.getMerveille().setEtape(p.getMerveille().getEtape()+1);  //on incrémente le num de l'étape de la merveille
+        suitePartie();
     }
 
     public void passerAuTourSuivant()
     {
         tourEnCours +=1;
-        Deck deck = new Deck();
+        IDeck deck = new Deck();
         if(ageEnCours == 1 || ageEnCours == 3)
         {
             for (int j = NB_JOUEURS-1; j>= 0; j--)
@@ -218,7 +227,7 @@ public class Partie {
         }
         else
         {
-            Deck deck1 = new Deck();
+            IDeck deck1 = new Deck();
             for (int i = 0; i<NB_JOUEURS; i++)
             {
                 if (i < NB_JOUEURS-1){
@@ -349,7 +358,6 @@ public class Partie {
                 }
             }
         }
-
     }
 
     public boolean finAge()
@@ -363,7 +371,7 @@ public class Partie {
 
     public boolean toutLeMondeAJoue()
     {
-        for (Joueur joueur: listeDesJoueurs) {
+        for (IJoueur joueur: listeDesJoueurs) {
             if(!joueur.getAJoue())
             {
                 return false;
@@ -371,7 +379,7 @@ public class Partie {
         }
         return true;
     }
-    public boolean finDePartie()
+    public boolean finDernierTourDernierAge()
     {
         if (ageEnCours == 3 && tourEnCours == 6 && toutLeMondeAJoue())
         {
@@ -379,10 +387,18 @@ public class Partie {
         }
         return false;
     }
+    public void partieTerminee() throws Exception {
+        if (partieTerminee)
+        {
+            ajoutPointVictoireEnFinPartie();
+            // ici on termine la partie
+        }
 
-    public void suitePartie()
-    {
-        if(!finDePartie())
+    }
+
+    public void suitePartie() throws Exception {
+
+        if(!finDernierTourDernierAge())
         {
             if (finAge())
             {
@@ -390,15 +406,23 @@ public class Partie {
                 deffausserCarteFinAge();
                 passerAgeSuivant();
             }
+
             if (toutLeMondeAJoue())
             {
                 passerAuTourSuivant();
             }
         }
+        else {
+            conflitsMilitaire();
+            deffausserCarteFinAge();
+            partieTerminee = true;
+        }
+
+
 
         // on arrete la partie ici
     }
-    public void comptagePointVictoirePourBatimentScientifique(Joueur joueur)
+    public void comptagePointVictoirePourBatimentScientifique(IJoueur joueur)
     {
         joueur.addPtsVictoire(joueur.getNbRouages() * joueur.getNbRouages());
         joueur.addPtsVictoire(joueur.getNbCompas() * joueur.getNbCompas());
@@ -420,14 +444,14 @@ public class Partie {
     }
     public void ajoutPointVictoireEnFinPartie() throws Exception
     {
-        if (finDePartie())
+        if (finDernierTourDernierAge())
         {
-            for (Joueur joueur: listeDesJoueurs) {
+            for (IJoueur joueur: listeDesJoueurs) {
                 comptagePointVictoirePourBatimentScientifique(joueur);
                 ajoutPointVictoireDuTresor(joueur);
                 ajoutPointVictoireConflitsMilitaire(joueur);
                 int indice = listeDesJoueurs.indexOf(joueur);
-                for (Carte carte: joueur.getCartesJouees()) {
+                for (ICarte carte: joueur.getCartesJouees()) {
                     if (carte.getType().equals("Guilde"))
                     {
                         gestionsEffetCarte.appliquerEffetGuildesFinDePartie(carte.getEffet(),joueur,listeDesJoueurs.get(voisinDeGauche(indice)), listeDesJoueurs.get(voisinDeDroite(indice)));
@@ -436,24 +460,34 @@ public class Partie {
             }
         }
     }
+    public String affichageDesScores()
+    {
 
-    public void ajoutPointVictoireDuTresor(Joueur joueur)
+        return "tata";
+    }
+
+
+    public int getIdPartie() {
+        return idPartie;
+    }
+
+    public void ajoutPointVictoireDuTresor(IJoueur joueur)
     {
         joueur.addPtsVictoire(joueur.getPieces()/3);
     }
 
-    public void ajoutPointVictoireConflitsMilitaire(Joueur joueur)
+    public void ajoutPointVictoireConflitsMilitaire(IJoueur joueur)
     {
         joueur.addPtsVictoire(joueur.getPtsVictoireMilitaire() - joueur.getNbJetonsDefaite());
     }
 
 
 
-    public ArrayList<Joueur> getListeDesJoueurs() {
+    public ArrayList<IJoueur> getListeDesJoueurs() {
         return listeDesJoueurs;
     }
 
-    public void setListeDesJoueurs(ArrayList<Joueur> listeDesJoueurs) {
+    public void setListeDesJoueurs(ArrayList<IJoueur> listeDesJoueurs) {
         this.listeDesJoueurs = listeDesJoueurs;
     }
 
@@ -470,48 +504,48 @@ public class Partie {
     }
 
 
-    public ArrayList<Carte> getCarteDefausse() {
+    public ArrayList<ICarte> getCarteDefausse() {
         return carteDefausse;
     }
 
-    public void setCarteDefausse(ArrayList<Carte> carteDefausse) {
+    public void setCarteDefausse(ArrayList<ICarte> carteDefausse) {
         this.carteDefausse = carteDefausse;
     }
 
 
-    public ArrayList<Carte> getCartesAgeI() {
+    public ArrayList<ICarte> getCartesAgeI() {
         return cartesAgeI;
     }
 
-    public void setCartesAgeI(ArrayList<Carte> cartesAgeI) {
+    public void setCartesAgeI(ArrayList<ICarte> cartesAgeI) {
         this.cartesAgeI = cartesAgeI;
     }
 
-    public ArrayList<Carte> getCartesAgeII() {
+    public ArrayList<ICarte> getCartesAgeII() {
         return cartesAgeII;
     }
 
-    public void setCartesAgeII(ArrayList<Carte> cartesAgeII) {
+    public void setCartesAgeII(ArrayList<ICarte> cartesAgeII) {
         this.cartesAgeII = cartesAgeII;
     }
 
-    public ArrayList<Carte> getCartesAgeIII() {
+    public ArrayList<ICarte> getCartesAgeIII() {
         return cartesAgeIII;
     }
 
-    public void setCartesAgeIII(ArrayList<Carte> cartesAgeIII) {
+    public void setCartesAgeIII(ArrayList<ICarte> cartesAgeIII) {
         this.cartesAgeIII = cartesAgeIII;
     }
 
-    public List<Carte> getCartes() {
+    public List<ICarte> getCartes() {
         return cartes;
     }
 
-    public void setCartes(ArrayList<Carte> cartes) {
+    public void setCartes(ArrayList<ICarte> cartes) {
         this.cartes = cartes;
     }
 
-    public List<Merveille> getMerveilles() {
+    public List<IMerveille> getMerveilles() {
         return merveilles;
     }
 }

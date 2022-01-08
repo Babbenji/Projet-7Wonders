@@ -1,33 +1,45 @@
 package cartes;
 
+import interfaces.type.ICarte;
+import interfaces.type.IDeck;
+
 import java.util.ArrayList;
 
-public class Deck {
+public class Deck implements IDeck {
 
-    private ArrayList<Carte> deck;
+    private ArrayList<ICarte> deck;
 
     public Deck() {
         deck = new ArrayList<>();
     }
 
-    public void ajoutCarteDansDeck(Carte carte)
+    @Override
+    public void ajoutCarteDansDeck(ICarte carte)
     {
         if (deck.size() < 7) {
             deck.add(carte);
         }
     }
-    public void enleverCarteDuDeck(Carte carte)
+    @Override
+    public void enleverCarteDuDeck(ICarte carte)
     {
         deck.remove(carte);
     }
+
+
+
+
+    @Override
     public int getSizeDeck()
     {
         return deck.size();
     }
-    public Carte getCarteDansDeck(int indice)
+    @Override
+    public ICarte getCarteDansDeck(int indice)
     {
         return deck.get(indice);
     }
+    @Override
     public void clearDeck()
     {
         deck.clear();
