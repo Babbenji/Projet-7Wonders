@@ -3,30 +3,25 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-      <Label text="WAITING ROOM" textAlignment="CENTER" BorderPane.alignment="CENTER">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-   </top>
-   <center>
-      <ImageView fitHeight="251.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+<AnchorPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.VueWaitingRoom">
+   <children>
+      <ImageView fitHeight="265.0" fitWidth="448.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/indexbg16x9.jpg" />
          </image>
       </ImageView>
-   </center>
-   <bottom>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <Label alignment="TOP_LEFT" layoutX="135.0" text="WAITING ROOM" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER" layoutY="145.0" prefHeight="100.0" prefWidth="448.0">
          <children>
-            <Label text="NOMBRE DE JOUEURS EN ATTENTE :  ">
+            <Label text="NOMBRE DE JOUEURS EN ATTENTE :  " textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
@@ -38,5 +33,5 @@
             </Label>
          </children>
       </HBox>
-   </bottom>
-</BorderPane>
+   </children>
+</AnchorPane>

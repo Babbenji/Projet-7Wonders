@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
@@ -24,6 +25,12 @@ public class VueMenuNonConnecte implements Vue{
     private ImageView imageFond;
     @FXML
     private VBox vboxMenu;
+    @FXML
+    private Button buttonConnexion;
+    @FXML
+    private Button buttonInscription;
+    @FXML
+    private Button buttonQuitter;
 
     private Scene scene;
     private Controleur controleur;
@@ -56,7 +63,34 @@ public class VueMenuNonConnecte implements Vue{
         vue.setStage(stage);
         Scene scene = new Scene(root);
         vue.setScene(scene);
+        vue.initBoutonConnexion();
+        vue.initBoutonInscription();
+        vue.initBoutonQuitter();
         return vue;
+    }
+
+    private void initBoutonConnexion() {
+        this.buttonConnexion.setOnAction(e -> goConnexion());
+    }
+
+    private void initBoutonInscription() {
+        this.buttonInscription.setOnAction(e -> goInscription());
+    }
+
+    private void initBoutonQuitter() {
+        this.buttonQuitter.setOnAction(e -> goExit());
+    }
+
+    private void goConnexion() {
+        this.controleur.goToConnexion();
+    }
+
+    private void goInscription() {
+        this.controleur.goToInscription();
+    }
+
+    private void goExit() {
+        this.controleur.exit();
     }
 
     @Override
