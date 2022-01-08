@@ -6,6 +6,7 @@ import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.FindOneAndUpdateOptions;
 import com.mongodb.client.model.ReturnDocument;
+import com.mongodb.client.model.Updates;
 import interfaces.exceptions.JoueurDejaDansLaListeDAmisException;
 import interfaces.exceptions.JoueurNonExistantException;
 import org.bson.BsonArray;
@@ -18,6 +19,7 @@ import services.exceptions.PseudoDejaPrisException;
 import services.exceptions.PseudoOuMotDePasseIncorrectException;
 import user.User;
 
+import javax.print.Doc;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,7 +35,7 @@ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 public class MongodbService {
 
-    private MongoDatabase mongoDatabase;
+    private final MongoDatabase mongoDatabase;
     public static final String NOM_BD = "sevenwonders";
 
     // connection au serveur mongodb
@@ -53,7 +55,7 @@ public class MongodbService {
                 );
 
         // accès à la database sevenwonders
-        this.mongoDatabase = this.mongoClient.getDatabase(this.NOM_BD).withCodecRegistry(pojoCodecRegistry);
+        this.mongoDatabase = this.mongoClient.getDatabase(NOM_BD).withCodecRegistry(pojoCodecRegistry);
     }
 
     /**
@@ -74,10 +76,10 @@ public class MongodbService {
     public void createUser(String pseudo, String pw) throws PseudoDejaPrisException {
         boolean pseudoDejaPrisBoolean = false;
         MongoCollection<Document> users = this.mongoDatabase.getCollection("users");
-        if (verifUserByPseudo(pseudo)==true){
+        if (verifUserByPseudo(pseudo)){
             pseudoDejaPrisBoolean = true;
         }
-        if (pseudoDejaPrisBoolean == true){
+        if (pseudoDejaPrisBoolean){
             throw new PseudoDejaPrisException();
         } else {
             List<Document>nouveauxAmis = new ArrayList<>();
@@ -93,7 +95,7 @@ public class MongodbService {
     public Collection<User> getAllUsers(){
         MongoCollection<User> users = this.mongoDatabase.getCollection("users",User.class);
         Collection<User> allUsers = new ArrayList<>();
-        users.find().forEach((Consumer<? super User>) u -> allUsers.add(u));
+        users.find().forEach((Consumer<? super User>) allUsers::add);
         return allUsers;
     }
 
@@ -105,7 +107,7 @@ public class MongodbService {
     public List<User> getFriendsUser(String pseudo){
         MongoCollection<User> users = this.mongoDatabase.getCollection("users",User.class);
         List<User>friends = new ArrayList<>();
-        users.find(Filters.eq("pseudo", pseudo)).projection(include("friends")).forEach((Consumer<? super User>) f->friends.add(f));
+        users.find(Filters.eq("pseudo", pseudo)).projection(include("friends")).forEach((Consumer<? super User>) friends::add);
         return friends;
     }
 
@@ -122,25 +124,26 @@ public class MongodbService {
         boolean estDejaAmi = false;
         int i = 0;
         if (!user.getAmis().isEmpty()) {
-            while (estDejaAmi == false && i <= user.getAmis().size()) {
+            while (!estDejaAmi && i <= user.getAmis().size()) {
                 if (user.getAmis().iterator().next().getPseudo().equals(nouvelAmi)) {
                     estDejaAmi = true;
                 }
+                i++;
             }
         }
 
-        if (verifUserByPseudo(nouvelAmi) == true) {
-            if (estDejaAmi==false) {
+        if (verifUserByPseudo(nouvelAmi)) {
+            if (!estDejaAmi) {
                 MongoCollection<Document> usersInDatabase = mongoClient.getDatabase("sevenwonders").getCollection("users");
 
                 FindOneAndUpdateOptions findOneAndUpdateOptions = new FindOneAndUpdateOptions().returnDocument(ReturnDocument.AFTER);
-                Document filter = usersInDatabase.find(Filters.eq("pseudo", pseudo)).first();
                 Document newUser = usersInDatabase.find(Filters.eq("pseudo", nouvelAmi)).first();
                 List<Document> amis = usersInDatabase.find(Filters.eq("pseudo", pseudo)).projection(include("friends")).projection(exclude("_id", "pseudo", "password")).into(new ArrayList<>());
                 System.out.println(amis);
                 amis.add(newUser);
-                Bson update = set("friends", newUser);
-                //usersInDatabase.findOneAndUpdate(filter, update, findOneAndUpdateOptions);
+                Bson filter = Filters.eq("pseudo", pseudo);
+                Bson update = Updates.push("friends", newUser);
+                usersInDatabase.findOneAndUpdate(filter, update, findOneAndUpdateOptions);
             } else {
                 throw new JoueurDejaDansLaListeDAmisException();
             }

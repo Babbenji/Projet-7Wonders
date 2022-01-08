@@ -43,7 +43,7 @@ public class testPOJO {
 
         System.out.println("----------------------------------");
         System.out.println("Ajout d'un ami dans la liste d'amis de Julien--------------------");
-        mongodbService.addFriendUser("jlietard", "tdurand");
+        mongodbService.addFriendUser("jlietard", "abenjazia");
 
 
         System.out.println("La liste d'amis de jlietard :");
