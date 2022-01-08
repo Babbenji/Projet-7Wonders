@@ -8,4 +8,5 @@ module model
     exports cartes;
     exports merveilles;
     exports facade;
+    exports user;
 }

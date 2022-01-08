@@ -16,17 +16,17 @@
       </ImageView>
       <VBox fx:id="vboxMenu" layoutX="796.0" layoutY="470.0">
          <children>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" opacity="0.9" prefHeight="46.0" prefWidth="328.0" text="Se connecter">
+            <Button fx:id="buttonConnexion" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" opacity="0.9" prefHeight="46.0" prefWidth="328.0" text="Se connecter">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" opacity="0.9" prefHeight="46.0" prefWidth="328.0" text="S'inscrire">
+            <Button fx:id="buttonInscription" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" opacity="0.9" prefHeight="46.0" prefWidth="328.0" text="S'inscrire">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="56.0" mnemonicParsing="false" opacity="0.9" prefHeight="46.0" prefWidth="328.0" text="Quitter">
+            <Button fx:id="buttonQuitter" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="56.0" mnemonicParsing="false" opacity="0.9" prefHeight="46.0" prefWidth="328.0" text="Quitter">
                <font>
                   <Font size="15.0" />
                </font>
