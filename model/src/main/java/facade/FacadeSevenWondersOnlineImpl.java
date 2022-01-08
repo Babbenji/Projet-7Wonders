@@ -62,17 +62,20 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
     }
 
     @Override
-    public void ajouterJoueurEnAmi(String pseudo) {
+    public void ajouterJoueurEnAmi(String pseudo)
+    {
 
     }
 
     @Override
-    public void inviterJoueur(IJoueur joueur) {
+    public void inviterJoueur(IJoueur joueur)
+    {
 
     }
 
     @Override
-    public void rejoindreUnePartie(String nom){
+    public void rejoindreUnePartie(String nom)
+    {
 
     }
 
