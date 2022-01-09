@@ -4,5 +4,7 @@ module dao {
     requires org.mongodb.bson;
     requires java.logging;
     requires model;
+    requires interfaces;
     exports services.exceptions;
+    exports services;
 }

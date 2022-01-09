@@ -1,20 +1,16 @@
 package partie;
 
-import cartes.Carte;
-import cartes.Deck;
-import cartes.GestionsEffetCarte;
+import cartes.*;
 import interfaces.type.ICarte;
 import interfaces.type.IDeck;
 import interfaces.type.IJoueur;
 import interfaces.type.IMerveille;
-import joueur.Joueur;
 import merveilles.GestionsEffetsEtape;
-import merveilles.Merveille;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class Partie {
+public class Partie implements interfaces.type.IPartie {
 
     private int idPartie;
     private static int s = 0;
@@ -62,6 +58,7 @@ public class Partie {
 
 
 
+    @Override
     public void constructionDesListes()
     {
         Collections.shuffle(this.merveilles);
@@ -81,6 +78,7 @@ public class Partie {
 
     }
 
+    @Override
     public void miseEnPlacePartie()
     {
         this.constructionDesListes();
@@ -97,6 +95,7 @@ public class Partie {
         });
     }
 
+    @Override
     public void jouerCarte(IJoueur joueur, ICarte carte) throws Exception {
         int indice = listeDesJoueurs.indexOf(joueur);
         boolean achatPossible = true;
@@ -180,6 +179,7 @@ public class Partie {
         suitePartie();
     }
 
+    @Override
     public void deffausserCarteFinAge()
     {
         for (IJoueur joueur: listeDesJoueurs) {
@@ -191,6 +191,7 @@ public class Partie {
         }
 
     }
+    @Override
     public void deffausserCarte(IJoueur joueur, ICarte carte) throws Exception {
         joueur.getDeck().enleverCarteDuDeck(carte);
         carteDefausse.add(carte);
@@ -198,12 +199,14 @@ public class Partie {
         suitePartie();
     }
 
+    @Override
     public void construireEtape(IJoueur p) throws Exception {
         this.gestionsEffetsEtape.appliquerEffetMerveille(p);
         p.getMerveille().setEtape(p.getMerveille().getEtape()+1);  //on incrémente le num de l'étape de la merveille
         suitePartie();
     }
 
+    @Override
     public void passerAuTourSuivant()
     {
         tourEnCours +=1;
@@ -245,6 +248,7 @@ public class Partie {
         }
     }
 
+    @Override
     public void passerAgeSuivant()
     {
         ageEnCours +=1;
@@ -267,12 +271,14 @@ public class Partie {
         }
     }
 
+    @Override
     public int voisinDeDroite(int indice)
     {
         if (indice == NB_JOUEURS-1)
             return 0;
         return indice+1;
     }
+    @Override
     public int voisinDeGauche(int indice)
     {
         if (indice == 0)
@@ -280,6 +286,7 @@ public class Partie {
         return indice-1;
     }
 
+    @Override
     public void conflitsMilitaire()
     {
         for (int i =0 ; i< NB_JOUEURS; i++)
@@ -360,6 +367,7 @@ public class Partie {
         }
     }
 
+    @Override
     public boolean finAge()
     {
         if(tourEnCours == 6 && toutLeMondeAJoue())
@@ -369,6 +377,7 @@ public class Partie {
         return false;
     }
 
+    @Override
     public boolean toutLeMondeAJoue()
     {
         for (IJoueur joueur: listeDesJoueurs) {
@@ -379,6 +388,7 @@ public class Partie {
         }
         return true;
     }
+    @Override
     public boolean finDernierTourDernierAge()
     {
         if (ageEnCours == 3 && tourEnCours == 6 && toutLeMondeAJoue())
@@ -387,6 +397,7 @@ public class Partie {
         }
         return false;
     }
+    @Override
     public void partieTerminee() throws Exception {
         if (partieTerminee)
         {
@@ -396,6 +407,7 @@ public class Partie {
 
     }
 
+    @Override
     public void suitePartie() throws Exception {
 
         if(!finDernierTourDernierAge())
@@ -422,6 +434,7 @@ public class Partie {
 
         // on arrete la partie ici
     }
+    @Override
     public void comptagePointVictoirePourBatimentScientifique(IJoueur joueur)
     {
         joueur.addPtsVictoire(joueur.getNbRouages() * joueur.getNbRouages());
@@ -442,6 +455,7 @@ public class Partie {
         }
         joueur.addPtsVictoire(lotSymbole*7);
     }
+    @Override
     public void ajoutPointVictoireEnFinPartie() throws Exception
     {
         if (finDernierTourDernierAge())
@@ -460,6 +474,7 @@ public class Partie {
             }
         }
     }
+    @Override
     public String affichageDesScores()
     {
 
@@ -467,15 +482,18 @@ public class Partie {
     }
 
 
+    @Override
     public int getIdPartie() {
         return idPartie;
     }
 
+    @Override
     public void ajoutPointVictoireDuTresor(IJoueur joueur)
     {
         joueur.addPtsVictoire(joueur.getPieces()/3);
     }
 
+    @Override
     public void ajoutPointVictoireConflitsMilitaire(IJoueur joueur)
     {
         joueur.addPtsVictoire(joueur.getPtsVictoireMilitaire() - joueur.getNbJetonsDefaite());
@@ -483,68 +501,84 @@ public class Partie {
 
 
 
+    @Override
     public ArrayList<IJoueur> getListeDesJoueurs() {
         return listeDesJoueurs;
     }
 
+    @Override
     public void setListeDesJoueurs(ArrayList<IJoueur> listeDesJoueurs) {
         this.listeDesJoueurs = listeDesJoueurs;
     }
 
+    @Override
     public int getNB_JOUEURS() {
         return NB_JOUEURS;
     }
 
+    @Override
     public int getNB_CARTES() {
         return NB_CARTES;
     }
 
+    @Override
     public int getNB_MERVEILLES() {
         return NB_MERVEILLES;
     }
 
 
+    @Override
     public ArrayList<ICarte> getCarteDefausse() {
         return carteDefausse;
     }
 
+    @Override
     public void setCarteDefausse(ArrayList<ICarte> carteDefausse) {
         this.carteDefausse = carteDefausse;
     }
 
 
+    @Override
     public ArrayList<ICarte> getCartesAgeI() {
         return cartesAgeI;
     }
 
+    @Override
     public void setCartesAgeI(ArrayList<ICarte> cartesAgeI) {
         this.cartesAgeI = cartesAgeI;
     }
 
+    @Override
     public ArrayList<ICarte> getCartesAgeII() {
         return cartesAgeII;
     }
 
+    @Override
     public void setCartesAgeII(ArrayList<ICarte> cartesAgeII) {
         this.cartesAgeII = cartesAgeII;
     }
 
+    @Override
     public ArrayList<ICarte> getCartesAgeIII() {
         return cartesAgeIII;
     }
 
+    @Override
     public void setCartesAgeIII(ArrayList<ICarte> cartesAgeIII) {
         this.cartesAgeIII = cartesAgeIII;
     }
 
+    @Override
     public List<ICarte> getCartes() {
         return cartes;
     }
 
+    @Override
     public void setCartes(ArrayList<ICarte> cartes) {
         this.cartes = cartes;
     }
 
+    @Override
     public List<IMerveille> getMerveilles() {
         return merveilles;
     }

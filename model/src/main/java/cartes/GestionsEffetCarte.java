@@ -1,9 +1,7 @@
 package cartes;
 
 import interfaces.type.IJoueur;
-import joueur.Joueur;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class GestionsEffetCarte {

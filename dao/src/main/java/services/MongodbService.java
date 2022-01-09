@@ -15,9 +15,12 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.conversions.Bson;
 import services.exceptions.PseudoDejaPrisException;
 import services.exceptions.PseudoOuMotDePasseIncorrectException;
+import user.User;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.function.Consumer;
 
 import static com.mongodb.client.model.Projections.exclude;
 import static com.mongodb.client.model.Projections.include;

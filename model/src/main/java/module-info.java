@@ -4,6 +4,7 @@ module model
     requires interfaces;
     requires org.mongodb.bson;
     requires org.mongodb.driver.core;
+    requires dao;
     exports joueur;
     exports cartes;
     exports merveilles;

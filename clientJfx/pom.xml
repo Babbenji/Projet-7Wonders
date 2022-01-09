@@ -9,7 +9,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>P7W5</groupId>
     <artifactId>Client</artifactId>
     <version>1.0-SNAPSHOT</version>
 

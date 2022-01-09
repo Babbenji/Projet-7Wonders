@@ -1,6 +1,6 @@
 package facade;
 
-import cartes.Carte;
+import cartes.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import services.exceptions.JoueurDejaDansLaListeDAmisException;
 import services.exceptions.JoueurNonExistantException;
@@ -9,7 +9,7 @@ import interfaces.facade.FacadeSevenWondersOnLine;
 import interfaces.type.ICarte;
 import interfaces.type.IJoueur;
 import interfaces.type.IMerveille;
-import joueur.Joueur;
+import joueur.*;
 import merveilles.Merveille;
 import partie.Partie;
 import services.MongodbService;

@@ -8,7 +8,6 @@
         <groupId>P7W5</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>P7W5</groupId>
     <artifactId>rmiService</artifactId>
     <version>1.0-SNAPSHOT</version>
     <dependencies>

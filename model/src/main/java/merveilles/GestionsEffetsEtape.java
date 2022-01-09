@@ -1,9 +1,6 @@
 package merveilles;
 
 import interfaces.type.IJoueur;
-import joueur.Joueur;
-
-import java.util.Map;
 
 public class GestionsEffetsEtape {
 
