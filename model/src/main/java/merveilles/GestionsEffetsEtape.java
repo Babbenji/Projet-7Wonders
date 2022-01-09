@@ -1,6 +1,6 @@
 package merveilles;
 
-import interfaces.type.IJoueur;
+import type.IJoueur;
 
 public class GestionsEffetsEtape {
 

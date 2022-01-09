@@ -1,16 +1,17 @@
 package partie;
 
 import cartes.*;
-import interfaces.type.ICarte;
-import interfaces.type.IDeck;
-import interfaces.type.IJoueur;
-import interfaces.type.IMerveille;
+import type.ICarte;
+import type.IDeck;
+import type.IJoueur;
+import type.IMerveille;
 import merveilles.GestionsEffetsEtape;
+import type.IPartie;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class Partie implements interfaces.type.IPartie {
+public class Partie implements IPartie {
 
     private int idPartie;
     private static int s = 0;

@@ -1,6 +1,6 @@
 package cartes;
 
-import interfaces.type.IJoueur;
+import type.IJoueur;
 
 import java.util.Map;
 

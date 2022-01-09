@@ -1,13 +1,13 @@
 package user;
 
-import interfaces.type.IUser;
+import type.IUser;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class User implements interfaces.type.IUser {
+public class User implements IUser {
 
     @BsonProperty(value ="pseudo")
     private String pseudo;

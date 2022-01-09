@@ -1,9 +1,10 @@
-package interfaces.facade;
+package facade;
 
-import interfaces.exceptions.*;
-import interfaces.type.ICarte;
-import interfaces.type.IJoueur;
+import exceptions.MaxJoueursAtteintException;
+import exceptions.PartieNonTermineeException;
 import services.exceptions.*;
+import type.ICarte;
+import type.IJoueur;
 
 import java.rmi.RemoteException;
 

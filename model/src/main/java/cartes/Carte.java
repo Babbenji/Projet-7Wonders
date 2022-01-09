@@ -1,6 +1,6 @@
 package cartes;
 
-import interfaces.type.ICarte;
+import type.ICarte;
 
 import java.util.Map;
 

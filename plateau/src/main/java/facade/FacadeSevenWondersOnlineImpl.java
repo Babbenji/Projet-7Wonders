@@ -1,27 +1,26 @@
 package facade;
 
-import cartes.*;
+import cartes.Carte;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import services.exceptions.JoueurDejaDansLaListeDAmisException;
-import services.exceptions.JoueurNonExistantException;
-import interfaces.exceptions.PartieNonTermineeException;
-import interfaces.facade.FacadeSevenWondersOnLine;
-import interfaces.type.ICarte;
-import interfaces.type.IJoueur;
-import interfaces.type.IMerveille;
-import joueur.*;
+import exceptions.PartieNonTermineeException;
+import joueur.Joueur;
 import merveilles.Merveille;
 import partie.Partie;
 import services.MongodbService;
+import services.exceptions.JoueurDejaDansLaListeDAmisException;
+import services.exceptions.JoueurNonExistantException;
 import services.exceptions.PseudoDejaPrisException;
 import services.exceptions.PseudoOuMotDePasseIncorrectException;
+import type.ICarte;
+import type.IJoueur;
+import type.IMerveille;
 import user.User;
 
 import java.nio.file.Paths;
 import java.util.*;
 
 public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
-    private Map<Integer,Partie> parties;
+    private Map<Integer, Partie> parties;
     private User user;
     private List<User> joueursInscrits;
     private Map<User,String> utilisateursConnectes;

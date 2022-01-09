@@ -1,4 +1,4 @@
-package interfaces.type;
+package type;
 
 import java.util.HashMap;
 

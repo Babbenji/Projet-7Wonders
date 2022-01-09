@@ -1,4 +1,4 @@
-package interfaces.exceptions;
+package exceptions;
 
 public class MaxJoueursAtteintException extends Exception{
 }

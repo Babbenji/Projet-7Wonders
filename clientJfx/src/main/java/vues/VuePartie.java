@@ -1,9 +1,9 @@
 package vues;
 
 import controleur.Controleur;
-import interfaces.type.IDeck;
-import interfaces.type.IJoueur;
-import interfaces.type.IMerveille;
+import type.IDeck;
+import type.IJoueur;
+import type.IMerveille;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -1,4 +1,4 @@
-package interfaces.exceptions;
+package exceptions;
 
 public class PartieNonTermineeException extends Exception {
 }

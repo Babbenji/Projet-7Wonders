@@ -4,8 +4,8 @@ import interfaces.exceptions.JoueurDejaAjouteException;
 import interfaces.exceptions.JoueurNonExistantException;
 import interfaces.exceptions.MaxJoueursAtteintException;
 import interfaces.exceptions.PartieNonTermineeException;
-import interfaces.type.ICarte;
-import interfaces.type.IJoueur;
+import type.ICarte;
+import type.IJoueur;
 
 import java.rmi.RemoteException;
 

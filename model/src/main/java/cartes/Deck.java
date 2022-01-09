@@ -1,7 +1,7 @@
 package cartes;
 
-import interfaces.type.ICarte;
-import interfaces.type.IDeck;
+import type.ICarte;
+import type.IDeck;
 
 import java.util.ArrayList;
 

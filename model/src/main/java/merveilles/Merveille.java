@@ -1,6 +1,6 @@
 package merveilles;
 
-import interfaces.type.IMerveille;
+import type.IMerveille;
 import java.util.HashMap;
 
 public class Merveille implements IMerveille {
