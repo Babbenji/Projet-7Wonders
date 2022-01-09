@@ -3,6 +3,8 @@ package interfaces.facade;
 import interfaces.exceptions.*;
 import interfaces.type.ICarte;
 import interfaces.type.IJoueur;
+import services.exceptions.PseudoDejaPrisException;
+import services.exceptions.PseudoOuMotDePasseIncorrectException;
 
 import java.rmi.RemoteException;
 
@@ -12,13 +14,13 @@ public interface FacadeSevenWondersOnLine {
      * Permet de s'inscrire à l'application
      * @param nom
      */
-    void inscriptionUser(String nom);//pr l'instant pr que ce soit plus simple
+    void inscriptionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException, PseudoDejaPrisException;
 
     /**
      * Permet de se connecter à l'application
      * @param nom
      */
-    void connexionUser(String nom);//pr l'instant pr que ce soit plus simple
+    void connexionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException;
 
     /**
      * Permet d'ajouter un joueur à sa liste d'amis
@@ -27,6 +29,11 @@ public interface FacadeSevenWondersOnLine {
      * @param nom
      */
     void ajouterJoueurEnAmi(String nom) throws JoueurDejaDansLaListeDAmisException, JoueurNonExistantException;
+
+    /**
+     * Permet de récupérer une liste d'objets User
+     */
+    void getAmis();
 
     /**
      * Permet d'inviter un joueur

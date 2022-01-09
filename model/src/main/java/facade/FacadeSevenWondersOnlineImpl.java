@@ -2,6 +2,8 @@ package facade;
 
 import cartes.Carte;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import interfaces.exceptions.JoueurDejaDansLaListeDAmisException;
+import interfaces.exceptions.JoueurNonExistantException;
 import interfaces.exceptions.PartieNonTermineeException;
 import interfaces.facade.FacadeSevenWondersOnLine;
 import interfaces.type.ICarte;
@@ -10,6 +12,9 @@ import interfaces.type.IMerveille;
 import joueur.Joueur;
 import merveilles.Merveille;
 import partie.Partie;
+import services.MongodbService;
+import services.exceptions.PseudoDejaPrisException;
+import services.exceptions.PseudoOuMotDePasseIncorrectException;
 import user.User;
 
 import java.nio.file.Paths;
@@ -45,27 +50,28 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
         }
     }
 
+    MongodbService mongodbService = new MongodbService();
+
     @Override
-    public void inscriptionUser(String nom) { //Exceptions à ajouter (identifiant déjà utilisé, les mdp correspondent pas, ...)
-        if (true){ //Si l'inscription se passe parfaitement
-            this.user = new User(nom);
-            this.connexionUser(this.user.getPseudo()); //L'utilisateur se connecte
-        } else
-        {
-            //Répète l'inscription avec les exceptions + msg d'erreur (la méthode à refaire avec boucle while)
-        }
+    public void inscriptionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException, PseudoDejaPrisException {
+        this.mongodbService.createUser(nom, pw);
+        this.user = mongodbService.getUserByPseudo(nom);
+        connexionUser(this.user.getPseudo(), this.user.getPassword());
     }
 
     @Override
-    public void connexionUser(String pseudo) {
-        //test si dans db
-        //sinon recuperation user existant getUserByPseudo
+    public void connexionUser(String pseudo, String pw) throws PseudoOuMotDePasseIncorrectException {
+        this.mongodbService.loginUser(pseudo, pw);
     }
 
     @Override
-    public void ajouterJoueurEnAmi(String pseudo)
-    {
+    public void ajouterJoueurEnAmi(String pseudo) throws JoueurDejaDansLaListeDAmisException, JoueurNonExistantException {
+        this.mongodbService.addFriendUser(user.getPseudo(), pseudo);
+    }
 
+    @Override
+    public void getAmis(){
+        this.user.getAmis();
     }
 
     @Override

@@ -7,6 +7,14 @@
         <groupId>P7W5</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+    <dependencies>
+        <dependency>
+            <groupId>P7W5</groupId>
+            <artifactId>dao</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
     <properties>
         <jfx.version>17</jfx.version>
         <maven.compiler.source>14</maven.compiler.source>
