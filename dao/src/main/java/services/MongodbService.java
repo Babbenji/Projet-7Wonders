@@ -7,29 +7,20 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.FindOneAndUpdateOptions;
 import com.mongodb.client.model.ReturnDocument;
 import com.mongodb.client.model.Updates;
-import interfaces.exceptions.JoueurDejaDansLaListeDAmisException;
-import interfaces.exceptions.JoueurNonExistantException;
-import org.bson.BsonArray;
-import org.bson.BsonDocument;
+import services.exceptions.JoueurDejaDansLaListeDAmisException;
+import services.exceptions.JoueurNonExistantException;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.conversions.Bson;
 import services.exceptions.PseudoDejaPrisException;
 import services.exceptions.PseudoOuMotDePasseIncorrectException;
-import user.User;
 
-import javax.print.Doc;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.function.Consumer;
 
 import static com.mongodb.client.model.Projections.exclude;
 import static com.mongodb.client.model.Projections.include;
-import static com.mongodb.client.model.Updates.set;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
@@ -86,7 +77,7 @@ public class MongodbService {
         if (pseudoDejaPrisBoolean){
             throw new PseudoDejaPrisException();
         } else {
-            List<Document>nouveauxAmis = new ArrayList<>();
+            List<Document> nouveauxAmis = new ArrayList<>();
             Document user = new Document().append("pseudo", pseudo).append("password", pw).append("friends", nouveauxAmis);
             users.insertOne(user);
         }

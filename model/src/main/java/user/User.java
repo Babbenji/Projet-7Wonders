@@ -1,14 +1,13 @@
 package user;
 
-import interfaces.exceptions.JoueurDejaDansLaListeDAmisException;
-import interfaces.exceptions.JoueurNonExistantException;
+import interfaces.type.IUser;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
+public class User implements interfaces.type.IUser {
 
     @BsonProperty(value ="pseudo")
     private String pseudo;
@@ -17,7 +16,7 @@ public class User {
     private String password;
 
     @BsonProperty(value ="friends")
-    private List<User> amis;
+    private List<IUser> amis;
 
     @Override
     public String toString() {
@@ -48,6 +47,7 @@ public class User {
      * Permet de retourner le pseudo de l'utilisateur
      * @return pseudo
      */
+    @Override
     public String getPseudo() {
         return this.pseudo;
     }
@@ -56,6 +56,7 @@ public class User {
      * Permet de retourner le mot de passe de l'utilisateur
      * @return password
      */
+    @Override
     public String getPassword() {
         return this.password;
     }
@@ -64,6 +65,7 @@ public class User {
      * Permet de modifier le mot de passe de l'utilisateur
      * @param password
      */
+    @Override
     public void setPassword(String password) {
         this.password = password;
     }
@@ -72,6 +74,7 @@ public class User {
      * Permet d'ajouter/modifier le pseudo de l'user
      * @param pseudo
      */
+    @Override
     public void setPseudo(String pseudo) {
         this.pseudo = pseudo;
     }
@@ -80,7 +83,8 @@ public class User {
      * Permet d'ajouter/modifier la liste d'amis
      * @param amis
      */
-    public void setAmis(List<User> amis) {
+    @Override
+    public void setAmis(List<IUser> amis) {
         this.amis = amis;
     }
 
@@ -88,7 +92,8 @@ public class User {
      * Permet de retourner la liste des amis
      * @return amis
      */
-    public List<User> getAmis() {
+    @Override
+    public List<IUser> getAmis() {
         return this.amis;
     }
 

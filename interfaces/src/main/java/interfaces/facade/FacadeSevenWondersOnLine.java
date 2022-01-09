@@ -3,8 +3,7 @@ package interfaces.facade;
 import interfaces.exceptions.*;
 import interfaces.type.ICarte;
 import interfaces.type.IJoueur;
-import services.exceptions.PseudoDejaPrisException;
-import services.exceptions.PseudoOuMotDePasseIncorrectException;
+import services.exceptions.*;
 
 import java.rmi.RemoteException;
 

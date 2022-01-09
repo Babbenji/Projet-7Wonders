@@ -1,7 +1,7 @@
 package programmes;
 
-import interfaces.exceptions.JoueurDejaDansLaListeDAmisException;
-import interfaces.exceptions.JoueurNonExistantException;
+import services.exceptions.JoueurDejaDansLaListeDAmisException;
+import services.exceptions.JoueurNonExistantException;
 import services.MongodbService;
 import services.exceptions.ConnectBDExeption;
 import services.exceptions.PseudoDejaPrisException;

@@ -2,8 +2,8 @@ package facade;
 
 import cartes.Carte;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import interfaces.exceptions.JoueurDejaDansLaListeDAmisException;
-import interfaces.exceptions.JoueurNonExistantException;
+import services.exceptions.JoueurDejaDansLaListeDAmisException;
+import services.exceptions.JoueurNonExistantException;
 import interfaces.exceptions.PartieNonTermineeException;
 import interfaces.facade.FacadeSevenWondersOnLine;
 import interfaces.type.ICarte;
