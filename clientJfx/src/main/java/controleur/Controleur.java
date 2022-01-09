@@ -6,6 +6,7 @@ import interfaces.type.IMerveille;
 import javafx.stage.Stage;
 import modele.ProxySevenWondersOnLine;
 import modele.ProxySevenWondersOnLineImpl;
+import user.User;
 import vues.VueConnexion;
 import vues.VueInscription;
 import vues.VueMenuNonConnecte;
@@ -13,6 +14,7 @@ import vues.VuePartie;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.List;
 
 public class Controleur
 {
@@ -36,13 +38,16 @@ public class Controleur
         vueConnexion.initialiserControleur(this);
         vueInscription = VueInscription.creerVue(stage);
         vueInscription.initialiserControleur(this);
-
+        /*
         vuePartie = VuePartie.creerVue(stage);
+        vuePartie.initialiserControleur(this);
+        */
+
     }
 
     public void run()
     {
-        vuePartie.show();
+        vueMenuNonConnecte.show();
     }
 
     public void miseEnPlaceDuJeu(IJoueur joueur) throws RemoteException {
@@ -78,6 +83,13 @@ public class Controleur
     public void goToInscription() {
         this.facade = new ProxySevenWondersOnLineImpl();
         this.vueInscription.show();
+    }
+    public String getNom() {
+        return null;
+    }
+
+    public List<User> getAmis() {
+        return null;
     }
 
     public void exit() {
