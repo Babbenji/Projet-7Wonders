@@ -1,12 +1,13 @@
 package service;
 
+import exceptions.MaxJoueursAtteintException;
+import facade.FacadeSevenWondersOnLine;
 import facade.FacadeSevenWondersOnlineImpl;
-import interfaces.exceptions.JoueurDejaAjouteException;
-import interfaces.exceptions.JoueurNonExistantException;
-import interfaces.exceptions.MaxJoueursAtteintException;
-import interfaces.facade.FacadeSevenWondersOnLine;
-import interfaces.type.ICarte;
-import interfaces.type.IJoueur;
+import services.exceptions.JoueurDejaAjouteException;
+import services.exceptions.JoueurNonExistantException;
+import type.ICarte;
+import type.IJoueur;
+
 import java.rmi.server.RMIClientSocketFactory;
 import java.rmi.server.RMIServerSocketFactory;
 import java.rmi.server.UnicastRemoteObject;

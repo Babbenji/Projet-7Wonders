@@ -1,11 +1,11 @@
 package service;
 
+import exceptions.MaxJoueursAtteintException;
+import services.exceptions.JoueurDejaAjouteException;
+import services.exceptions.JoueurNonExistantException;
+import type.ICarte;
+import type.IJoueur;
 
-import interfaces.exceptions.JoueurDejaAjouteException;
-import interfaces.exceptions.JoueurNonExistantException;
-import interfaces.exceptions.MaxJoueursAtteintException;
-import interfaces.type.ICarte;
-import interfaces.type.IJoueur;
 import java.rmi.RemoteException;
 
 

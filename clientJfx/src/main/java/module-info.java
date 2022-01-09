@@ -5,7 +5,7 @@ module clientJfx {
     requires javafx.controls;
     requires javafx.graphics;
     requires java.rmi;
-    requires interfaces;
+    requires plateau;
     requires model;
     opens vues to javafx.fxml;
     exports application;

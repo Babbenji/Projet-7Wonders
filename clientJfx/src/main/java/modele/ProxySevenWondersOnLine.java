@@ -5,6 +5,7 @@ import interfaces.exceptions.JoueurDejaAjouteException;
 import interfaces.exceptions.JoueurNonExistantException;
 import interfaces.exceptions.MaxJoueursAtteintException;
 import interfaces.exceptions.PartieNonTermineeException;
+import services.exceptions.JoueurNonExistantException;
 import type.ICarte;
 import type.IJoueur;
 
