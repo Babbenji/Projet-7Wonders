@@ -1,6 +1,5 @@
 package programmes;
 
-import interfaces.type.IUser;
 import services.exceptions.JoueurDejaDansLaListeDAmisException;
 import services.exceptions.JoueurNonExistantException;
 import services.MongodbService;
@@ -53,7 +52,7 @@ public class testPOJO {
         System.out.println();
 
         System.out.println("La liste d'amis de mblond :");
-        for (IUser ami: mongodbService.getUserByPseudo("mblond").getAmis()) {
+     /*   for (IUser ami: mongodbService.getUserByPseudo("mblond").getAmis()) {
             System.out.println("- "+ami.getPseudo());
         }
         /*
@@ -68,9 +67,9 @@ public class testPOJO {
         System.out.println("----------------------------------");
         System.out.println();
         System.out.println("La liste d'amis de jlietard :");
-        for (IUser ami: mongodbService.getUserByPseudo("jlietard").getAmis()) {
+       /* for (IUser ami: mongodbService.getUserByPseudo("jlietard").getAmis()) {
             System.out.println("- "+ami.getPseudo());
-        }
+        }*/
 
 
         System.out.println();
