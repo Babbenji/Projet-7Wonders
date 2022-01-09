@@ -7,10 +7,7 @@ import javafx.stage.Stage;
 import modele.ProxySevenWondersOnLine;
 import modele.ProxySevenWondersOnLineImpl;
 import user.User;
-import vues.VueConnexion;
-import vues.VueInscription;
-import vues.VueMenuNonConnecte;
-import vues.VuePartie;
+import vues.*;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -22,6 +19,7 @@ public class Controleur
     private VueMenuNonConnecte vueMenuNonConnecte;
     private VueConnexion vueConnexion;
     private VueInscription vueInscription;
+    private VueMenuConnecte vueMenuConnecte;
 
     private VuePartie vuePartie;
     private IJoueur joueur;
@@ -38,6 +36,8 @@ public class Controleur
         vueConnexion.initialiserControleur(this);
         vueInscription = VueInscription.creerVue(stage);
         vueInscription.initialiserControleur(this);
+        vueMenuConnecte = VueMenuConnecte.creer(stage);
+        vueMenuConnecte.initialiserControleur(this);
         /*
         vuePartie = VuePartie.creerVue(stage);
         vuePartie.initialiserControleur(this);
@@ -85,7 +85,7 @@ public class Controleur
         this.vueInscription.show();
     }
     public String getNom() {
-        return null;
+        return this.joueur.getNom();
     }
 
     public List<User> getAmis() {
