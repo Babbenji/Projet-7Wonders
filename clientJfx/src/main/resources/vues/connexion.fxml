@@ -14,8 +14,8 @@
         </ImageView>
         <ImageView fx:id="imageLogo" fitHeight="231.0" fitWidth="684.0" layoutX="618.0" layoutY="106.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../images/logo.png" />
-            </image>
+            <Image url="@../images/logo.png" />
+        </image>
         </ImageView>
         <BorderPane layoutX="626.0" layoutY="334.0" prefHeight="327.0" prefWidth="668.0">
             <top>
