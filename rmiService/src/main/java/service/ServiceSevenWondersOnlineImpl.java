@@ -1,10 +1,10 @@
 package service;
 
 import exceptions.MaxJoueursAtteintException;
+import exceptions.PartieNonTermineeException;
 import facade.FacadeSevenWondersOnLine;
 import facade.FacadeSevenWondersOnlineImpl;
-import services.exceptions.JoueurDejaAjouteException;
-import services.exceptions.JoueurNonExistantException;
+import services.exceptions.*;
 import type.ICarte;
 import type.IJoueur;
 
@@ -35,22 +35,50 @@ public class ServiceSevenWondersOnlineImpl extends UnicastRemoteObject implement
         return  new ServiceSevenWondersOnlineImpl();
     }
 
+
+    @Override
+    public void inscriptionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException, PseudoDejaPrisException {
+        this.facadeSevenWondersOnLine.inscriptionUser(nom,pw);
+    }
+
+    @Override
+    public void connexionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException {
+        this.facadeSevenWondersOnLine.connexionUser(nom, pw);
+
+    }
+
+    @Override
+    public void ajouterJoueurEnAmi(String nom) throws JoueurDejaDansLaListeDAmisException, JoueurNonExistantException {
+        this.facadeSevenWondersOnLine.ajouterJoueurEnAmi(nom);
+
+    }
+
+    @Override
+    public void getAmis() {
+        this.facadeSevenWondersOnLine.getAmis();
+
+    }
+
+    @Override
+    public void inviterJoueur(IJoueur joueur) {
+        this.facadeSevenWondersOnLine.inviterJoueur(joueur);
+
+    }
+
     @Override
     public void creePartie() throws RemoteException {
         this.facadeSevenWondersOnLine.creePartie();
-    }
-
-    @Override
-    public void rejoindreUnePartie(String nom) throws RemoteException, MaxJoueursAtteintException, JoueurNonExistantException, JoueurDejaAjouteException {
-        this.facadeSevenWondersOnLine.rejoindreUnePartie(nom);
 
     }
 
     @Override
-    public void miseEnPlacePartie(IJoueur joueur) throws RemoteException {
+    public void rejoindreUnePartie(String nomPartie) throws JoueurNonExistantException, MaxJoueursAtteintException, JoueurDejaAjouteException {
+        this.facadeSevenWondersOnLine.rejoindreUnePartie(nomPartie);
+    }
 
+    @Override
+    public void miseEnPlaceDuJeu(IJoueur joueur) throws RemoteException {
         this.facadeSevenWondersOnLine.miseEnPlaceDuJeu(joueur);
-
 
     }
 
@@ -58,32 +86,27 @@ public class ServiceSevenWondersOnlineImpl extends UnicastRemoteObject implement
     public void jouerCarte(IJoueur joueur, ICarte carte) throws Exception {
         this.facadeSevenWondersOnLine.jouerCarte(joueur,carte);
 
-
     }
 
     @Override
     public void deffausserCarte(IJoueur joueur, ICarte carte) throws Exception {
-        this.facadeSevenWondersOnLine.deffausserCarte(joueur,carte);
-
-
+        this.facadeSevenWondersOnLine.deffausserCarte(joueur, carte);
     }
 
     @Override
     public void construireEtape(IJoueur joueur) throws Exception {
         this.facadeSevenWondersOnLine.construireEtape(joueur);
 
-
     }
 
     @Override
-    public void partieTerminee(IJoueur joueur) throws Exception, RemoteException {
+    public String tableauScore(IJoueur joueur) throws PartieNonTermineeException {
+       return this.facadeSevenWondersOnLine.tableauScore(joueur);
+    }
+
+    @Override
+    public void partieTerminee(IJoueur joueur) throws Exception {
         this.facadeSevenWondersOnLine.partieTerminee(joueur);
 
     }
-
-    @Override
-    public String tableauScore() {
-        return null;
-    }
-
 }
