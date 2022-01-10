@@ -56,10 +56,10 @@ public class VueMenuConnecte implements Vue{
     private void initialiserBouton() {
     }
 
-
     @Override
     public void show() {
-
+        this.stage.setScene(this.scene);
+        this.stage.show();
     }
 
     @Override
@@ -72,6 +72,6 @@ public class VueMenuConnecte implements Vue{
 
     @Override
     public void initialiserControleur(Controleur controleur) {
-
+        this.controleur = controleur;
     }
 }

@@ -42,7 +42,6 @@ public class Controleur
         vuePartie = VuePartie.creerVue(stage);
         vuePartie.initialiserControleur(this);
         */
-
     }
 
     public void run()
@@ -75,6 +74,11 @@ public class Controleur
         this.vueMenuNonConnecte.show();
     }
 
+    public void goToMenuConnecte() {
+        this.facade = new ProxySevenWondersOnLineImpl();
+        this.vueMenuConnecte.show();
+    }
+
     public void goToConnexion() {
         this.facade = new ProxySevenWondersOnLineImpl();
         this.vueConnexion.show();
@@ -84,8 +88,17 @@ public class Controleur
         this.facade = new ProxySevenWondersOnLineImpl();
         this.vueInscription.show();
     }
+
     public String getNom() {
         return this.joueur.getNom();
+    }
+
+    public Boolean connexion(String pseudo,String mdp) {
+        if(mdp.equals("mdp123")){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public List<User> getAmis() {

@@ -81,14 +81,19 @@ public class VueConnexion implements Vue{
 
     private void connexion() {
         String pseudo = this.textFieldPseudo.getText();
+        String mdp = this.textFieldMDP.getText();
         if (Objects.isNull(pseudo) || pseudo.length()<2) {
             Alert alert = new Alert(Alert.AlertType.ERROR,"Vous devez renseigner un pseudo d'au moins 2 caractères !!", ButtonType.OK);
             alert.showAndWait();
         }
         else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"OK 👌", ButtonType.OK);
-            alert.showAndWait();
-            //controleur.connexion(pseudoJoueur);
+            if(this.controleur.connexion(pseudo,mdp)){
+                System.out.println("Connexion de " + pseudo);
+                this.controleur.goToMenuConnecte();
+            }else{
+                Alert alert = new Alert(Alert.AlertType.ERROR,"Mauvais identifiants 😢", ButtonType.OK);
+                alert.showAndWait();
+            }
         }
     }
     private void goMenu() {
