@@ -11,6 +11,7 @@ import java.rmi.RemoteException;
 
 public interface ServiceSevenWondersOnline
 {
+    public static final String RMI_SERVEUR = "rmi://localhost/seven-wonders";
 
     /**
      * Permet de s'inscrire à l'application

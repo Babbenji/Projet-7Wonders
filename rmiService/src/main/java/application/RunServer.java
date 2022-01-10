@@ -9,9 +9,10 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
+import static service.ServiceSevenWondersOnline.RMI_SERVEUR;
+
 public class RunServer {
 
-    public static final String RMI_SERVEUR = "rmi://localhost/seven-wonders";
 
     public static void main(String[] args) {
         try {
