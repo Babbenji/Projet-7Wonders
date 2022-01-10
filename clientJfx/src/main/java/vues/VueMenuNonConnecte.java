@@ -14,7 +14,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 public class VueMenuNonConnecte implements Vue{
 
@@ -70,22 +73,42 @@ public class VueMenuNonConnecte implements Vue{
     }
 
     private void initBoutonConnexion() {
-        this.buttonConnexion.setOnAction(e -> goConnexion());
+        this.buttonConnexion.setOnAction(e -> {
+            try {
+                goConnexion();
+            } catch (RemoteException remoteException) {
+                remoteException.printStackTrace();
+            } catch (NotBoundException notBoundException) {
+                notBoundException.printStackTrace();
+            } catch (MalformedURLException malformedURLException) {
+                malformedURLException.printStackTrace();
+            }
+        });
     }
 
     private void initBoutonInscription() {
-        this.buttonInscription.setOnAction(e -> goInscription());
+        this.buttonInscription.setOnAction(e -> {
+            try {
+                goInscription();
+            } catch (RemoteException remoteException) {
+                remoteException.printStackTrace();
+            } catch (NotBoundException notBoundException) {
+                notBoundException.printStackTrace();
+            } catch (MalformedURLException malformedURLException) {
+                malformedURLException.printStackTrace();
+            }
+        });
     }
 
     private void initBoutonQuitter() {
         this.buttonQuitter.setOnAction(e -> goExit());
     }
 
-    private void goConnexion() {
+    private void goConnexion() throws RemoteException, NotBoundException, MalformedURLException {
         this.controleur.goToConnexion();
     }
 
-    private void goInscription() {
+    private void goInscription() throws RemoteException, NotBoundException, MalformedURLException {
         this.controleur.goToInscription();
     }
 

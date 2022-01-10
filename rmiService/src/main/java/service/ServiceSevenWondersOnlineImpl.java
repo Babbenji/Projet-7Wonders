@@ -8,27 +8,17 @@ import services.exceptions.*;
 import type.ICarte;
 import type.IJoueur;
 
-import java.rmi.server.RMIClientSocketFactory;
-import java.rmi.server.RMIServerSocketFactory;
-import java.rmi.server.UnicastRemoteObject;
+
 import java.rmi.RemoteException;
 
-public class ServiceSevenWondersOnlineImpl extends UnicastRemoteObject implements ServiceSevenWondersOnline {
+public class ServiceSevenWondersOnlineImpl  implements ServiceSevenWondersOnline {
 
     FacadeSevenWondersOnLine facadeSevenWondersOnLine;
 
-    protected ServiceSevenWondersOnlineImpl() throws RemoteException
+    public ServiceSevenWondersOnlineImpl() throws RemoteException
     {
         super();
         this.facadeSevenWondersOnLine =  new FacadeSevenWondersOnlineImpl();
-    }
-
-    protected ServiceSevenWondersOnlineImpl(int port) throws RemoteException {
-        super(port);
-    }
-
-    protected ServiceSevenWondersOnlineImpl(int port, RMIClientSocketFactory csf, RMIServerSocketFactory ssf) throws RemoteException {
-        super(port, csf, ssf);
     }
 
     public static ServiceSevenWondersOnline creer() throws RemoteException{

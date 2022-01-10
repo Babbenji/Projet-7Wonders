@@ -12,7 +12,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.Objects;
 
 public class VueInscription implements Vue{
@@ -76,7 +79,17 @@ public class VueInscription implements Vue{
     }
 
     private void initBoutonRetour() {
-        this.buttonRetour.setOnAction(e -> goMenu());
+        this.buttonRetour.setOnAction(e -> {
+            try {
+                goMenu();
+            } catch (RemoteException remoteException) {
+                remoteException.printStackTrace();
+            } catch (NotBoundException notBoundException) {
+                notBoundException.printStackTrace();
+            } catch (MalformedURLException malformedURLException) {
+                malformedURLException.printStackTrace();
+            }
+        });
     }
 
     private void connexion() {
@@ -91,7 +104,7 @@ public class VueInscription implements Vue{
             //controleur.connexion(pseudoJoueur);
         }
     }
-    private void goMenu() {
+    private void goMenu() throws RemoteException, NotBoundException, MalformedURLException {
         this.controleur.goToMenu();
     }
 

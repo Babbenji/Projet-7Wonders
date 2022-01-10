@@ -6,24 +6,24 @@ import services.exceptions.*;
 import type.ICarte;
 import type.IJoueur;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 
-public interface ServiceSevenWondersOnline
+public interface ServiceSevenWondersOnline extends Remote
 {
-    public static final String RMI_SERVEUR = "rmi://localhost/seven-wonders";
 
     /**
      * Permet de s'inscrire à l'application
      * @param nom
      */
-    void inscriptionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException, PseudoDejaPrisException;
+    void inscriptionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException, PseudoDejaPrisException,RemoteException;
 
     /**
      * Permet de se connecter à l'application
      * @param nom
      */
-    void connexionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException;
+    void connexionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException,RemoteException;
 
     /**
      * Permet d'ajouter un joueur à sa liste d'amis
@@ -31,18 +31,18 @@ public interface ServiceSevenWondersOnline
      * @throws JoueurNonExistantException : Le joueur ajouté n'existe pas
      * @param nom
      */
-    void ajouterJoueurEnAmi(String nom) throws JoueurDejaDansLaListeDAmisException, JoueurNonExistantException;
+    void ajouterJoueurEnAmi(String nom) throws JoueurDejaDansLaListeDAmisException, JoueurNonExistantException,RemoteException;
 
     /**
      * Permet de récupérer une liste d'objets User
      */
-    void getAmis();
+    void getAmis()throws RemoteException;
 
     /**
      * Permet d'inviter un joueur
      * @param joueur
      */
-    void inviterJoueur(IJoueur joueur);
+    void inviterJoueur(IJoueur joueur)throws RemoteException;
 
     /**
      * Permet de créer une partie
@@ -57,7 +57,7 @@ public interface ServiceSevenWondersOnline
      * @throws MaxJoueursAtteintException : La partie est pleine
      * @throws JoueurDejaAjouteException : Le joueur est déjà dans la partie
      */
-    void rejoindreUnePartie(String nomPartie) throws JoueurNonExistantException, MaxJoueursAtteintException, JoueurDejaAjouteException;
+    void rejoindreUnePartie(String nomPartie) throws JoueurNonExistantException, MaxJoueursAtteintException, JoueurDejaAjouteException, RemoteException;
 
     /**
      * TO DO
@@ -70,21 +70,21 @@ public interface ServiceSevenWondersOnline
      * @param joueur
      * @param carte
      */
-    void jouerCarte(IJoueur joueur, ICarte carte) throws Exception;
+    void jouerCarte(IJoueur joueur, ICarte carte) throws Exception, RemoteException;
 
     /**
      *
      * @param joueur
      * @param carte
      */
-    void deffausserCarte (IJoueur joueur, ICarte carte) throws Exception;
+    void deffausserCarte (IJoueur joueur, ICarte carte) throws Exception, RemoteException;
 
 
     /**
      * TO DO
      * @param joueur
      */
-    void construireEtape(IJoueur joueur) throws Exception;
+    void construireEtape(IJoueur joueur) throws Exception, RemoteException;
 
 
     /**
@@ -92,7 +92,7 @@ public interface ServiceSevenWondersOnline
      * @return : tous les joueurs avec leurs nombre de points
      * @throws PartieNonTermineeException : la partie n'est pas terminée, donc il n'y a pas encore de vainqueur
      */
-    String tableauScore(IJoueur joueur) throws PartieNonTermineeException;
+    String tableauScore(IJoueur joueur) throws PartieNonTermineeException, RemoteException;
 
     /**
      * Permet de savoir si la partie est terminée ou non
@@ -101,6 +101,6 @@ public interface ServiceSevenWondersOnline
      *  - vrai : la partie est terminée
      *  - faux : la partie n'est pas encore terminée
      */
-    void partieTerminee(IJoueur joueur) throws Exception;
+    void partieTerminee(IJoueur joueur) throws Exception, RemoteException;
 
 }

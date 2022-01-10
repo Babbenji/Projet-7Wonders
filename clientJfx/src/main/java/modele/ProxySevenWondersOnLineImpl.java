@@ -9,9 +9,10 @@ import type.ICarte;
 import type.IJoueur;
 
 import java.net.MalformedURLException;
-import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
 public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
 {
@@ -20,17 +21,22 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
     public ProxySevenWondersOnLineImpl() throws RemoteException, NotBoundException, MalformedURLException {
         System.out.println("Lancement du client");
        try{
-           this.serviceSevenWondersOnline = (ServiceSevenWondersOnline) Naming.lookup(ServiceSevenWondersOnline.RMI_SERVEUR);
-        } catch (NotBoundException | MalformedURLException | RemoteException e) {
+
+         //  this.serviceSevenWondersOnline = (ServiceSevenWondersOnline) Naming.lookup(ServiceSevenWondersOnline.RMI_SERVEUR, 1099);
+          Registry reg = LocateRegistry.getRegistry("localhost",1099);
+           this.serviceSevenWondersOnline = (ServiceSevenWondersOnline) reg.lookup("ServiceSevenWondersOnline");
+        } catch (RemoteException | NotBoundException e) {
            e.printStackTrace();
        }
+
     }
+
 
     @Override
     public void inscriptionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException, PseudoDejaPrisException {
         try {
             this.serviceSevenWondersOnline.inscriptionUser(nom, pw);
-        } catch (PseudoOuMotDePasseIncorrectException | PseudoDejaPrisException e) {
+        } catch (PseudoOuMotDePasseIncorrectException | PseudoDejaPrisException | RemoteException e) {
             throw new RuntimeException("RMI Problem");
         }
     }
@@ -39,7 +45,7 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
     public void connexionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException {
         try{
             this.serviceSevenWondersOnline.connexionUser(nom,pw);
-        }catch (PseudoOuMotDePasseIncorrectException e){
+        }catch (PseudoOuMotDePasseIncorrectException | RemoteException e){
             throw new RuntimeException("RMI Problem");
 
         }
@@ -50,7 +56,7 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
     public void ajouterJoueurEnAmi(String nom) throws JoueurDejaDansLaListeDAmisException, JoueurNonExistantException {
         try{
             this.serviceSevenWondersOnline.ajouterJoueurEnAmi(nom);
-        } catch (JoueurDejaDansLaListeDAmisException | JoueurNonExistantException e) {
+        } catch (JoueurDejaDansLaListeDAmisException | JoueurNonExistantException | RemoteException e) {
             throw new RuntimeException("RMI Problem");
 
         }
@@ -87,7 +93,7 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
     public void rejoindreUnePartie(String nomPartie) throws JoueurNonExistantException, MaxJoueursAtteintException, JoueurDejaAjouteException {
         try{
             this.serviceSevenWondersOnline.rejoindreUnePartie(nomPartie);
-        } catch (JoueurNonExistantException | MaxJoueursAtteintException | JoueurDejaAjouteException e) {
+        } catch (JoueurNonExistantException | MaxJoueursAtteintException | JoueurDejaAjouteException | RemoteException e) {
             throw new RuntimeException("RMI Problem");
         }
     }
@@ -132,7 +138,7 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
     public String tableauScore(IJoueur joueur) throws PartieNonTermineeException {
         try {
            return this.serviceSevenWondersOnline.tableauScore(joueur);
-        } catch (PartieNonTermineeException e) {
+        } catch (PartieNonTermineeException | RemoteException e) {
             throw new RuntimeException("RMI Problem");
         }
     }

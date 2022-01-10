@@ -3,6 +3,6 @@ module rmiService {
     requires model;
     requires plateau;
     requires dao;
-    exports application;
+    exports app;
     exports service;
 }

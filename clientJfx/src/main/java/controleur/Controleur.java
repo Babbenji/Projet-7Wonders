@@ -10,6 +10,8 @@ import user.User;
 import vues.*;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
 
@@ -27,7 +29,7 @@ public class Controleur
     private IMerveille merveille;
 
 
-    public Controleur(Stage stage) throws IOException {
+    public Controleur(Stage stage) throws IOException, NotBoundException {
         facade = new ProxySevenWondersOnLineImpl();
 
         vueMenuNonConnecte = VueMenuNonConnecte.creerVue(stage);
@@ -69,22 +71,22 @@ public class Controleur
         return merveille;
     }
 
-    public void goToMenu() {
+    public void goToMenu() throws RemoteException, NotBoundException, MalformedURLException {
         this.facade = new ProxySevenWondersOnLineImpl();
         this.vueMenuNonConnecte.show();
     }
 
-    public void goToMenuConnecte() {
+    public void goToMenuConnecte() throws RemoteException, NotBoundException, MalformedURLException {
         this.facade = new ProxySevenWondersOnLineImpl();
         this.vueMenuConnecte.show();
     }
 
-    public void goToConnexion() {
+    public void goToConnexion() throws RemoteException, NotBoundException, MalformedURLException {
         this.facade = new ProxySevenWondersOnLineImpl();
         this.vueConnexion.show();
     }
 
-    public void goToInscription() {
+    public void goToInscription() throws RemoteException, NotBoundException, MalformedURLException {
         this.facade = new ProxySevenWondersOnLineImpl();
         this.vueInscription.show();
     }
