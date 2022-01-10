@@ -1,10 +1,9 @@
 package modele;
 
 
-import interfaces.exceptions.JoueurDejaAjouteException;
-import interfaces.exceptions.JoueurNonExistantException;
-import interfaces.exceptions.MaxJoueursAtteintException;
-import interfaces.exceptions.PartieNonTermineeException;
+import exceptions.MaxJoueursAtteintException;
+import exceptions.PartieNonTermineeException;
+import services.exceptions.JoueurDejaAjouteException;
 import services.exceptions.JoueurNonExistantException;
 import type.ICarte;
 import type.IJoueur;
@@ -17,7 +16,7 @@ public interface ProxySevenWondersOnLine
 {
     void creePartie() throws RemoteException;
 
-    void rejoindreUnePartie(String nomPartie) throws JoueurNonExistantException, MaxJoueursAtteintException, JoueurDejaAjouteException;
+    void rejoindreUnePartie(String nomPartie) throws JoueurNonExistantException, MaxJoueursAtteintException, JoueurDejaAjouteException, MaxJoueursAtteintException, JoueurDejaAjouteException;
 
 
     void miseEnPlaceDuJeu(IJoueur joueur) throws RemoteException;
@@ -32,7 +31,7 @@ public interface ProxySevenWondersOnLine
     void construireEtape(IJoueur joueur) throws Exception;
 
 
-    String tableauScore(IJoueur joueur) throws PartieNonTermineeException;
+    String tableauScore(IJoueur joueur) throws PartieNonTermineeException, PartieNonTermineeException;
 
     void partieTerminee(IJoueur joueur) throws Exception;
 

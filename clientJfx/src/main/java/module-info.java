@@ -7,6 +7,7 @@ module clientJfx {
     requires java.rmi;
     requires plateau;
     requires model;
+    requires dao;
     opens vues to javafx.fxml;
     exports application;
 

@@ -1,7 +1,9 @@
 package modele;
 
 
+import exceptions.MaxJoueursAtteintException;
 import exceptions.PartieNonTermineeException;
+import services.exceptions.JoueurDejaAjouteException;
 import services.exceptions.JoueurNonExistantException;
 import type.ICarte;
 import type.IJoueur;
