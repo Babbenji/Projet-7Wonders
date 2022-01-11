@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import services.exceptions.PseudoOuMotDePasseIncorrectException;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -84,6 +85,8 @@ public class VueConnexion implements Vue{
                 notBoundException.printStackTrace();
             } catch (MalformedURLException malformedURLException) {
                 malformedURLException.printStackTrace();
+            } catch (PseudoOuMotDePasseIncorrectException pseudoOuMotDePasseIncorrectException) {
+                pseudoOuMotDePasseIncorrectException.printStackTrace();
             }
         });
     }
@@ -102,7 +105,7 @@ public class VueConnexion implements Vue{
         });
     }
 
-    private void connexion() throws RemoteException, NotBoundException, MalformedURLException {
+    private void connexion() throws RemoteException, NotBoundException, MalformedURLException, PseudoOuMotDePasseIncorrectException {
         String pseudo = this.textFieldPseudo.getText();
         String mdp = this.textFieldMDP.getText();
         if (Objects.isNull(pseudo) || pseudo.length()<2) {

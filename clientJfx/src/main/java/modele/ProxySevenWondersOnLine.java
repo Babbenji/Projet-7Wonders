@@ -6,6 +6,7 @@ import exceptions.PartieNonTermineeException;
 import services.exceptions.*;
 import type.ICarte;
 import type.IJoueur;
+import user.User;
 
 
 import java.rmi.RemoteException;
@@ -23,7 +24,7 @@ public interface ProxySevenWondersOnLine
      * Permet de se connecter à l'application
      * @param nom
      */
-    void connexionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException;
+    User connexionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException;
 
     /**
      * Permet d'ajouter un joueur à sa liste d'amis

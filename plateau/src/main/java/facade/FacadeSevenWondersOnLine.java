@@ -5,6 +5,7 @@ import exceptions.PartieNonTermineeException;
 import services.exceptions.*;
 import type.ICarte;
 import type.IJoueur;
+import user.User;
 
 import java.rmi.RemoteException;
 
@@ -14,13 +15,13 @@ public interface FacadeSevenWondersOnLine {
      * Permet de s'inscrire à l'application
      * @param nom
      */
-    void inscriptionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException, PseudoDejaPrisException;
+    User inscriptionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException, PseudoDejaPrisException;
 
     /**
      * Permet de se connecter à l'application
      * @param nom
      */
-    void connexionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException;
+    User connexionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException;
 
     /**
      * Permet d'ajouter un joueur à sa liste d'amis

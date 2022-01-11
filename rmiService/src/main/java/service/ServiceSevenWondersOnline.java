@@ -5,6 +5,7 @@ import exceptions.PartieNonTermineeException;
 import services.exceptions.*;
 import type.ICarte;
 import type.IJoueur;
+import user.User;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -17,13 +18,13 @@ public interface ServiceSevenWondersOnline extends Remote
      * Permet de s'inscrire à l'application
      * @param nom
      */
-    void inscriptionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException, PseudoDejaPrisException,RemoteException;
+    User inscriptionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException, PseudoDejaPrisException,RemoteException;
 
     /**
      * Permet de se connecter à l'application
      * @param nom
      */
-    void connexionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException,RemoteException;
+    User connexionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException,RemoteException;
 
     /**
      * Permet d'ajouter un joueur à sa liste d'amis

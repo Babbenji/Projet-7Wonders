@@ -9,6 +9,7 @@ import service.ServiceSevenWondersOnlineImpl;
 import services.exceptions.*;
 import type.ICarte;
 import type.IJoueur;
+import user.User;
 
 import java.net.InetAddress;
 import java.net.MalformedURLException;
@@ -48,9 +49,9 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
     }
 
     @Override
-    public void connexionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException {
+    public User connexionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException {
         try{
-            this.serviceSevenWondersOnline.connexionUser(nom,pw);
+            return this.serviceSevenWondersOnline.connexionUser(nom,pw);
         }catch (PseudoOuMotDePasseIncorrectException | RemoteException e){
             throw new RuntimeException("RMI Problem");
         }

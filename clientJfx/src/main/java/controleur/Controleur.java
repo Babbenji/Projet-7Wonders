@@ -1,5 +1,6 @@
 package controleur;
 
+import services.exceptions.PseudoOuMotDePasseIncorrectException;
 import type.IDeck;
 import type.IJoueur;
 import type.IMerveille;
@@ -14,6 +15,7 @@ import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.Objects;
 
 public class Controleur
 {
@@ -95,12 +97,13 @@ public class Controleur
         return this.joueur.getNom();
     }
 
-    public Boolean connexion(String pseudo,String mdp) {
-        if(mdp.equals("mdp123")){
-            return true;
-        }else{
-            return false;
+    public Boolean connexion(String pseudo,String mdp) throws PseudoOuMotDePasseIncorrectException {
+        boolean test = false;
+        if(!Objects.isNull(this.facade.connexionUser(pseudo,mdp))){
+            test = true;
+
         }
+        return test;
     }
 
     public List<User> getAmis() {

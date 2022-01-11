@@ -52,15 +52,15 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
     MongodbService mongodbService = new MongodbService();
 
     @Override
-    public void inscriptionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException, PseudoDejaPrisException {
+    public User inscriptionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException, PseudoDejaPrisException {
         this.mongodbService.createUser(nom, pw);
         this.user = mongodbService.getUserByPseudo(nom);
-        connexionUser(this.user.getPseudo(), this.user.getPassword());
+        return connexionUser(this.user.getPseudo(), this.user.getPassword());
     }
 
     @Override
-    public void connexionUser(String pseudo, String pw) throws PseudoOuMotDePasseIncorrectException {
-        this.mongodbService.loginUser(pseudo, pw);
+    public User connexionUser(String pseudo, String pw) throws PseudoOuMotDePasseIncorrectException {
+        return this.mongodbService.loginUser(pseudo, pw);
     }
 
     @Override

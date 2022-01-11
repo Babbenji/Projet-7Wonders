@@ -7,6 +7,7 @@ import facade.FacadeSevenWondersOnlineImpl;
 import services.exceptions.*;
 import type.ICarte;
 import type.IJoueur;
+import user.User;
 
 
 import java.rmi.RemoteException;
@@ -27,13 +28,13 @@ public class ServiceSevenWondersOnlineImpl  implements ServiceSevenWondersOnline
 
 
     @Override
-    public void inscriptionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException, PseudoDejaPrisException {
-        this.facadeSevenWondersOnLine.inscriptionUser(nom,pw);
+    public User inscriptionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException, PseudoDejaPrisException {
+        return this.facadeSevenWondersOnLine.inscriptionUser(nom,pw);
     }
 
     @Override
-    public void connexionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException {
-        this.facadeSevenWondersOnLine.connexionUser(nom, pw);
+    public User connexionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException {
+        return this.facadeSevenWondersOnLine.connexionUser(nom, pw);
 
     }
 
