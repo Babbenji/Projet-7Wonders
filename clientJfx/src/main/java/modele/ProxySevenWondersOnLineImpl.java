@@ -1,14 +1,19 @@
 package modele;
 
 
+import app.RunServer;
 import exceptions.MaxJoueursAtteintException;
 import exceptions.PartieNonTermineeException;
 import service.ServiceSevenWondersOnline;
+import service.ServiceSevenWondersOnlineImpl;
 import services.exceptions.*;
 import type.ICarte;
 import type.IJoueur;
 
+import java.net.InetAddress;
 import java.net.MalformedURLException;
+import java.net.UnknownHostException;
+import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -18,13 +23,14 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
 {
     ServiceSevenWondersOnline serviceSevenWondersOnline;
 
+
+
     public ProxySevenWondersOnLineImpl() throws RemoteException, NotBoundException, MalformedURLException {
         System.out.println("Lancement du client");
+
        try{
 
-         //  this.serviceSevenWondersOnline = (ServiceSevenWondersOnline) Naming.lookup(ServiceSevenWondersOnline.RMI_SERVEUR, 1099);
-          Registry reg = LocateRegistry.getRegistry("localhost",1099);
-           this.serviceSevenWondersOnline = (ServiceSevenWondersOnline) reg.lookup("ServiceSevenWondersOnline");
+           this.serviceSevenWondersOnline = (ServiceSevenWondersOnline) Naming.lookup(RunServer.RMI_SERVER);
         } catch (RemoteException | NotBoundException e) {
            e.printStackTrace();
        }
@@ -47,7 +53,6 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
             this.serviceSevenWondersOnline.connexionUser(nom,pw);
         }catch (PseudoOuMotDePasseIncorrectException | RemoteException e){
             throw new RuntimeException("RMI Problem");
-
         }
 
     }
