@@ -4,8 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/clientJfx/clientJfx.iml" filepath="$PROJECT_DIR$/clientJfx/clientJfx.iml" />
       <module fileurl="file://$PROJECT_DIR$/dao/dao.iml" filepath="$PROJECT_DIR$/dao/dao.iml" />
-      <module fileurl="file://$PROJECT_DIR$/interfaces/interfaces.iml" filepath="$PROJECT_DIR$/interfaces/interfaces.iml" />
       <module fileurl="file://$PROJECT_DIR$/Model/model.iml" filepath="$PROJECT_DIR$/Model/model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plateau/plateau.iml" filepath="$PROJECT_DIR$/plateau/plateau.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/projet-7wonders-5.iml" filepath="$PROJECT_DIR$/.idea/projet-7wonders-5.iml" />
       <module fileurl="file://$PROJECT_DIR$/rmiService/rmiService.iml" filepath="$PROJECT_DIR$/rmiService/rmiService.iml" />
     </modules>

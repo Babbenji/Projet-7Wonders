@@ -2,22 +2,25 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
-      <profile name="Maven default annotation processors profile">
+      <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="clientJfx" />
         <module name="rmiService" />
+        <module name="plateau" />
         <module name="model" />
-        <module name="interfaces" />
+        <module name="dao" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="14">
-      <module name="clientJfx" target="14" />
+      <module name="clientJfx" target="15" />
+      <module name="dao" target="15" />
       <module name="interfaces" target="9" />
-      <module name="model" target="14" />
-      <module name="projet-7wonders-5" target="9" />
-      <module name="rmiService" target="14" />
+      <module name="model" target="15" />
+      <module name="plateau" target="15" />
+      <module name="projet-7wonders-5" target="15" />
+      <module name="rmiService" target="15" />
     </bytecodeTargetLevel>
   </component>
 </project>
