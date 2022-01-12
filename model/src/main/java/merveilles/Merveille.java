@@ -1,9 +1,11 @@
 package merveilles;
 
 import type.IMerveille;
+
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Merveille implements IMerveille {
+public class Merveille implements IMerveille, Serializable {
 
 
     private String ressourceProduite; // ce que produit la merveille de base

@@ -7,11 +7,12 @@ import type.IMerveille;
 import merveilles.*;
 import cartes.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Joueur implements IJoueur {
+public class Joueur implements IJoueur, Serializable {
 
     private String nom;
     private ArrayList<ICarte> cartesJouees; //les cartes jouées par le joueur

@@ -2,9 +2,10 @@ package cartes;
 
 import type.ICarte;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public class Carte implements ICarte {
+public class Carte implements ICarte, Serializable {
 
     private String nom;
     private String type;

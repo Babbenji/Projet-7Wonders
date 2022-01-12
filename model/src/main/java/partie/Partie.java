@@ -8,10 +8,11 @@ import type.IMerveille;
 import merveilles.GestionsEffetsEtape;
 import type.IPartie;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class Partie implements IPartie {
+public class Partie implements IPartie, Serializable {
 
     private int idPartie;
     private static int s = 0;

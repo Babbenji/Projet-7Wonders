@@ -3,9 +3,10 @@ package cartes;
 import type.ICarte;
 import type.IDeck;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Deck implements IDeck {
+public class Deck implements IDeck, Serializable {
 
     private ArrayList<ICarte> deck;
 

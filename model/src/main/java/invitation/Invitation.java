@@ -1,6 +1,8 @@
 package invitation;
 
-public class Invitation {
+import java.io.Serializable;
+
+public class Invitation implements Serializable {
 
 
 

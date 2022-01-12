@@ -34,6 +34,7 @@ public class ServiceSevenWondersOnlineImpl  implements ServiceSevenWondersOnline
 
     @Override
     public User connexionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException {
+        System.out.println("ici");
         return this.facadeSevenWondersOnLine.connexionUser(nom, pw);
 
     }

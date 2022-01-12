@@ -35,6 +35,7 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
         } catch (RemoteException | NotBoundException e) {
            e.printStackTrace();
        }
+        System.out.println("Ok");
 
     }
 
@@ -53,9 +54,9 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
         try{
             return this.serviceSevenWondersOnline.connexionUser(nom,pw);
         }catch (PseudoOuMotDePasseIncorrectException | RemoteException e){
-            throw new RuntimeException("RMI Problem");
+            e.printStackTrace();
         }
-
+        return null;
     }
 
     @Override

@@ -2,7 +2,9 @@ package merveilles;
 
 import type.IJoueur;
 
-public class GestionsEffetsEtape {
+import java.io.Serializable;
+
+public class GestionsEffetsEtape implements Serializable {
 
     public void appliquerEffetMerveille(IJoueur joueur) {
 

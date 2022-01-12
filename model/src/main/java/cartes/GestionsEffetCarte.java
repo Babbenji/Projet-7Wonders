@@ -2,9 +2,10 @@ package cartes;
 
 import type.IJoueur;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public class GestionsEffetCarte {
+public class GestionsEffetCarte implements Serializable {
 
     public void appliquerEffetCarte (Map<String,String> effet, IJoueur joueur, IJoueur voisinGauche , IJoueur voisinDroite) throws Exception
     {

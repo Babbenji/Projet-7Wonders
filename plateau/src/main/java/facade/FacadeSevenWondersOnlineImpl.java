@@ -60,6 +60,7 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
 
     @Override
     public User connexionUser(String pseudo, String pw) throws PseudoOuMotDePasseIncorrectException {
+        System.out.println("Ici2");
         return this.mongodbService.loginUser(pseudo, pw);
     }
 
