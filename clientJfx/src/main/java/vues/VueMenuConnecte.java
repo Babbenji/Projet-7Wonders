@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
@@ -22,6 +23,8 @@ public class VueMenuConnecte implements Vue{
     @FXML
     ListView listAmis;
 
+    @FXML
+    Button boutonQuitter;
 
     private Stage stage;
     private Controleur controleur;
@@ -49,11 +52,14 @@ public class VueMenuConnecte implements Vue{
         vue.setStage(stage);
         Scene scene = new Scene(root);
         vue.setScene(scene);
-        vue.initialiserBouton();
+        vue.initialiserBoutonQuitter();
         return vue;
     }
 
-    private void initialiserBouton() {
+    private void initialiserBoutonQuitter() { this.boutonQuitter.setOnAction(e -> goExit()); }
+
+    private void goExit() {
+        this.controleur.exit();
     }
 
     @Override

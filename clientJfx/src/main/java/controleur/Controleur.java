@@ -81,6 +81,7 @@ public class Controleur
 
     public void goToMenuConnecte() throws RemoteException, NotBoundException, MalformedURLException {
         this.facade = new ProxySevenWondersOnLineImpl();
+        vueMenuConnecte.chargerDonnees();
         this.vueMenuConnecte.show();
     }
 
@@ -99,15 +100,14 @@ public class Controleur
     }
 
     public Boolean connexion(String pseudo,String mdp) throws PseudoOuMotDePasseIncorrectException, RemoteException, NotBoundException, MalformedURLException {
-        boolean test = false;
+        boolean connexionReussie = false;
         if(!Objects.isNull(this.facade.connexionUser(pseudo,mdp))){
-            test = true;
+            connexionReussie = true;
             this.nom = pseudo;
-            vueMenuConnecte.chargerDonnees();
             this.goToMenuConnecte();
 
         }
-        return test;
+        return connexionReussie;
     }
 
     public List<User> getAmis() {
@@ -117,4 +117,5 @@ public class Controleur
     public void exit() {
         System.exit(0);
     }
+
 }

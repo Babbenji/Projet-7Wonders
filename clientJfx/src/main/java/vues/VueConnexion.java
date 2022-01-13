@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import services.exceptions.PseudoOuMotDePasseIncorrectException;
+import user.User;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -111,6 +112,7 @@ public class VueConnexion implements Vue{
 
         if(this.controleur.connexion(pseudo,mdp)){
             System.out.println("Connexion de " + pseudo);
+            this.controleur.goToMenuConnecte();
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR,"Mauvais identifiants 😢", ButtonType.OK);
             alert.showAndWait();
