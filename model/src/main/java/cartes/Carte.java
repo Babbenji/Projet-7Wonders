@@ -11,7 +11,7 @@ public class Carte implements ICarte, Serializable {
     private String nom;
     private String type;
     private Map<String, Integer> cout;
-    private Image image;
+    private String image;
 
     private int age;
     Map<String,String> effet;
@@ -31,13 +31,14 @@ public class Carte implements ICarte, Serializable {
         super();
     }
 
-    public Carte(String nom, String type, Map<String, Integer> cout, int configurationNumber, int age, Map<String, String> effet, Map<String,String> chainage) {
+    public Carte(String nom, String type, Map<String, Integer> cout, int configurationNumber, int age, Map<String, String> effet, Map<String,String> chainage,String image) {
         this.nom = nom;
         this.type = type;
         this.cout = cout;
         this.age = age;
         this.effet = effet;
         this.chainage = chainage;
+        this.image = image;
 
     }
 
@@ -66,6 +67,14 @@ public class Carte implements ICarte, Serializable {
     @Override
     public Map<String, Integer> getCout() {
         return cout;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override
@@ -101,7 +110,7 @@ public class Carte implements ICarte, Serializable {
                 "nom='" + nom + '\'' +
                 ", type='" + type + '\'' +
                 ", cout=" + cout +
-                ", image=" + image +
+                ", image='" + image + '\'' +
                 ", age=" + age +
                 ", effet=" + effet +
                 ", chainage=" + chainage +

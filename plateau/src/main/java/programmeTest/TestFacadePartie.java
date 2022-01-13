@@ -1,13 +1,12 @@
 package programmeTest;
 
-import cartes.Carte;
+
 import facade.FacadeSevenWondersOnlineImpl;
 import joueur.Joueur;
 import partie.Partie;
 import type.ICarte;
 import type.IJoueur;
 import type.IMerveille;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,11 +80,9 @@ public class TestFacadePartie
 
 
         System.out.println("------------- TESTS DEFAUSSER CARTE ------------");
-        //partie.deffausserCarte(joueur1,joueur1.getDeck().getCarteDansDeck(0));
+        partie.deffausserCarte(joueur1,joueur1.getDeck().getCarteDansDeck(0));
         System.out.println(partie.getCarteDefausse());
         System.out.println(partie.getCarteDefausse().size());
-
-
 
 
         System.out.println("-----------------TESTS ACHAT ETAPE CARTE-------------");
