@@ -29,7 +29,8 @@ public class Controleur
     private IJoueur joueur;
     private IDeck deck;
     private IMerveille merveille;
-
+    private String nom;
+    private User user;
 
     public Controleur(Stage stage) throws IOException, NotBoundException {
         facade = new ProxySevenWondersOnLineImpl();
@@ -73,43 +74,44 @@ public class Controleur
         return merveille;
     }
 
-    public void goToMenu() throws RemoteException, NotBoundException, MalformedURLException {
-        this.facade = new ProxySevenWondersOnLineImpl();
+    public void goToMenu() {
         this.vueMenuNonConnecte.show();
     }
 
-    public void goToMenuConnecte() throws RemoteException, NotBoundException, MalformedURLException {
-        this.facade = new ProxySevenWondersOnLineImpl();
+    public void goToMenuConnecte() {
+        vueMenuConnecte.chargerDonnees();
         this.vueMenuConnecte.show();
     }
 
-    public void goToConnexion() throws RemoteException, NotBoundException, MalformedURLException {
-        this.facade = new ProxySevenWondersOnLineImpl();
+    public void goToConnexion()  {
         this.vueConnexion.show();
     }
 
-    public void goToInscription() throws RemoteException, NotBoundException, MalformedURLException {
-        this.facade = new ProxySevenWondersOnLineImpl();
+    public void goToInscription() {
         this.vueInscription.show();
     }
 
     public String getNom() {
-        return this.joueur.getNom();
+        return this.nom;
     }
 
-    public Boolean connexion(String pseudo,String mdp) throws PseudoOuMotDePasseIncorrectException {
-        boolean test = false;
-        if(!Objects.isNull(this.facade.connexionUser(pseudo,mdp))){
-            test = true;
+    public Boolean connexion(String pseudo,String mdp) throws PseudoOuMotDePasseIncorrectException, RemoteException, NotBoundException, MalformedURLException {
+        boolean connexionReussie = false;
+        this.user = this.facade.connexionUser(pseudo,mdp);
+        if(!Objects.isNull(this.user)){
+            connexionReussie = true;
+            this.nom = pseudo;
+            this.goToMenuConnecte();
 
         }
-        return test;
+        return connexionReussie;
     }
 
     public List<User> getAmis() {
-        return null;
+        return this.user.getAmis();
     }
     public void exit() {
         System.exit(0);
     }
+
 }

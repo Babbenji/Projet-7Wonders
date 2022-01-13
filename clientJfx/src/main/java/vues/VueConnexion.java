@@ -11,13 +11,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import services.exceptions.PseudoOuMotDePasseIncorrectException;
+import user.User;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.Objects;
 
 public class VueConnexion implements Vue{
 

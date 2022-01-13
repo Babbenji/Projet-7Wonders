@@ -1,10 +1,13 @@
 package vues;
 
 import controleur.Controleur;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
@@ -13,6 +16,7 @@ import user.User;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VueMenuConnecte implements Vue{
 
@@ -22,6 +26,8 @@ public class VueMenuConnecte implements Vue{
     @FXML
     ListView listAmis;
 
+    @FXML
+    Button boutonQuitter;
 
     private Stage stage;
     private Controleur controleur;
@@ -49,11 +55,14 @@ public class VueMenuConnecte implements Vue{
         vue.setStage(stage);
         Scene scene = new Scene(root);
         vue.setScene(scene);
-        vue.initialiserBouton();
+        vue.initialiserBoutonQuitter();
         return vue;
     }
 
-    private void initialiserBouton() {
+    private void initialiserBoutonQuitter() { this.boutonQuitter.setOnAction(e -> goExit()); }
+
+    private void goExit() {
+        this.controleur.exit();
     }
 
     @Override
@@ -67,7 +76,10 @@ public class VueMenuConnecte implements Vue{
         String nom = controleur.getNom();
         this.pseudo.setText(nom);
         List<User> amis = controleur.getAmis();
-        amis.forEach(a -> this.listAmis.getItems().add(a));
+
+        this.listAmis.getItems().add(amis);
+
+
     }
 
     @Override

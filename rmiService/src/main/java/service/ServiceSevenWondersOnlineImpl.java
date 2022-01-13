@@ -11,6 +11,7 @@ import user.User;
 
 
 import java.rmi.RemoteException;
+import java.util.List;
 
 public class ServiceSevenWondersOnlineImpl  implements ServiceSevenWondersOnline {
 
@@ -46,8 +47,8 @@ public class ServiceSevenWondersOnlineImpl  implements ServiceSevenWondersOnline
     }
 
     @Override
-    public void getAmis() {
-        this.facadeSevenWondersOnLine.getAmis();
+    public List<User> getAmis() {
+        return this.facadeSevenWondersOnLine.getAmis();
 
     }
 

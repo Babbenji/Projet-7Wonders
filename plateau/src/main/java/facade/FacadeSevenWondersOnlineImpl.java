@@ -70,8 +70,8 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
     }
 
     @Override
-    public void getAmis(){
-        this.user.getAmis();
+    public List<User> getAmis(){
+        return this.user.getAmis();
     }
 
     @Override

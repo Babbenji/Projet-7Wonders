@@ -10,6 +10,7 @@ import user.User;
 
 
 import java.rmi.RemoteException;
+import java.util.List;
 
 public interface ProxySevenWondersOnLine
 
@@ -37,7 +38,7 @@ public interface ProxySevenWondersOnLine
     /**
      * Permet de récupérer une liste d'objets User
      */
-    void getAmis();
+    List<User> getAmis();
 
     /**
      * Permet d'inviter un joueur
