@@ -53,8 +53,8 @@ public class Controleur
         vueMenuNonConnecte.show();
     }
 
-    public void miseEnPlaceDuJeu(IJoueur joueur) throws RemoteException {
-        this.facade.miseEnPlaceDuJeu(joueur);
+    public void miseEnPlaceDuJeu() throws RemoteException {
+        this.facade.miseEnPlaceDuJeu(this.joueur);
     }
 
     public ProxySevenWondersOnLine getFacade() {
@@ -109,7 +109,6 @@ public class Controleur
     public List<User> getAmis() {
         return null;
     }
-
     public void exit() {
         System.exit(0);
     }

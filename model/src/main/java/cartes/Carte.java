@@ -1,5 +1,6 @@
 package cartes;
 
+import javafx.scene.image.Image;
 import type.ICarte;
 
 import java.io.Serializable;
@@ -10,6 +11,7 @@ public class Carte implements ICarte, Serializable {
     private String nom;
     private String type;
     private Map<String, Integer> cout;
+    private Image image;
 
     private int age;
     Map<String,String> effet;
@@ -91,5 +93,18 @@ public class Carte implements ICarte, Serializable {
     @Override
     public void setEffet(Map<String, String> effet) {
         this.effet = effet;
+    }
+
+    @Override
+    public String toString() {
+        return "Carte{" +
+                "nom='" + nom + '\'' +
+                ", type='" + type + '\'' +
+                ", cout=" + cout +
+                ", image=" + image +
+                ", age=" + age +
+                ", effet=" + effet +
+                ", chainage=" + chainage +
+                '}';
     }
 }

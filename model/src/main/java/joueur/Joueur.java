@@ -72,7 +72,7 @@ public class Joueur implements IJoueur, Serializable {
         nbTablettes = 0;
         nbSymboleUniversel = 0; // sert pour l'étape 2 d'Alexandria et pour la Guilde des scientifiques (gain de symbole scientifique selon ce qui est le plus rentable)
         merveille = null;  // le joueur n'aura pas encore choisi de merveille à sa création
-        this.deck = null;
+        this.deck = new Deck();
         this.amis = null;
         this.AJoue = false;
     }
@@ -521,4 +521,15 @@ public class Joueur implements IJoueur, Serializable {
         return commerceMatieresPremieresGauche;
     }
 
+    @Override
+    public String toString() {
+        return "Joueur{" +
+                "nom='" + nom + '\'' +
+                ", cartesJouees=" + cartesJouees +
+                ", ressources=" + ressources +
+                ", merveille=" + merveille +
+                ", deck=" + deck +
+                ", pieces=" + pieces +
+                '}';
+    }
 }

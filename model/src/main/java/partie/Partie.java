@@ -45,10 +45,10 @@ public class Partie implements IPartie, Serializable {
         this.listeDesJoueurs = listeDesJoueurs;
         this.cartes = cartes;
         this.merveilles = merveilles;
-        this.cartesAgeI = null;
-        this.cartesAgeII = null;
-        this.cartesAgeIII = null;
-        this.carteDefausse = null;
+        this.cartesAgeI = new ArrayList<>();
+        this.cartesAgeII = new ArrayList<>();
+        this.cartesAgeIII = new ArrayList<>();
+        this.carteDefausse = new ArrayList<>();
         this.gestionsEffetsEtape = null;
         this.gestionsEffetCarte = null;
         this.ageEnCours = 1;
@@ -64,7 +64,6 @@ public class Partie implements IPartie, Serializable {
     public void constructionDesListes()
     {
         Collections.shuffle(this.merveilles);
-
         this.cartes.forEach(c -> {
             if (c.getAge() == 1){
                 this.cartesAgeI.add(c);
@@ -84,21 +83,23 @@ public class Partie implements IPartie, Serializable {
     public void miseEnPlacePartie()
     {
         this.constructionDesListes();
+        Iterator<ICarte> iter = this.cartesAgeI.iterator();
+        Iterator<IMerveille> itera = this.merveilles.iterator();
         this.listeDesJoueurs.forEach( j -> {
-            this.cartesAgeI.forEach(c -> {
-                j.getDeck().ajoutCarteDansDeck(c);
-                this.cartesAgeI.remove(c);
-            });
-
-            this.merveilles.forEach(m -> {
-                j.setMerveille(m);
-                this.merveilles.remove(m);
-            });
+            j.setMerveille(itera.next());
+        });
+        this.listeDesJoueurs.forEach( j -> {
+            while (j.getDeck().getSizeDeck() < 7)
+            {
+                j.getDeck().ajoutCarteDansDeck(iter.next());
+                iter.remove();
+            }
         });
     }
 
     @Override
-    public void jouerCarte(IJoueur joueur, ICarte carte) throws Exception {
+    public void jouerCarte(IJoueur joueur, ICarte carte) throws Exception
+    {
         int indice = listeDesJoueurs.indexOf(joueur);
         boolean achatPossible = true;
         int pieceRedevableVoisinGauche = 0; // ces variables permettent d'appliquer l'achat de la carte que apres la verification de tous les conditions possible
@@ -110,6 +111,12 @@ public class Partie implements IPartie, Serializable {
                 carteGratuite.set(true);
             }
         });
+
+        if (carte.getCout().isEmpty())
+        {
+            carteGratuite.set(true);
+        }
+
         if(!carteGratuite.get())
         {
           if(carte.getCout().containsKey("pieces"))
@@ -162,23 +169,24 @@ public class Partie implements IPartie, Serializable {
                       }
                   }
               }
-              if(achatPossible)
-              {
-                  listeDesJoueurs.get(voisinDeGauche(indice)).addPieces(pieceRedevableVoisinGauche);
-                  listeDesJoueurs.get(voisinDeDroite(indice)).addPieces(pieceRedevableVoisinDroite);
-                  joueur.enleverPieces(pieceRedevableVoisinGauche + pieceRedevableVoisinDroite);
-                  joueur.getCartesJouees().add(carte);
-                  joueur.getDeck().enleverCarteDuDeck(carte);
-                  gestionsEffetCarte.appliquerEffetCarte(carte.getEffet(),joueur, listeDesJoueurs.get(voisinDeGauche(indice)), listeDesJoueurs.get(voisinDeDroite(indice)));
-              }
-              else
-              {
-                  // Notif si il clique sur acheter ca doit lui afficher qu'il ne peut pas !
-              }
           }
         }
+        if(achatPossible)
+        {
+            listeDesJoueurs.get(voisinDeGauche(indice)).addPieces(pieceRedevableVoisinGauche);
+            listeDesJoueurs.get(voisinDeDroite(indice)).addPieces(pieceRedevableVoisinDroite);
+            joueur.enleverPieces(pieceRedevableVoisinGauche + pieceRedevableVoisinDroite);
+            joueur.getCartesJouees().add(carte);
+            joueur.getDeck().enleverCarteDuDeck(carte);
+            gestionsEffetCarte.appliquerEffetCarte(carte.getEffet(),joueur, listeDesJoueurs.get(voisinDeGauche(indice)), listeDesJoueurs.get(voisinDeDroite(indice)));
+        }
+
+        else
+        {
+            // Notif si il clique sur acheter ca doit lui afficher qu'il ne peut pas !
+        }
         joueur.setAJoue(true);
-        suitePartie();
+        //suitePartie();
     }
 
     @Override
@@ -188,8 +196,8 @@ public class Partie implements IPartie, Serializable {
             for (int i =0; i< joueur.getDeck().getSizeDeck(); i++)
             {
                 carteDefausse.add(joueur.getDeck().getCarteDansDeck(i));
-                joueur.getDeck().clearDeck();
             }
+            joueur.getDeck().clearDeck();
         }
 
     }
@@ -198,14 +206,15 @@ public class Partie implements IPartie, Serializable {
         joueur.getDeck().enleverCarteDuDeck(carte);
         carteDefausse.add(carte);
         joueur.addPieces(3);
-        suitePartie();
+        //suitePartie();
     }
 
     @Override
-    public void construireEtape(IJoueur p) throws Exception {
+    public void construireEtape(IJoueur p) throws Exception
+    {
         this.gestionsEffetsEtape.appliquerEffetMerveille(p);
         p.getMerveille().setEtape(p.getMerveille().getEtape()+1);  //on incrémente le num de l'étape de la merveille
-        suitePartie();
+        //suitePartie();
     }
 
     @Override
@@ -225,8 +234,9 @@ public class Partie implements IPartie, Serializable {
                 {
                     listeDesJoueurs.get(j).setDeck(deck);
                 }
-                else {
-                    listeDesJoueurs.get(j).setDeck(listeDesJoueurs.get(NB_JOUEURS-1).getDeck());
+                else
+                {
+                    listeDesJoueurs.get(j).setDeck(listeDesJoueurs.get(j-1).getDeck());
                 }
             }
         }
@@ -253,22 +263,23 @@ public class Partie implements IPartie, Serializable {
     @Override
     public void passerAgeSuivant()
     {
+        deffausserCarteFinAge();
         ageEnCours +=1;
+        Iterator<ICarte> iter2 = this.cartesAgeII.iterator();
+        Iterator<ICarte> iter3 = this.cartesAgeIII.iterator();
         if (ageEnCours == 2)
         {
             this.listeDesJoueurs.forEach( j -> {
-                this.cartesAgeII.forEach(c -> {
-                    j.getDeck().ajoutCarteDansDeck(c);
-                    this.cartesAgeII.remove(c);
-                });
+
+                j.getDeck().ajoutCarteDansDeck(iter2.next());
+                iter2.remove();
+
             });
         }
         else {
             this.listeDesJoueurs.forEach( j -> {
-                this.cartesAgeIII.forEach(c -> {
-                    j.getDeck().ajoutCarteDansDeck(c);
-                    this.cartesAgeIII.remove(c);
-                });
+                j.getDeck().ajoutCarteDansDeck(iter3.next());
+                iter3.remove();
             });
         }
     }
@@ -408,34 +419,34 @@ public class Partie implements IPartie, Serializable {
         }
 
     }
+//    @Override
+//    public void suitePartie() throws Exception {
+//
+//        if(!finDernierTourDernierAge())
+//        {
+//            if (finAge())
+//            {
+//                conflitsMilitaire();
+//                deffausserCarteFinAge();
+//                passerAgeSuivant();
+//            }
+//
+//            if (toutLeMondeAJoue())
+//            {
+//                passerAuTourSuivant();
+//            }
+//        }
+//        else {
+//            conflitsMilitaire();
+//            deffausserCarteFinAge();
+//            partieTerminee = true;
+//        }
+//
+//
+//
+//        // on arrete la partie ici
+//    }
 
-    @Override
-    public void suitePartie() throws Exception {
-
-        if(!finDernierTourDernierAge())
-        {
-            if (finAge())
-            {
-                conflitsMilitaire();
-                deffausserCarteFinAge();
-                passerAgeSuivant();
-            }
-
-            if (toutLeMondeAJoue())
-            {
-                passerAuTourSuivant();
-            }
-        }
-        else {
-            conflitsMilitaire();
-            deffausserCarteFinAge();
-            partieTerminee = true;
-        }
-
-
-
-        // on arrete la partie ici
-    }
     @Override
     public void comptagePointVictoirePourBatimentScientifique(IJoueur joueur)
     {

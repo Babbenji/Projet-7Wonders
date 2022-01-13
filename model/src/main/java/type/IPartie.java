@@ -34,7 +34,7 @@ public interface IPartie {
 
     void partieTerminee() throws Exception;
 
-    void suitePartie() throws Exception;
+    //void suitePartie() throws Exception;
 
     void comptagePointVictoirePourBatimentScientifique(IJoueur joueur);
 

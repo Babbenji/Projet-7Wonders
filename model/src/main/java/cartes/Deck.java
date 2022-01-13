@@ -10,7 +10,8 @@ public class Deck implements IDeck, Serializable {
 
     private ArrayList<ICarte> deck;
 
-    public Deck() {
+    public Deck()
+    {
         deck = new ArrayList<>();
     }
 
@@ -26,10 +27,6 @@ public class Deck implements IDeck, Serializable {
     {
         deck.remove(carte);
     }
-
-
-
-
     @Override
     public int getSizeDeck()
     {
@@ -46,4 +43,10 @@ public class Deck implements IDeck, Serializable {
         deck.clear();
     }
 
+    @Override
+    public String toString() {
+        return "Deck{" +
+                "deck=" + deck +
+                '}';
+    }
 }
