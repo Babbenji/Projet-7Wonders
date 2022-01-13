@@ -30,7 +30,7 @@ public class Controleur
     private IDeck deck;
     private IMerveille merveille;
     private String nom;
-
+    private User user;
 
     public Controleur(Stage stage) throws IOException, NotBoundException {
         facade = new ProxySevenWondersOnLineImpl();
@@ -101,7 +101,8 @@ public class Controleur
 
     public Boolean connexion(String pseudo,String mdp) throws PseudoOuMotDePasseIncorrectException, RemoteException, NotBoundException, MalformedURLException {
         boolean connexionReussie = false;
-        if(!Objects.isNull(this.facade.connexionUser(pseudo,mdp))){
+        this.user = this.facade.connexionUser(pseudo,mdp);
+        if(!Objects.isNull(this.user)){
             connexionReussie = true;
             this.nom = pseudo;
             this.goToMenuConnecte();
@@ -111,7 +112,7 @@ public class Controleur
     }
 
     public List<User> getAmis() {
-        return this.facade.getAmis();
+        return this.user.getAmis();
     }
 
     public void exit() {

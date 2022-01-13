@@ -1,6 +1,8 @@
 package vues;
 
 import controleur.Controleur;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,6 +16,7 @@ import user.User;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VueMenuConnecte implements Vue{
 
@@ -72,8 +75,11 @@ public class VueMenuConnecte implements Vue{
     public void chargerDonnees() {
         String nom = controleur.getNom();
         this.pseudo.setText(nom);
-       // List<User> amis = controleur.getAmis();
-        //amis.forEach(a -> this.listAmis.getItems().add(a));
+        List<User> amis = controleur.getAmis();
+
+        this.listAmis.getItems().add(amis);
+
+
     }
 
     @Override
