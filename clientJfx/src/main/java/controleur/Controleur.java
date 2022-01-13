@@ -74,24 +74,20 @@ public class Controleur
         return merveille;
     }
 
-    public void goToMenu() throws RemoteException, NotBoundException, MalformedURLException {
-        this.facade = new ProxySevenWondersOnLineImpl();
+    public void goToMenu() {
         this.vueMenuNonConnecte.show();
     }
 
-    public void goToMenuConnecte() throws RemoteException, NotBoundException, MalformedURLException {
-        this.facade = new ProxySevenWondersOnLineImpl();
+    public void goToMenuConnecte() {
         vueMenuConnecte.chargerDonnees();
         this.vueMenuConnecte.show();
     }
 
-    public void goToConnexion() throws RemoteException, NotBoundException, MalformedURLException {
-        this.facade = new ProxySevenWondersOnLineImpl();
+    public void goToConnexion()  {
         this.vueConnexion.show();
     }
 
-    public void goToInscription() throws RemoteException, NotBoundException, MalformedURLException {
-        this.facade = new ProxySevenWondersOnLineImpl();
+    public void goToInscription() {
         this.vueInscription.show();
     }
 
