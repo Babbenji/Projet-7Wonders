@@ -176,25 +176,17 @@ public class Merveille implements IMerveille, Serializable {
         return null;
     }
 
-    //TO DO: finir cette méthode permettant de vérifier (avec la liste des ressources d'un joueur (liste ou joueur en parametre ?), si il peut construire l'étape suivante)
     @Override
-    public boolean peutAcheterEtape(){
-        return true;
+    public boolean peutAcheterEtape() {
+        return false;
     }
 
-    /*
-    //TO DO : finir cette méthode (il faut appliquer les effets de l'étape au joueur fourni en paramètre)
-    public void construireEtape(Joueur p) {
-            etape = etape+1; //on incrémente le num de l'étape de la merveille
-            //on applique l'effet au joueur
-            switch(etape) {
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-            }
+    @Override
+    public String toString() {
+        return "Merveille{" +
+                "ressourceProduite='" + ressourceProduite + '\'' +
+                ", cite='" + cite + '\'' +
+                ", etape=" + etape +
+                '}';
     }
-    */
 }

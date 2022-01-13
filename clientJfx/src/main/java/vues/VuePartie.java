@@ -1,6 +1,7 @@
 package vues;
 
 import controleur.Controleur;
+import javafx.scene.image.Image;
 import type.IDeck;
 import type.IJoueur;
 import type.IMerveille;
@@ -14,6 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 
 public class VuePartie implements Vue
 {
@@ -55,7 +57,6 @@ public class VuePartie implements Vue
     @FXML
     private ImageView carte_7;
 
-
     public static VuePartie creerVue(Stage stage)
     {
         URL location = VuePartie.class.getResource("partie.fxml");
@@ -81,8 +82,10 @@ public class VuePartie implements Vue
     }
 
     @Override
-    public void chargerDonnees()
-    {
+    public void chargerDonnees() throws RemoteException {
+        this.controleur.miseEnPlaceDuJeu();
+        IDeck deck = this.controleur.getDeck();
+        //carte_1.setImage();
 
     }
 
@@ -91,12 +94,6 @@ public class VuePartie implements Vue
     {
         this.controleur = controleur;
     }
-    public void initialiserPartie(IJoueur joueur)
-    {
-        IJoueur joueur1 = this.controleur.getJoueur();
-        IDeck deck = this.controleur.getDeck();
-        IMerveille merveille = this.controleur.getMerveille();
 
-    }
 
 }

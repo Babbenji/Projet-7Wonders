@@ -143,4 +143,15 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
         partie.partieTerminee();
     }
 
+    public Map<Integer, Partie> getParties() {
+        return parties;
+    }
+
+    public List<ICarte> getLesCartes() {
+        return lesCartes;
+    }
+
+    public List<IMerveille> getLesMerveilles() {
+        return lesMerveilles;
+    }
 }
