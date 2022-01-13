@@ -9,6 +9,7 @@ import user.User;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 
 
 public interface ServiceSevenWondersOnline extends Remote
@@ -37,7 +38,7 @@ public interface ServiceSevenWondersOnline extends Remote
     /**
      * Permet de récupérer une liste d'objets User
      */
-    void getAmis()throws RemoteException;
+    List<User> getAmis()throws RemoteException;
 
     /**
      * Permet d'inviter un joueur

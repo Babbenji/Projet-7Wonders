@@ -29,6 +29,7 @@ public class Controleur
     private IJoueur joueur;
     private IDeck deck;
     private IMerveille merveille;
+    private String nom;
 
 
     public Controleur(Stage stage) throws IOException, NotBoundException {
@@ -94,20 +95,23 @@ public class Controleur
     }
 
     public String getNom() {
-        return this.joueur.getNom();
+        return this.nom;
     }
 
-    public Boolean connexion(String pseudo,String mdp) throws PseudoOuMotDePasseIncorrectException {
+    public Boolean connexion(String pseudo,String mdp) throws PseudoOuMotDePasseIncorrectException, RemoteException, NotBoundException, MalformedURLException {
         boolean test = false;
         if(!Objects.isNull(this.facade.connexionUser(pseudo,mdp))){
             test = true;
+            this.nom = pseudo;
+            vueMenuConnecte.chargerDonnees();
+            this.goToMenuConnecte();
 
         }
         return test;
     }
 
     public List<User> getAmis() {
-        return null;
+        return this.facade.getAmis();
     }
 
     public void exit() {

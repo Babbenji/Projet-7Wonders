@@ -66,8 +66,8 @@ public class VueMenuConnecte implements Vue{
     public void chargerDonnees() {
         String nom = controleur.getNom();
         this.pseudo.setText(nom);
-        List<User> amis = controleur.getAmis();
-        amis.forEach(a -> this.listAmis.getItems().add(a));
+       // List<User> amis = controleur.getAmis();
+        //amis.forEach(a -> this.listAmis.getItems().add(a));
     }
 
     @Override

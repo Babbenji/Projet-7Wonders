@@ -19,6 +19,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.List;
 
 public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
 {
@@ -70,9 +71,9 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
     }
 
     @Override
-    public void getAmis() {
+    public List<User> getAmis() {
         try{
-            this.serviceSevenWondersOnline.getAmis();
+           return this.serviceSevenWondersOnline.getAmis();
         } catch (Exception  e) {
             throw new RuntimeException("RMI Problem");
         }

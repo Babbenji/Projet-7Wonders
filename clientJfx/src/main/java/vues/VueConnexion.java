@@ -111,7 +111,6 @@ public class VueConnexion implements Vue{
 
         if(this.controleur.connexion(pseudo,mdp)){
             System.out.println("Connexion de " + pseudo);
-            this.controleur.goToMenuConnecte();
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR,"Mauvais identifiants 😢", ButtonType.OK);
             alert.showAndWait();
