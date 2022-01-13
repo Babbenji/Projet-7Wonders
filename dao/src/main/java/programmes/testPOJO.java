@@ -67,9 +67,9 @@ public class testPOJO {
         System.out.println("----------------------------------");
         System.out.println();
         System.out.println("La liste d'amis de jlietard :");
-       /* for (IUser ami: mongodbService.getUserByPseudo("jlietard").getAmis()) {
+        for (User ami: mongodbService.getUserByPseudo("jlietard").getAmis()) {
             System.out.println("- "+ami.getPseudo());
-        }*/
+        }
 
 
         System.out.println();
