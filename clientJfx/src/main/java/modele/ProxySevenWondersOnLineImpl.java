@@ -4,6 +4,8 @@ package modele;
 import app.RunServer;
 import exceptions.MaxJoueursAtteintException;
 import exceptions.PartieNonTermineeException;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import service.ServiceSevenWondersOnline;
 import service.ServiceSevenWondersOnlineImpl;
 import services.exceptions.*;
@@ -42,11 +44,13 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
 
 
     @Override
-    public void inscriptionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException, PseudoDejaPrisException {
+    public User inscriptionUser(String nom, String pw) throws PseudoDejaPrisException {
         try {
-            this.serviceSevenWondersOnline.inscriptionUser(nom, pw);
-        } catch (PseudoOuMotDePasseIncorrectException | PseudoDejaPrisException | RemoteException e) {
+            return this.serviceSevenWondersOnline.inscriptionUser(nom, pw);
+        } catch (RemoteException | PseudoOuMotDePasseIncorrectException e) {
             throw new RuntimeException("RMI Problem");
+        } catch (PseudoDejaPrisException ex) {
+            throw new PseudoDejaPrisException();
         }
     }
 

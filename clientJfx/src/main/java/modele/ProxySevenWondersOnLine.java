@@ -17,13 +17,15 @@ public interface ProxySevenWondersOnLine
 {
     /**
      * Permet de s'inscrire à l'application
-     * @param nom
+     * @param nom  pseudo choisi
+     * @param pw   mot de passe choisi
      */
-    void inscriptionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException, PseudoDejaPrisException;
+    User inscriptionUser(String nom, String pw) throws PseudoDejaPrisException;
 
     /**
      * Permet de se connecter à l'application
-     * @param nom
+     * @param nom  pseudo renseigné
+     * @param pw  mot de passe renseigné
      */
     User connexionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException;
 

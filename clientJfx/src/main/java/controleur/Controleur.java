@@ -1,6 +1,7 @@
 package controleur;
 
 import services.exceptions.PseudoOuMotDePasseIncorrectException;
+import services.exceptions.PseudoDejaPrisException;
 import type.IDeck;
 import type.IJoueur;
 import type.IMerveille;
@@ -105,6 +106,15 @@ public class Controleur
 
         }
         return connexionReussie;
+    }
+
+    public Boolean inscription(String pseudo,String mdp) throws PseudoDejaPrisException, RemoteException, NotBoundException, MalformedURLException {
+        boolean inscriptionReussie = false;
+        this.user = this.facade.inscriptionUser(pseudo,mdp);
+        if(!Objects.isNull(this.user)){
+            inscriptionReussie = true;
+        }
+        return inscriptionReussie;
     }
 
     public List<User> getAmis() {
