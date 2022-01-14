@@ -7,8 +7,7 @@ import exceptions.PartieNonTermineeException;
 import service.ServiceSevenWondersOnline;
 import service.ServiceSevenWondersOnlineImpl;
 import services.exceptions.*;
-import type.ICarte;
-import type.IJoueur;
+import type.*;
 import user.User;
 
 import java.net.InetAddress;
@@ -25,8 +24,6 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
 {
     ServiceSevenWondersOnline serviceSevenWondersOnline;
 
-
-
     public ProxySevenWondersOnLineImpl() throws RemoteException, NotBoundException, MalformedURLException {
         System.out.println("Lancement du client");
 
@@ -39,7 +36,6 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
         System.out.println("Ok");
 
     }
-
 
     @Override
     public void inscriptionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException, PseudoDejaPrisException {
@@ -89,9 +85,19 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
     }
 
     @Override
-    public void creePartie() throws RemoteException {
+    public IMerveille getMerveille(IJoueur joueur) throws RemoteException {
+        return this.serviceSevenWondersOnline.getMerveille(joueur);
+    }
+
+    @Override
+    public IDeck getDeck(IJoueur joueur) throws RemoteException {
+        return this.serviceSevenWondersOnline.getDeck(joueur);
+    }
+
+    @Override
+    public IPartie creePartie() throws RemoteException {
         try{
-            this.serviceSevenWondersOnline.creePartie();
+            return this.serviceSevenWondersOnline.creePartie();
         } catch (RemoteException e) {
               throw new RuntimeException("RMI Problem");
         }

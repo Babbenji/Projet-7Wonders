@@ -513,6 +513,16 @@ public class Partie implements IPartie, Serializable {
     }
 
 
+    public IMerveille getMerveille(IJoueur joueur)
+    {
+        int indice = listeDesJoueurs.indexOf(joueur);
+        return listeDesJoueurs.get(indice).getMerveille();
+    }
+    public IDeck getDeck(IJoueur joueur)
+    {
+        int indice = listeDesJoueurs.indexOf(joueur);
+        return listeDesJoueurs.get(indice).getDeck();
+    }
 
     @Override
     public ArrayList<IJoueur> getListeDesJoueurs() {

@@ -11,9 +11,7 @@ import services.exceptions.JoueurDejaDansLaListeDAmisException;
 import services.exceptions.JoueurNonExistantException;
 import services.exceptions.PseudoDejaPrisException;
 import services.exceptions.PseudoOuMotDePasseIncorrectException;
-import type.ICarte;
-import type.IJoueur;
-import type.IMerveille;
+import type.*;
 import user.User;
 
 import java.nio.file.Paths;
@@ -81,13 +79,27 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
     }
 
     @Override
+    public IMerveille getMerveille(IJoueur joueur)
+    {
+        Partie partie = this.associationJoueurPartie.get(joueur);
+        return partie.getMerveille(joueur);
+    }
+
+    @Override
+    public IDeck getDeck(IJoueur joueur) {
+        Partie partie = this.associationJoueurPartie.get(joueur);
+        return partie.getDeck(joueur);
+    }
+
+    @Override
     public void rejoindreUnePartie(String nom)
     {
 
     }
 
     @Override
-    public void creePartie() {
+    public IPartie creePartie() {
+
         ArrayList<IJoueur> listJoueur = new ArrayList<>();
         for (User user: userDansPreLobby.keySet())
         {
@@ -100,11 +112,13 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
         for (IJoueur joueur: listJoueur) {
             this.associationJoueurPartie.put(joueur,partie);
         }
+        return partie;
     }
 
     @Override
     public void miseEnPlaceDuJeu(IJoueur joueur)
     {
+
         Partie partie = this.associationJoueurPartie.get(joueur);
         partie.miseEnPlacePartie();
     }

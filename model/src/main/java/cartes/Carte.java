@@ -82,8 +82,6 @@ public class Carte implements ICarte, Serializable {
         this.cout = cout;
     }
 
-
-
     @Override
     public int getAge() {
         return age;
@@ -103,6 +101,8 @@ public class Carte implements ICarte, Serializable {
     public void setEffet(Map<String, String> effet) {
         this.effet = effet;
     }
+
+
 
     @Override
     public String toString() {

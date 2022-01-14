@@ -5,8 +5,7 @@ import exceptions.PartieNonTermineeException;
 import facade.FacadeSevenWondersOnLine;
 import facade.FacadeSevenWondersOnlineImpl;
 import services.exceptions.*;
-import type.ICarte;
-import type.IJoueur;
+import type.*;
 import user.User;
 
 
@@ -59,8 +58,8 @@ public class ServiceSevenWondersOnlineImpl  implements ServiceSevenWondersOnline
     }
 
     @Override
-    public void creePartie() throws RemoteException {
-        this.facadeSevenWondersOnLine.creePartie();
+    public IPartie creePartie() throws RemoteException {
+        return this.facadeSevenWondersOnLine.creePartie();
 
     }
 
@@ -79,6 +78,16 @@ public class ServiceSevenWondersOnlineImpl  implements ServiceSevenWondersOnline
     public void jouerCarte(IJoueur joueur, ICarte carte) throws Exception {
         this.facadeSevenWondersOnLine.jouerCarte(joueur,carte);
 
+    }
+
+    @Override
+    public IDeck getDeck(IJoueur joueur) {
+        return this.facadeSevenWondersOnLine.getDeck(joueur);
+    }
+
+    @Override
+    public IMerveille getMerveille(IJoueur joueur) {
+        return this.facadeSevenWondersOnLine.getMerveille(joueur);
     }
 
     @Override

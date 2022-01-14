@@ -1,31 +1,32 @@
 package controleur;
 
+import facade.FacadeSevenWondersOnlineImpl;
+import joueur.Joueur;
+import merveilles.Merveille;
+import partie.Partie;
 import services.exceptions.PseudoOuMotDePasseIncorrectException;
-import type.IDeck;
-import type.IJoueur;
-import type.IMerveille;
+import type.*;
 import javafx.stage.Stage;
 import modele.ProxySevenWondersOnLine;
 import modele.ProxySevenWondersOnLineImpl;
 import user.User;
 import vues.*;
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Controleur
 {
     private ProxySevenWondersOnLine facade;
+
     private VueMenuNonConnecte vueMenuNonConnecte;
     private VueConnexion vueConnexion;
     private VueInscription vueInscription;
     private VueMenuConnecte vueMenuConnecte;
-
     private VuePartie vuePartie;
+
     private IJoueur joueur;
     private IDeck deck;
     private IMerveille merveille;
@@ -43,19 +44,19 @@ public class Controleur
         vueInscription.initialiserControleur(this);
         vueMenuConnecte = VueMenuConnecte.creer(stage);
         vueMenuConnecte.initialiserControleur(this);
-        /*
-        vuePartie = VuePartie.creerVue(stage);
-        vuePartie.initialiserControleur(this);
-        */
+        vuePartie = VuePartie.creerVue(stage,this);
+
+
     }
 
-    public void run()
+    public void run() throws RemoteException {
+
+        vuePartie.show();
+    }
+    public void miseEnPlace() throws RemoteException
     {
-        vueMenuNonConnecte.show();
-    }
 
-    public void miseEnPlaceDuJeu() throws RemoteException {
-        this.facade.miseEnPlaceDuJeu(this.joueur);
+
     }
 
     public ProxySevenWondersOnLine getFacade() {
@@ -66,19 +67,22 @@ public class Controleur
         return joueur;
     }
 
-    public IDeck getDeck() {
-        return deck;
+    public IDeck getDeck() throws RemoteException
+    {
+        return deck ;
     }
 
-    public IMerveille getMerveille() {
-        return merveille;
+    public IMerveille getMerveille() throws RemoteException {
+        return this.merveille;
     }
+
 
     public void goToMenu() {
         this.vueMenuNonConnecte.show();
     }
 
-    public void goToMenuConnecte() {
+    public void goToMenuConnecte()
+    {
         vueMenuConnecte.chargerDonnees();
         this.vueMenuConnecte.show();
     }
@@ -98,11 +102,11 @@ public class Controleur
     public Boolean connexion(String pseudo,String mdp) throws PseudoOuMotDePasseIncorrectException, RemoteException, NotBoundException, MalformedURLException {
         boolean connexionReussie = false;
         this.user = this.facade.connexionUser(pseudo,mdp);
-        if(!Objects.isNull(this.user)){
+        if(!Objects.isNull(this.user))
+        {
             connexionReussie = true;
             this.nom = pseudo;
             this.goToMenuConnecte();
-
         }
         return connexionReussie;
     }
@@ -114,4 +118,16 @@ public class Controleur
         System.exit(0);
     }
 
+
+    public void construireEtape() throws Exception {
+        this.facade.construireEtape(joueur);
+    }
+
+    public void defausserCarte() throws Exception {
+        this.facade.construireEtape(joueur);
+    }
+
+    public void jouerCarte(ICarte carte) throws Exception {
+        this.facade.jouerCarte(joueur,carte);
+    }
 }

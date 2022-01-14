@@ -187,6 +187,14 @@ public class Merveille implements IMerveille, Serializable {
                 "ressourceProduite='" + ressourceProduite + '\'' +
                 ", cite='" + cite + '\'' +
                 ", etape=" + etape +
+                ", image='" + image + '\'' +
+                ", ressourcesPremiereEtape=" + ressourcesPremiereEtape +
+                ", effetPremiereEtape=" + effetPremiereEtape +
+                ", ressourcesDeuxiemeEtape=" + ressourcesDeuxiemeEtape +
+                ", effetDeuxiemeEtape=" + effetDeuxiemeEtape +
+                ", ressourcesTroisiemeEtape=" + ressourcesTroisiemeEtape +
+                ", effetTroisiemeEtape=" + effetTroisiemeEtape +
+                ", ressourceEtapeCourante=" + ressourceEtapeCourante +
                 '}';
     }
 }

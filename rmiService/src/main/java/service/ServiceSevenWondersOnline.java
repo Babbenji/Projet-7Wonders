@@ -3,8 +3,7 @@ package service;
 import exceptions.MaxJoueursAtteintException;
 import exceptions.PartieNonTermineeException;
 import services.exceptions.*;
-import type.ICarte;
-import type.IJoueur;
+import type.*;
 import user.User;
 
 import java.rmi.Remote;
@@ -50,7 +49,7 @@ public interface ServiceSevenWondersOnline extends Remote
      * Permet de créer une partie
      *
      */
-    void creePartie() throws RemoteException;
+    IPartie creePartie() throws RemoteException;
 
     /**
      * Permet de rejoindre une partie
@@ -73,6 +72,10 @@ public interface ServiceSevenWondersOnline extends Remote
      * @param carte
      */
     void jouerCarte(IJoueur joueur, ICarte carte) throws Exception, RemoteException;
+
+    IDeck getDeck(IJoueur joueur) throws RemoteException;
+    IMerveille getMerveille(IJoueur joueur) throws RemoteException;
+
 
     /**
      *

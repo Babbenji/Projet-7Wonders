@@ -4,8 +4,7 @@ package modele;
 import exceptions.MaxJoueursAtteintException;
 import exceptions.PartieNonTermineeException;
 import services.exceptions.*;
-import type.ICarte;
-import type.IJoueur;
+import type.*;
 import user.User;
 
 
@@ -46,11 +45,14 @@ public interface ProxySevenWondersOnLine
      */
     void inviterJoueur(IJoueur joueur);
 
+    IMerveille getMerveille(IJoueur joueur) throws RemoteException;
+    IDeck getDeck (IJoueur joueur) throws RemoteException;
+
     /**
      * Permet de créer une partie
      *
      */
-    void creePartie() throws RemoteException;
+    IPartie creePartie() throws RemoteException;
 
     /**
      * Permet de rejoindre une partie

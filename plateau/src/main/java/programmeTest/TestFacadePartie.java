@@ -86,6 +86,7 @@ public class TestFacadePartie
 
 
         System.out.println("-----------------TESTS ACHAT ETAPE CARTE-------------");
+        System.out.println(joueur1.getMerveille());
 
 
 

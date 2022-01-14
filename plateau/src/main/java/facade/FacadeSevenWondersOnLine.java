@@ -3,8 +3,7 @@ package facade;
 import exceptions.MaxJoueursAtteintException;
 import exceptions.PartieNonTermineeException;
 import services.exceptions.*;
-import type.ICarte;
-import type.IJoueur;
+import type.*;
 import user.User;
 
 import java.rmi.RemoteException;
@@ -43,11 +42,14 @@ public interface FacadeSevenWondersOnLine {
      */
     void inviterJoueur(IJoueur joueur);
 
+    IMerveille getMerveille(IJoueur joueur);
+    IDeck getDeck(IJoueur joueur);
+
     /**
      * Permet de créer une partie
      *
      */
-    void creePartie() throws RemoteException;
+    IPartie creePartie() throws RemoteException;
 
     /**
      * Permet de rejoindre une partie

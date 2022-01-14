@@ -26,4 +26,6 @@ public interface ICarte {
     Map<String, String> getEffet();
 
     void setEffet(Map<String, String> effet);
+    String getImage();
+
 }
