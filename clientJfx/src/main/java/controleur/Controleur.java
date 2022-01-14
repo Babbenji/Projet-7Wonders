@@ -6,6 +6,10 @@ import merveilles.Merveille;
 import partie.Partie;
 import services.exceptions.PseudoOuMotDePasseIncorrectException;
 import type.*;
+import services.exceptions.PseudoDejaPrisException;
+import type.IDeck;
+import type.IJoueur;
+import type.IMerveille;
 import javafx.stage.Stage;
 import modele.ProxySevenWondersOnLine;
 import modele.ProxySevenWondersOnLineImpl;
@@ -56,7 +60,8 @@ public class Controleur
     public void miseEnPlace() throws RemoteException
     {
 
-
+    public void miseEnPlaceDuJeu() throws RemoteException {
+        this.facade.miseEnPlaceDuJeu(this.joueur);
     }
 
     public ProxySevenWondersOnLine getFacade() {
@@ -109,6 +114,15 @@ public class Controleur
             this.goToMenuConnecte();
         }
         return connexionReussie;
+    }
+
+    public Boolean inscription(String pseudo,String mdp) throws PseudoDejaPrisException, RemoteException, NotBoundException, MalformedURLException {
+        boolean inscriptionReussie = false;
+        this.user = this.facade.inscriptionUser(pseudo,mdp);
+        if(!Objects.isNull(this.user)){
+            inscriptionReussie = true;
+        }
+        return inscriptionReussie;
     }
 
     public List<User> getAmis() {

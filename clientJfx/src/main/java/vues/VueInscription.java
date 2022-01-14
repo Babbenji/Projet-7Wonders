@@ -10,6 +10,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import services.exceptions.PseudoDejaPrisException;
+import services.exceptions.PseudoOuMotDePasseIncorrectException;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -75,7 +77,21 @@ public class VueInscription implements Vue{
     }
 
     private void initBoutonValider() {
-        this.buttonValider.setOnAction(e -> connexion());
+        this.buttonValider.setOnAction(e -> {
+            try {
+                inscription();
+            } catch (RemoteException ex) {
+                ex.printStackTrace();
+            } catch (NotBoundException ex) {
+                ex.printStackTrace();
+            } catch (MalformedURLException ex) {
+                ex.printStackTrace();
+            } catch (PseudoDejaPrisException ex) {
+                ex.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Pseudo déjà pris !", ButtonType.OK);
+                alert.showAndWait();
+            }
+        });
     }
 
     private void initBoutonRetour() {
@@ -92,16 +108,23 @@ public class VueInscription implements Vue{
         });
     }
 
-    private void connexion() {
-        String pseudo = this.textFieldPseudo.getText();
-        if (Objects.isNull(pseudo) || pseudo.length()<2) {
-            Alert alert = new Alert(Alert.AlertType.ERROR,"Vous devez renseigner un pseudo d'au moins 2 caractères !!", ButtonType.OK);
+    private void inscription() throws RemoteException, NotBoundException, MalformedURLException, PseudoDejaPrisException {
+        String pseudoInscr = this.textFieldPseudo.getText();
+        String mdpInscr = this.textFieldMDP.getText();
+
+        if(pseudoInscr.length() >= 5 || mdpInscr.length() >= 5) {
+            if (this.controleur.inscription(pseudoInscr, mdpInscr)) {
+                System.out.println("Inscription de " + pseudoInscr);
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Vous êtes inscrits " + pseudoInscr + " ! Veuillez vous connecter.", ButtonType.OK);
+                alert.showAndWait();
+                this.controleur.goToConnexion();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "erreur d'inscription...", ButtonType.OK);
+                alert.showAndWait();
+            }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Chaque champ doit comporter au minimum 6 caractères !", ButtonType.OK);
             alert.showAndWait();
-        }
-        else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"OK 👌", ButtonType.OK);
-            alert.showAndWait();
-            //controleur.connexion(pseudoJoueur);
         }
     }
     private void goMenu() throws RemoteException, NotBoundException, MalformedURLException {
