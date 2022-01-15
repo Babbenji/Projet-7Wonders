@@ -17,5 +17,7 @@ public class ClientTest {
         for(User user : u.getAmis()){
             System.out.println(user.getPseudo());
         }
+        System.out.println(proxySevenWondersOnLine.getUserByPseudo("tdurand"));
+
     }
 }

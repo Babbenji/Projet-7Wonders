@@ -109,4 +109,5 @@ public interface ServiceSevenWondersOnline extends Remote
      */
     void partieTerminee(IJoueur joueur) throws Exception, RemoteException;
 
+    User getUserByPseudo(String pseudo) throws RemoteException;
 }

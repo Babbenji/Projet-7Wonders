@@ -112,4 +112,9 @@ public class ServiceSevenWondersOnlineImpl  implements ServiceSevenWondersOnline
         this.facadeSevenWondersOnLine.partieTerminee(joueur);
 
     }
+
+    @Override
+    public User getUserByPseudo(String pseudo) throws RemoteException {
+        return this.facadeSevenWondersOnLine.getUserByPseudo(pseudo);
+    }
 }

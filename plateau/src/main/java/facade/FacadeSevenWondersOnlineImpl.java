@@ -163,6 +163,11 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
         partie.partieTerminee();
     }
 
+    @Override
+    public User getUserByPseudo(String pseudo) {
+       return this.mongodbService.getUserByPseudo(pseudo);
+    }
+
     public Map<Integer, Partie> getParties() {
         return parties;
     }

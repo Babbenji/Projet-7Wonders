@@ -107,6 +107,8 @@ public interface ProxySevenWondersOnLine
      */
     void partieTerminee(IJoueur joueur) throws Exception;
 
+    User getUserByPseudo(String user) throws RemoteException;
+
     /**
      * Permet d'ajouter un ami
      * @param user

@@ -146,6 +146,11 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
     }
 
     @Override
+    public User getUserByPseudo(String user) throws RemoteException {
+        return this.serviceSevenWondersOnline.getUserByPseudo(user);
+    }
+
+    @Override
     public void ajouterJoueurEnAmi(String pseudoAmi) throws JoueurNonExistantException, JoueurDejaDansLaListeDAmisException, RemoteException {
         try {
             this.serviceSevenWondersOnline.ajouterJoueurEnAmi(pseudoAmi);

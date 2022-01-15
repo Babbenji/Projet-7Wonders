@@ -16,5 +16,7 @@ public class TestFacade {
         for(User user : u.getAmis()){
             System.out.println(user.getPseudo());
         }
+
+        System.out.println(facadeSevenWondersOnLine.getUserByPseudo("tdurand"));
     }
 }

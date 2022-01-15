@@ -46,7 +46,7 @@ public class Carte implements ICarte, Serializable {
 
     public ImageView creationGraphique()
     {
-        File file = new File("C:\\Users\\benja\\IdeaProjects\\projet-7wonders-5\\clientJfx\\src\\main\\resources\\images\\");
+        File file = new File("clientJfx/src/main/resources/images/");
 
         Image image1 = new Image(file.toURI().toString()+this.image);
         ImageView imageView = new ImageView();

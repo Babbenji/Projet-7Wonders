@@ -15,5 +15,8 @@ public class ServiceTest {
         for(User user : u.getAmis()){
             System.out.println(user.getPseudo());
         }
+
+        System.out.println(serviceSevenWondersOnline.getUserByPseudo("tdurand"));
+
     }
 }

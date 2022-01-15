@@ -5,11 +5,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Orientation;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Popup;
+import javafx.scene.layout.Pane;
+import javafx.stage.Window;
+import joueur.Joueur;
 import type.ICarte;
 import type.IDeck;
 import type.IJoueur;
@@ -29,6 +35,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class VuePartie implements Vue
 {
@@ -43,12 +50,8 @@ public class VuePartie implements Vue
     public ListView lv;
 
     public Label lab;
-    public ImageView merveilleVoisinGauche;
     public Button jGauche;
-    public ImageView merveilleJoueurFace;
     public Button jFace;
-    public ImageView merveilleVoisinDroite;
-    public Button jDroite;
 
     public Label argent;
     public Label pvm;
@@ -59,12 +62,30 @@ public class VuePartie implements Vue
     public Label compas;
     public Label tabelettes;
 
+
     @FXML
     private ImageView merveilleIM;
 
-    private ImageView imageSelectionne;
-    
+    @FXML
+    ImageView merveilleJoueurFace;
 
+    @FXML
+    ImageView merveilleVoisinGauche;
+
+    @FXML
+    ImageView merveilleVoisinDroite;
+
+    @FXML
+    Button jDroite;
+
+
+
+
+    private ImageView imageSelectionne;
+
+    private IJoueur joueurGauche;
+    private IJoueur joueurDroite;
+    private IJoueur joueurEnFace;
     private Scene scene;
     private Controleur controleur;
     private Stage stage;
@@ -154,6 +175,17 @@ public class VuePartie implements Vue
 
     @Override
     public void chargerDonnees() throws RemoteException {
+
+        this.joueurGauche = this.controleur.getInfoJGauche();
+        File file = new File("clientJfx/src/main/resources/images/");
+        merveilleVoisinGauche.setImage(new Image(file.toURI().toString()+this.joueurGauche.getMerveille().getImage()));
+
+        this.joueurDroite = this.controleur.getInfoJDroite();
+        merveilleVoisinDroite.setImage(new Image(file.toURI().toString()+this.joueurDroite.getMerveille().getImage()));
+
+        this.joueurEnFace = this.controleur.getInfoJFace();
+        merveilleJoueurFace.setImage(new Image(file.toURI().toString()+this.joueurEnFace.getMerveille().getImage()));
+
     }
 
     public void jouerCarte(ActionEvent actionEvent) throws Exception
@@ -204,25 +236,130 @@ public class VuePartie implements Vue
     }
 
     public void voirInfoJDroite(ActionEvent actionEvent) {
-        IJoueur j= this.controleur.getInfoJDroite();
-        File file = new File("clientJfx/src/main/resources/images/");
-        Image image = new Image(file.toURI().toString()+j.getMerveille().getImage());
-        merveilleVoisinDroite.setImage(image);
+        Label argentD = new Label();
+        Label pvmD = new Label();
+        Label bouclierD = new Label();
+        Label pdmD = new Label();
+        Label pvD = new Label();
+        Label rouagesD = new Label();
+        Label compasD = new Label();
+        Label tabelettesD = new Label();
+
+        final Stage dialog = new Stage();
+        dialog.setTitle("Informations de " +this.joueurDroite.getNom());
+
+        dialog.initModality(Modality.NONE);
+        dialog.initOwner(this.stage);
+        VBox dialogVbox = new VBox(20);
+        dialogVbox.getChildren().add(new Text(this.joueurDroite.getRessources().keySet().stream()
+                .map(key -> key + "=" + this.joueurDroite.getRessources().get(key))
+                .collect(Collectors.joining(System.getProperty("line.separator")))));
+        argentD.setText(this.joueurDroite.argentString());
+        bouclierD.setText(joueurDroite.bouclierString());
+        pvD.setText(joueurDroite.pointVictoireString());
+        pdmD.setText(joueurDroite.pointDefaiteMilitaireString());
+        pvmD.setText(joueurDroite.pointsVictoireMilitaireString());
+        rouagesD.setText(joueurDroite.rouagesString());
+        compasD.setText(joueurDroite.compasString());
+        tabelettesD.setText(joueurDroite.tablettesString());
+
+        dialogVbox.getChildren().add(argentD);
+        dialogVbox.getChildren().add(bouclierD);
+        dialogVbox.getChildren().add(pvD);
+        dialogVbox.getChildren().add(pdmD);
+        dialogVbox.getChildren().add(pvmD);
+        dialogVbox.getChildren().add(rouagesD);
+        dialogVbox.getChildren().add(compasD);
+        dialogVbox.getChildren().add(tabelettesD);
+
+        Scene dialogScene = new Scene(dialogVbox, 400, 400);
+        dialog.setScene(dialogScene);
+        dialog.show();
 
     }
 
     public void voirInfoJGauche(ActionEvent actionEvent) {
-        IJoueur j= this.controleur.getInfoJGauche();
-        File file = new File("clientJfx/src/main/resources/images/");
-        Image image = new Image(file.toURI().toString()+j.getMerveille().getImage());
-        merveilleVoisinGauche.setImage(image);
+
+        Label argentG = new Label();
+        Label pvmG = new Label();
+        Label bouclierG = new Label();
+        Label pdmG = new Label();
+        Label pvG = new Label();
+        Label rouagesG = new Label();
+        Label compasG = new Label();
+        Label tabelettesG = new Label();
+
+        final Stage dialog = new Stage();
+        dialog.setTitle("Informations de " +this.joueurGauche.getNom());
+        dialog.initModality(Modality.NONE);
+        dialog.initOwner(this.stage);
+        VBox dialogVbox = new VBox(20);
+        dialogVbox.getChildren().add(new Text(this.joueurGauche.getRessources().keySet().stream()
+                .map(key -> key + "=" + this.joueurGauche.getRessources().get(key))
+                .collect(Collectors.joining(System.getProperty("line.separator")))));
+        argentG.setText(this.joueurGauche.argentString());
+        bouclierG.setText(joueurGauche.bouclierString());
+        pvG.setText(joueurGauche.pointVictoireString());
+        pdmG.setText(joueurGauche.pointDefaiteMilitaireString());
+        pvmG.setText(joueurGauche.pointsVictoireMilitaireString());
+        rouagesG.setText(joueurGauche.rouagesString());
+        compasG.setText(joueurGauche.compasString());
+        tabelettesG.setText(joueurGauche.tablettesString());
+
+        dialogVbox.getChildren().add(argentG);
+        dialogVbox.getChildren().add(bouclierG);
+        dialogVbox.getChildren().add(pvG);
+        dialogVbox.getChildren().add(pdmG);
+        dialogVbox.getChildren().add(pvmG);
+        dialogVbox.getChildren().add(rouagesG);
+        dialogVbox.getChildren().add(compasG);
+        dialogVbox.getChildren().add(tabelettesG);
+        Scene dialogScene = new Scene(dialogVbox, 400, 400);
+        dialog.setScene(dialogScene);
+        dialog.show();
+
     }
 
     public void voirInfoJFace(ActionEvent actionEvent) {
-        IJoueur j= this.controleur.getInfoJFace();
-        File file = new File("clientJfx/src/main/resources/images/");
-        Image image = new Image(file.toURI().toString()+j.getMerveille().getImage());
-        merveilleJoueurFace.setImage(image);
+        Label argentF = new Label();
+        Label pvmF = new Label();
+        Label bouclierF = new Label();
+        Label pdmF = new Label();
+        Label pvF = new Label();
+        Label rouagesF = new Label();
+        Label compasF = new Label();
+        Label tabelettesF = new Label();
+
+        final Stage dialog = new Stage();
+        dialog.setTitle("Informations de " +this.joueurEnFace.getNom());
+
+        dialog.initModality(Modality.NONE);
+        dialog.initOwner(this.stage);
+        VBox dialogVbox = new VBox(20);
+        dialogVbox.getChildren().add(new Text(this.joueurEnFace.getRessources().keySet().stream()
+                .map(key -> key + "=" + this.joueurEnFace.getRessources().get(key))
+                .collect(Collectors.joining(System.getProperty("line.separator")))));
+
+        argentF.setText(this.joueurEnFace.argentString());
+        bouclierF.setText(joueurEnFace.bouclierString());
+        pvF.setText(joueurEnFace.pointVictoireString());
+        pdmF.setText(joueurEnFace.pointDefaiteMilitaireString());
+        pvmF.setText(joueurEnFace.pointsVictoireMilitaireString());
+        rouagesF.setText(joueurEnFace.rouagesString());
+        compasF.setText(joueurEnFace.compasString());
+        tabelettesF.setText(joueurEnFace.tablettesString());
+
+        dialogVbox.getChildren().add(argentF);
+        dialogVbox.getChildren().add(bouclierF);
+        dialogVbox.getChildren().add(pvF);
+        dialogVbox.getChildren().add(pdmF);
+        dialogVbox.getChildren().add(pvmF);
+        dialogVbox.getChildren().add(rouagesF);
+        dialogVbox.getChildren().add(compasF);
+        dialogVbox.getChildren().add(tabelettesF);
+        Scene dialogScene = new Scene(dialogVbox, 400, 400);
+        dialog.setScene(dialogScene);
+        dialog.show();
     }
 
     public void onClickAfficher(MouseEvent mouseEvent) throws RemoteException {
@@ -231,5 +368,7 @@ public class VuePartie implements Vue
             ImageView imageView = (ImageView) lv.getSelectionModel().getSelectedItem();
             this.carte = associationCarteImageview.get(imageView);
         }
+
+
     }
 }

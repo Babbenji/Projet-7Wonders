@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="386.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.VueScores">
+    <children>
+        <ImageView fitHeight="423.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/newbg.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="200.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/logo.png" />
+            </image>
+        </ImageView>
+      <HBox alignment="CENTER" layoutX="100.0" layoutY="79.0" prefHeight="230.0" prefWidth="400.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="135.0" prefWidth="200.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="200.0" text="JOUEURS" textFill="WHITE" />
+                  <ListView fx:id="listJoueurs" prefHeight="212.0" prefWidth="200.0" />
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="10.0" prefHeight="135.0" prefWidth="200.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="200.0" text="SCORES" textFill="WHITE" />
+                  <ListView fx:id="listScores" prefHeight="212.0" prefWidth="200.0" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="150.0" layoutY="326.0" prefHeight="40.0" prefWidth="300.0" spacing="20.0">
+         <children>
+            <Button fx:id="boutonRejouer" mnemonicParsing="false" prefHeight="40.0" prefWidth="140.0" text="REJOUER" />
+            <Button fx:id="boutonQuitter" mnemonicParsing="false" prefHeight="40.0" prefWidth="140.0" text="QUITTER" />
+         </children>
+      </HBox>
+    </children>
+</AnchorPane>
