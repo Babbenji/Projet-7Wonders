@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Popup;
+import javafx.scene.layout.Pane;
 import joueur.Joueur;
 import type.ICarte;
 import type.IDeck;
@@ -44,6 +45,21 @@ public class VuePartie implements Vue
     public ListView lv;
 
     public Label lab;
+    public ImageView merveilleVoisinGauche;
+    public Button jGauche;
+    public ImageView merveilleJoueurFace;
+    public Button jFace;
+    public ImageView merveilleVoisinDroite;
+    public Button jDroite;
+
+    public Label argent;
+    public Label pvm;
+    public Label bouclier;
+    public Label pdm;
+    public Label pv;
+    public Label rouages;
+    public Label compas;
+    public Label tabelettes;
 
     @FXML
     private ImageView merveilleIM;
@@ -120,6 +136,19 @@ public class VuePartie implements Vue
 
     public void initialiserCarteMerveille() throws RemoteException { // a mettre dans le charge donne quand les tests seront finis
         this.controleur.miseEnPlaceDuJeu();
+        IJoueur joueur = this.controleur.getJoueur();
+
+        argent.setText(joueur.argentString());
+        bouclier.setText(joueur.bouclierString());
+        pv.setText(joueur.pointVictoireString());
+        pdm.setText(joueur.pointDefaiteMilitaireString());
+        pvm.setText(joueur.pointsVictoireMilitaireString());
+        bouclier.setText(joueur.bouclierString());
+        rouages.setText(joueur.rouagesString());
+        compas.setText(joueur.compasString());
+        tabelettes.setText(joueur.tablettesString());
+
+
         IMerveille merveille = this.controleur.getMerveille();
         File file = new File("clientJfx/src/main/resources/images/");
         Image image = new Image(file.toURI().toString()+merveille.getImage());
@@ -156,8 +185,10 @@ public class VuePartie implements Vue
 
     }
 
+
     public void jouerCarte(ActionEvent actionEvent) throws Exception
     {
+        lv.getSelectionModel().getSelectedItem();
         boutonJouer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -179,20 +210,16 @@ public class VuePartie implements Vue
         this.controleur.defausserCarte();
 
     }
-    public void choixCarteAJoue(MouseEvent mouseEvent) throws RemoteException {
-
-        ImageView imageView = (ImageView) mouseEvent.getSource();
-        if(mouseEvent.getClickCount()==2)
-        {
-
-        }
-    }
 
     public ICarte getCarte() {
         return carte;
     }
 
     public void voirInfoJDroite(ActionEvent actionEvent) {
+        IJoueur j= this.controleur.getInfoJDroite();
+        File file = new File("clientJfx/src/main/resources/images/");
+        Image image = new Image(file.toURI().toString()+j.getMerveille().getImage());
+        merveilleVoisinDroite.setImage(image);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
         alert.setTitle("Infos " + this.joueurDroite.getNom());
@@ -207,10 +234,35 @@ public class VuePartie implements Vue
     }
 
     public void voirInfoJGauche(ActionEvent actionEvent) {
+        IJoueur j= this.controleur.getInfoJGauche();
+        File file = new File("clientJfx/src/main/resources/images/");
+        Image image = new Image(file.toURI().toString()+j.getMerveille().getImage());
+        merveilleVoisinGauche.setImage(image);
 
     }
 
     public void voirInfoJFace(ActionEvent actionEvent) {
+        IJoueur j= this.controleur.getInfoJFace();
+        File file = new File("clientJfx/src/main/resources/images/");
+        Image image = new Image(file.toURI().toString()+j.getMerveille().getImage());
+        merveilleJoueurFace.setImage(image);
+    }
+
+    public void onClickAfficher(MouseEvent mouseEvent)
+    {
+        if(mouseEvent.getClickCount() == 2)
+        {
+            lv.getSelectionModel().getSelectedItem();
+            for (ICarte carte: this.controleur.getJoueur().getDeck().getDeck())
+            {
+                if (lv.getSelectionModel().getSelectedItem() == carte.creationGraphique())
+                {
+                    System.out.println(carte.getNom());
+                }
+
+            }
+        }
+
 
     }
 }

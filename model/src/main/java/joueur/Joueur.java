@@ -70,7 +70,6 @@ public class Joueur implements IJoueur, Serializable {
         nbCompas = 0;
         nbRouages = 0;
         nbTablettes = 0;
-        nbSymboleUniversel = 0; // sert pour l'étape 2 d'Alexandria et pour la Guilde des scientifiques (gain de symbole scientifique selon ce qui est le plus rentable)
         merveille = null;  // le joueur n'aura pas encore choisi de merveille à sa création
         this.deck = new Deck();
         this.amis = null;
@@ -519,6 +518,46 @@ public class Joueur implements IJoueur, Serializable {
     @Override
     public boolean isCommerceMatieresPremieresGauche() {
         return commerceMatieresPremieresGauche;
+    }
+
+    public String argentString()
+    {
+        return "Pieces:" + pieces;
+    }
+
+    @Override
+    public String pointVictoireString() {
+        return "Points de victoire: "+ptsVictoire;
+    }
+
+    @Override
+    public String bouclierString() {
+        return "Bouclier: "+ puissanceMilitaire;
+    }
+
+    @Override
+    public String pointsVictoireMilitaireString() {
+        return "Points de victoire militaire: " + ptsVictoireMilitaire;
+    }
+
+    @Override
+    public String pointDefaiteMilitaireString() {
+        return "Points de dafaite militaire: " + nbJetonsDefaite;
+    }
+
+    @Override
+    public String compasString() {
+        return "Symbole compas: "+ nbCompas;
+    }
+
+    @Override
+    public String rouagesString() {
+        return "Symbole rouages:" + nbRouages;
+    }
+
+    @Override
+    public String tablettesString() {
+        return "Symbole tablettes: " + nbTablettes;
     }
 
     @Override

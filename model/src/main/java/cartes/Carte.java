@@ -114,8 +114,6 @@ public class Carte implements ICarte, Serializable {
         this.effet = effet;
     }
 
-
-
     @Override
     public String toString() {
         return "Carte{" +
