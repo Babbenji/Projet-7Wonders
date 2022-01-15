@@ -6,11 +6,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.TilePane;
+import javafx.stage.Popup;
 import joueur.Joueur;
 import type.ICarte;
 import type.IDeck;
@@ -29,6 +29,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VuePartie implements Vue
 {
@@ -47,9 +48,26 @@ public class VuePartie implements Vue
     @FXML
     private ImageView merveilleIM;
 
-    private ImageView imageSelectionne;
-    
+    @FXML
+    ImageView merveilleJoueurFace;
 
+    @FXML
+    ImageView merveilleVoisinGauche;
+
+    @FXML
+    ImageView merveilleVoisinDroite;
+
+    @FXML
+    Button jDroite;
+
+
+
+
+    private ImageView imageSelectionne;
+
+    private IJoueur joueurGauche;
+    private IJoueur joueurDroite;
+    private IJoueur joueurEnFace;
     private Scene scene;
     private Controleur controleur;
     private Stage stage;
@@ -125,6 +143,17 @@ public class VuePartie implements Vue
 
     @Override
     public void chargerDonnees() throws RemoteException {
+
+        this.joueurGauche = this.controleur.getInfoJGauche();
+        File file = new File("clientJfx/src/main/resources/images/");
+        merveilleVoisinGauche.setImage(new Image(file.toURI().toString()+this.joueurGauche.getMerveille().getImage()));
+
+        this.joueurDroite = this.controleur.getInfoJDroite();
+        merveilleVoisinDroite.setImage(new Image(file.toURI().toString()+this.joueurDroite.getMerveille().getImage()));
+
+        this.joueurEnFace = this.controleur.getInfoJFace();
+        merveilleJoueurFace.setImage(new Image(file.toURI().toString()+this.joueurEnFace.getMerveille().getImage()));
+
     }
 
     public void jouerCarte(ActionEvent actionEvent) throws Exception
@@ -164,24 +193,24 @@ public class VuePartie implements Vue
     }
 
     public void voirInfoJDroite(ActionEvent actionEvent) {
-        IJoueur j= this.controleur.getInfoJDroite();
-        File file = new File("clientJfx/src/main/resources/images/");
-        Image image = new Image(file.toURI().toString()+j.getMerveille().getImage());
-        merveilleIM.setImage(image);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+        alert.setTitle("Infos " + this.joueurDroite.getNom());
+        DialogPane pane = new DialogPane();
+        pane.setContentText(this.joueurDroite.getRessources().keySet().stream()
+                .map(key -> key + "=" + this.joueurDroite.getRessources().get(key))
+                .collect(Collectors.joining(", ")));
+        alert.dialogPaneProperty().set(pane);
+
+        alert.showAndWait();
 
     }
 
     public void voirInfoJGauche(ActionEvent actionEvent) {
-        IJoueur j= this.controleur.getInfoJGauche();
-        File file = new File("clientJfx/src/main/resources/images/");
-        Image image = new Image(file.toURI().toString()+j.getMerveille().getImage());
-        merveilleIM.setImage(image);
+
     }
 
     public void voirInfoJFace(ActionEvent actionEvent) {
-        IJoueur j= this.controleur.getInfoJFace();
-        File file = new File("clientJfx/src/main/resources/images/");
-        Image image = new Image(file.toURI().toString()+j.getMerveille().getImage());
-        merveilleIM.setImage(image);
+
     }
 }

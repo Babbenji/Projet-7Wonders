@@ -41,7 +41,7 @@ public class Controleur
     private String nom;
     private User user;
     FacadeSevenWondersOnlineImpl facadeta = new FacadeSevenWondersOnlineImpl();
-    IPartie partie = facadeta.creePartie();;
+    IPartie partie = facadeta.creePartie();
 
     public Controleur(Stage stage) throws IOException, NotBoundException {
         facade = new ProxySevenWondersOnLineImpl();
@@ -60,7 +60,7 @@ public class Controleur
     }
 
     public void run() throws RemoteException {
-        vuePartie.show();
+        this.goToPartie();
     }
 
     public void miseEnPlaceDuJeu() throws RemoteException {
@@ -116,6 +116,11 @@ public class Controleur
 
     public String getNom() {
         return this.nom;
+    }
+
+    public void goToPartie() throws RemoteException {
+        vuePartie.chargerDonnees();
+        this.vuePartie.show();
     }
 
     public Boolean connexion(String pseudo,String mdp) throws PseudoOuMotDePasseIncorrectException, RemoteException, NotBoundException, MalformedURLException {
