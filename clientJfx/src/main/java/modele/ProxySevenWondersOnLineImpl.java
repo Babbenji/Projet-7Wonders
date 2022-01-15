@@ -119,9 +119,9 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
     }
 
     @Override
-    public void construireEtape(IJoueur joueur) throws Exception {
+    public void construireEtape(IJoueur joueur,ICarte carte) throws Exception {
         try {
-            this.serviceSevenWondersOnline.construireEtape(joueur);
+            this.serviceSevenWondersOnline.construireEtape(joueur,carte);
         } catch (Exception e) {
             throw new RuntimeException("RMI Problem");
         }

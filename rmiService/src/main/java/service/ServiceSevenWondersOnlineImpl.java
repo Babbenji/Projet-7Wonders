@@ -97,8 +97,8 @@ public class ServiceSevenWondersOnlineImpl  implements ServiceSevenWondersOnline
     }
 
     @Override
-    public void construireEtape(IJoueur joueur) throws Exception {
-        this.facadeSevenWondersOnLine.construireEtape(joueur);
+    public void construireEtape(IJoueur joueur,ICarte carte) throws Exception {
+        this.facadeSevenWondersOnLine.construireEtape(joueur,carte);
 
     }
 

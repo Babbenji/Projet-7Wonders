@@ -143,9 +143,9 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
     }
 
     @Override
-    public void construireEtape(IJoueur joueur) throws Exception {
+    public void construireEtape(IJoueur joueur, ICarte carte) throws Exception {
         Partie partie = this.associationJoueurPartie.get(joueur);
-        partie.construireEtape(joueur);
+        partie.construireEtape(joueur,carte);
     }
 
 

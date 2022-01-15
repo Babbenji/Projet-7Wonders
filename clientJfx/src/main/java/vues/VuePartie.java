@@ -4,15 +4,12 @@ import controleur.Controleur;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import joueur.Joueur;
 import type.ICarte;
 import type.IDeck;
 import type.IJoueur;
@@ -29,7 +26,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class VuePartie implements Vue
 {
@@ -70,6 +69,7 @@ public class VuePartie implements Vue
     private Controleur controleur;
     private Stage stage;
     private ICarte carte;
+    Map<ImageView,ICarte> associationCarteImageview;
 
 
     public void setScene(Scene scene) {
@@ -118,8 +118,16 @@ public class VuePartie implements Vue
 
     public void initialiserCarteMerveille() throws RemoteException { // a mettre dans le charge donne quand les tests seront finis
         this.controleur.miseEnPlaceDuJeu();
-        IJoueur joueur = this.controleur.getJoueur();
+        IMerveille merveille = this.controleur.getMerveille();
+        File file = new File("clientJfx/src/main/resources/images/");
+        Image image = new Image(file.toURI().toString()+merveille.getImage());
+        merveilleIM.setImage(image);
+        affichageInteractifDesVariables();
 
+
+    }
+    public void affichageInteractifDesVariables() throws RemoteException {
+        IJoueur joueur = this.controleur.getJoueur();
         argent.setText(joueur.argentString());
         bouclier.setText(joueur.bouclierString());
         pv.setText(joueur.pointVictoireString());
@@ -129,56 +137,65 @@ public class VuePartie implements Vue
         rouages.setText(joueur.rouagesString());
         compas.setText(joueur.compasString());
         tabelettes.setText(joueur.tablettesString());
-
-
-        IMerveille merveille = this.controleur.getMerveille();
-        File file = new File("clientJfx/src/main/resources/images/");
-        Image image = new Image(file.toURI().toString()+merveille.getImage());
-        merveilleIM.setImage(image);
-        affichageCarteInteractif();
-
-
-    }
-    public void affichageCarteInteractif() throws RemoteException {
-        IDeck deck = this.controleur.getDeck();
+        IDeck deck = this.controleur.getJoueur().getDeck();
         List<ImageView> im = new ArrayList<>();
+        this.associationCarteImageview = new HashMap<>();
         for (ICarte carte: deck.getDeck())
         {
-            im.add(carte.creationGraphique());
+            ImageView imageView = carte.creationGraphique();
+
+            im.add(imageView);
+            associationCarteImageview.put(imageView,carte);
         }
         ObservableList<ImageView> observableList = FXCollections.observableList(im);
         lv.setItems(observableList);
         lv.setOrientation(Orientation.HORIZONTAL);
-
     }
 
     @Override
     public void chargerDonnees() throws RemoteException {
     }
 
-
     public void jouerCarte(ActionEvent actionEvent) throws Exception
     {
-        lv.getSelectionModel().getSelectedItem();
-        boutonJouer.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                lab.setText("Vous avez joué, en attente pour tour suivant");
+        this.boutonJouer.setOnAction(e->
+        {
+            try {
+                this.controleur.jouerCarte();
+            } catch (Exception exception) {
+                exception.printStackTrace();
             }
         });
-        this.controleur.jouerCarte();
+        affichageInteractifDesVariables();
+
     }
 
-    public void acheterEtape(ActionEvent actionEvent) throws Exception
+    public void construireEtape(ActionEvent actionEvent) throws Exception
     {
-        this.controleur.construireEtape();
-
+        this.boutonEtape.setOnAction(e->
+        {
+            try {
+                this.controleur.construireEtape();
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        });
     }
 
     public void defausserCarte(ActionEvent actionEvent) throws Exception
     {
+        this.boutonDefausser.setOnAction(e->
+        {
+            try {
+                this.controleur.defausserCarte();
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        });
+        System.out.println(this.controleur.getJoueur().getDeck().getDeck());
+        affichageInteractifDesVariables();
+        System.out.println(this.controleur.getJoueur().getDeck().getDeck());
 
-        this.controleur.defausserCarte();
 
     }
 
@@ -208,20 +225,11 @@ public class VuePartie implements Vue
         merveilleJoueurFace.setImage(image);
     }
 
-    public void onClickAfficher(MouseEvent mouseEvent)
-    {
-        if(mouseEvent.getClickCount() == 2)
+    public void onClickAfficher(MouseEvent mouseEvent) throws RemoteException {
+        if(mouseEvent.getClickCount() == 1)
         {
-            lv.getSelectionModel().getSelectedItem();
-            for (ICarte carte: this.controleur.getJoueur().getDeck().getDeck())
-            {
-                if (lv.getSelectionModel().getSelectedItem() == carte.creationGraphique())
-                {
-                    System.out.println(carte.getNom());
-                }
-
-            }
+            ImageView imageView = (ImageView) lv.getSelectionModel().getSelectedItem();
+            this.carte = associationCarteImageview.get(imageView);
         }
-
     }
 }

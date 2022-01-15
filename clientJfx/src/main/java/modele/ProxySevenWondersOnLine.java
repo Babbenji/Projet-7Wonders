@@ -88,8 +88,8 @@ public interface ProxySevenWondersOnLine
      * TO DO
      * @param joueur
      */
-    void construireEtape(IJoueur joueur) throws Exception;
 
+    void construireEtape(IJoueur joueur, ICarte carte) throws Exception;
 
     /**
      * Permet d'avoir le vainqueur de la partie où joueur est impliqué

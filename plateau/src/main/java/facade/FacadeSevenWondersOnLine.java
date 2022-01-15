@@ -86,7 +86,7 @@ public interface FacadeSevenWondersOnLine {
      * TO DO
      * @param joueur
      */
-    void construireEtape(IJoueur joueur) throws Exception;
+    void construireEtape(IJoueur joueur, ICarte carte) throws Exception;
 
 
     /**

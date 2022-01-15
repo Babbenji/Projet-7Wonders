@@ -54,6 +54,7 @@ public class Carte implements ICarte, Serializable {
         return imageView;
     }
 
+
     // Getters & setters
 
     @Override

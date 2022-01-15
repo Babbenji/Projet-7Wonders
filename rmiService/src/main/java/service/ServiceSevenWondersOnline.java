@@ -89,7 +89,8 @@ public interface ServiceSevenWondersOnline extends Remote
      * TO DO
      * @param joueur
      */
-    void construireEtape(IJoueur joueur) throws Exception, RemoteException;
+    void construireEtape(IJoueur joueur,ICarte carte) throws Exception, RemoteException;
+
 
 
     /**

@@ -155,20 +155,27 @@ public class Controleur
 
     public void construireEtape() throws Exception
     {
-        this.facade.construireEtape(joueur);
+        ICarte carte = vuePartie.getCarte();
+        partie.construireEtape(joueur,carte);
+        vuePartie.affichageInteractifDesVariables();
+        System.out.println("carte construite");
     }
 
     public void defausserCarte() throws Exception {
-        MouseEvent mouseEvent ;
-        //vuePartie.choixCarteAJoue(mouseEvent);
-        partie.deffausserCarte(joueur, vuePartie.getCarte());
+
+        ICarte carte = vuePartie.getCarte();
+        partie.deffausserCarte(joueur, carte);
+        vuePartie.affichageInteractifDesVariables();
+        System.out.println("carte defausser");
     }
 
     public void jouerCarte() throws Exception
     {
         ICarte carte = vuePartie.getCarte();
         partie.jouerCarte(joueur, carte);
-        this.deck = partie.getListeDesJoueurs().get(0).getDeck();
+        vuePartie.affichageInteractifDesVariables();
+        System.out.println("carte joue");
+
 
     }
 

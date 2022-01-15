@@ -107,7 +107,12 @@ public class Partie implements IPartie, Serializable {
 
         AtomicBoolean carteGratuite = new AtomicBoolean(false);
         joueur.getCartesJouees().forEach(cj -> {
-            if(carte.getChainage().containsValue(cj.getNom())){
+
+            if(carte.getChainage() == null)
+            {
+
+            }
+            else if (carte.getChainage().containsKey(cj.getNom())){
                 carteGratuite.set(true);
             }
         });
@@ -209,7 +214,7 @@ public class Partie implements IPartie, Serializable {
     }
 
     @Override
-    public void construireEtape(IJoueur p) throws Exception
+    public void construireEtape(IJoueur p, ICarte carte) throws Exception
     {
         this.gestionsEffetsEtape.appliquerEffetMerveille(p);
         p.getMerveille().setEtape(p.getMerveille().getEtape()+1);  //on incrémente le num de l'étape de la merveille

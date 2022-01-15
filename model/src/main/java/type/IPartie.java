@@ -14,7 +14,8 @@ public interface IPartie {
 
     void deffausserCarte(IJoueur joueur, ICarte carte) throws Exception;
 
-    void construireEtape(IJoueur p) throws Exception;
+
+    void construireEtape(IJoueur p, ICarte carte) throws Exception;
 
     void passerAuTourSuivant();
 

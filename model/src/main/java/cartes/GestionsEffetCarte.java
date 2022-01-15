@@ -35,7 +35,7 @@ public class GestionsEffetCarte implements Serializable {
             }
             if (effet.get("nomEffet").equals("commerceRessourcesPrimaires") && effet.get("orientationEffet").equals("gauche"))
             {
-                joueur.setCommerceMatieresPremieresDroite(true);
+                joueur.setCommerceMatieresPremieresGauche(true);
             }
             if (effet.get("nomEffet").equals("commerceRessourcesSecondaires"))
             {
