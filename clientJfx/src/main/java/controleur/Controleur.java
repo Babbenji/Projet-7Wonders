@@ -1,10 +1,8 @@
 package controleur;
 
 import facade.FacadeSevenWondersOnlineImpl;
+import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-import joueur.Joueur;
-import merveilles.Merveille;
-import partie.Partie;
 import services.exceptions.JoueurDejaDansLaListeDAmisException;
 import services.exceptions.JoueurNonExistantException;
 import services.exceptions.PseudoOuMotDePasseIncorrectException;
@@ -26,7 +24,6 @@ import java.util.*;
 
 public class Controleur
 {
-    private static final int NB_JOUEURS = 4 ;
     private ProxySevenWondersOnLine facade;
 
     private VueMenuNonConnecte vueMenuNonConnecte;
@@ -34,6 +31,7 @@ public class Controleur
     private VueInscription vueInscription;
     private VueMenuConnecte vueMenuConnecte;
     private VuePartie vuePartie;
+    private int NB_JOUEURS = 4;
 
     private IJoueur joueur;
     private IDeck deck;
@@ -60,6 +58,7 @@ public class Controleur
     }
 
     public void run() throws RemoteException {
+
         vuePartie.show();
     }
 
@@ -152,28 +151,27 @@ public class Controleur
         } catch (RemoteException | JoueurDejaDansLaListeDAmisException | JoueurNonExistantException e) {
             e.printStackTrace();
         }
-
-
     }
 
-
-
-    public void construireEtape() throws Exception {
+    public void construireEtape() throws Exception
+    {
         this.facade.construireEtape(joueur);
     }
 
     public void defausserCarte() throws Exception {
-        MouseEvent mouseEvent = null;
-        vuePartie.choixCarteAJoue(mouseEvent);
+        MouseEvent mouseEvent ;
+        //vuePartie.choixCarteAJoue(mouseEvent);
         partie.deffausserCarte(joueur, vuePartie.getCarte());
     }
 
-    public void jouerCarte() throws Exception {
+    public void jouerCarte() throws Exception
+    {
         ICarte carte = vuePartie.getCarte();
         partie.jouerCarte(joueur, carte);
         this.deck = partie.getListeDesJoueurs().get(0).getDeck();
 
     }
+
 
     public User getUser() {
         return this.user;

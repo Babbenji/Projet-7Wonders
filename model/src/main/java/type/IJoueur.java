@@ -174,4 +174,13 @@ public interface IJoueur {
     boolean isCommerceMatieresPremieresDroite();
 
     boolean isCommerceMatieresPremieresGauche();
+    public String argentString();
+    public String pointVictoireString();
+    public String bouclierString();
+    public String pointsVictoireMilitaireString();
+    public String pointDefaiteMilitaireString();
+    public String compasString();
+    public String rouagesString();
+    public String tablettesString();
+
 }
