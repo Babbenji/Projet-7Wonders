@@ -11,10 +11,7 @@ import java.util.List;
 
 public interface FacadeSevenWondersOnLine {
 
-    /**
-     * Permet de s'inscrire à l'application
-     * @param nom
-     */
+    
 
     public List<IMerveille> recuperationDonnees2();
     public List<ICarte> recuperationDonnees();
@@ -105,4 +102,6 @@ public interface FacadeSevenWondersOnLine {
      */
     void partieTerminee(IJoueur joueur) throws Exception;
 
+
+    User getUserByPseudo(String pseudo);
 }

@@ -74,6 +74,7 @@ public class Controleur
         joueur = partie.getListeDesJoueurs().get(0);
         this.merveille = partie.getListeDesJoueurs().get(0).getMerveille();
         this.deck = partie.getListeDesJoueurs().get(0).getDeck();
+        System.out.println(this.deck.getCarteDansDeck(0));
     }
 
     public ProxySevenWondersOnLine getFacade() {
