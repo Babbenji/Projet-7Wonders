@@ -22,7 +22,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="pseudo" alignment="CENTER" contentDisplay="CENTER" layoutX="240.0" layoutY="106.0" prefHeight="27.0" prefWidth="113.0" text="LéoLeBG" textFill="#434163">
+      <Label fx:id="pseudo" alignment="CENTER" contentDisplay="CENTER" layoutX="240.0" layoutY="106.0" prefHeight="27.0" prefWidth="113.0" textFill="#434163">
          <font>
             <Font size="18.0" />
          </font>
