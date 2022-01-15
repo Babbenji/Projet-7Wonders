@@ -1,9 +1,12 @@
 package controleur;
 
 import facade.FacadeSevenWondersOnlineImpl;
+import javafx.scene.input.MouseEvent;
 import joueur.Joueur;
 import merveilles.Merveille;
 import partie.Partie;
+import services.exceptions.JoueurDejaDansLaListeDAmisException;
+import services.exceptions.JoueurNonExistantException;
 import services.exceptions.PseudoOuMotDePasseIncorrectException;
 import type.*;
 import services.exceptions.PseudoDejaPrisException;
@@ -23,6 +26,7 @@ import java.util.*;
 
 public class Controleur
 {
+    private static final int NB_JOUEURS = 4 ;
     private ProxySevenWondersOnLine facade;
 
     private VueMenuNonConnecte vueMenuNonConnecte;
@@ -56,7 +60,6 @@ public class Controleur
     }
 
     public void run() throws RemoteException {
-
         vuePartie.show();
     }
 
@@ -154,12 +157,13 @@ public class Controleur
     }
 
 
+
     public void construireEtape() throws Exception {
         this.facade.construireEtape(joueur);
     }
 
     public void defausserCarte() throws Exception {
-        MouseEvent mouseEvent ;
+        MouseEvent mouseEvent = null;
         vuePartie.choixCarteAJoue(mouseEvent);
         partie.deffausserCarte(joueur, vuePartie.getCarte());
     }
@@ -173,5 +177,54 @@ public class Controleur
 
     public User getUser() {
         return this.user;
+    }
+
+    public IJoueur getInfoJDroite() {
+        int indice = partie.getListeDesJoueurs().indexOf(this.joueur);
+       return partie.getListeDesJoueurs().get(voisinDeDroite(indice));
+    }
+
+    public IJoueur getInfoJGauche() {
+        int indice = partie.getListeDesJoueurs().indexOf(this.joueur);
+        return partie.getListeDesJoueurs().get(voisinDeGauche(indice));
+    }
+
+
+    public int voisinDeDroite(int indice)
+    {
+        if (indice == NB_JOUEURS-1)
+            return 0;
+        return indice+1;
+    }
+
+    public int voisinDeGauche(int indice)
+    {
+        if (indice == 0)
+            return NB_JOUEURS - 1;
+        return indice-1;
+    }
+
+    public int joueurFace(int indice)
+    {
+        int indiceARetourner;
+        if (indice == 0) {
+
+            indiceARetourner = 2;
+        }
+        else if(indice == 1 ){
+            indiceARetourner = 3;
+        }
+        else if(indice == 2){
+            indiceARetourner = 0;
+        }
+        else {
+            indiceARetourner = 1;
+        }
+        return indiceARetourner;
+    }
+
+    public IJoueur getInfoJFace() {
+        int indice = partie.getListeDesJoueurs().indexOf(this.joueur);
+        return partie.getListeDesJoueurs().get(joueurFace(indice));
     }
 }

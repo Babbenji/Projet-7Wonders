@@ -11,8 +11,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import joueur.Joueur;
 import type.ICarte;
 import type.IDeck;
+import type.IJoueur;
 import type.IMerveille;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -102,7 +104,8 @@ public class VuePartie implements Vue
         this.controleur.miseEnPlaceDuJeu();
         IMerveille merveille = this.controleur.getMerveille();
         File file = new File("clientJfx/src/main/resources/images/");
-        Image image = new Image(file.toURI().toString()+merveille.getImage());merveilleIM.setImage(image);
+        Image image = new Image(file.toURI().toString()+merveille.getImage());
+        merveilleIM.setImage(image);
         affichageCarteInteractif();
 
 
@@ -158,5 +161,27 @@ public class VuePartie implements Vue
 
     public ICarte getCarte() {
         return carte;
+    }
+
+    public void voirInfoJDroite(ActionEvent actionEvent) {
+        IJoueur j= this.controleur.getInfoJDroite();
+        File file = new File("clientJfx/src/main/resources/images/");
+        Image image = new Image(file.toURI().toString()+j.getMerveille().getImage());
+        merveilleIM.setImage(image);
+
+    }
+
+    public void voirInfoJGauche(ActionEvent actionEvent) {
+        IJoueur j= this.controleur.getInfoJGauche();
+        File file = new File("clientJfx/src/main/resources/images/");
+        Image image = new Image(file.toURI().toString()+j.getMerveille().getImage());
+        merveilleIM.setImage(image);
+    }
+
+    public void voirInfoJFace(ActionEvent actionEvent) {
+        IJoueur j= this.controleur.getInfoJFace();
+        File file = new File("clientJfx/src/main/resources/images/");
+        Image image = new Image(file.toURI().toString()+j.getMerveille().getImage());
+        merveilleIM.setImage(image);
     }
 }

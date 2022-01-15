@@ -1,31 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="612.0" prefWidth="754.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.VuePartie">
-   <left>
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
-   </left>
-   <top>
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
-   </top>
-   <right>
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
-   </right>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="612.0" prefWidth="754.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.VuePartie">
    <center>
       <Pane prefHeight="281.0" prefWidth="354.0" BorderPane.alignment="CENTER">
          <children>
             <ImageView fx:id="merveilleIM" fitHeight="175.0" fitWidth="219.0" layoutX="68.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="boutonJouer" layoutX="14.0" layoutY="232.0" mnemonicParsing="false" onAction="#jouerCarte" text="Jouer Carte" />
-            <Button fx:id="boutonEtape" layoutX="118.0" layoutY="232.0" mnemonicParsing="false" onAction="#acheterEtape" text="Construire Etape" />
-            <Button fx:id="boutonDefausser" layoutX="240.0" layoutY="232.0" mnemonicParsing="false" onAction="#defausserCarte" text="Defausser Carte" />
-            <Label fx:id="lab" layoutX="11.0" layoutY="203.0" prefHeight="17.0" prefWidth="332.0" />
+            <Button fx:id="boutonJouer" layoutX="14.0" layoutY="199.0" mnemonicParsing="false" onAction="#jouerCarte" text="Jouer Carte" />
+            <Button fx:id="boutonEtape" layoutX="114.0" layoutY="199.0" mnemonicParsing="false" onAction="#acheterEtape" text="Construire Etape" />
+            <Button fx:id="boutonDefausser" layoutX="237.0" layoutY="199.0" mnemonicParsing="false" onAction="#defausserCarte" text="Defausser Carte" />
+            <Label fx:id="lab" layoutY="203.0" prefHeight="17.0" prefWidth="332.0" />
          </children>
       </Pane>
    </center>
    <bottom>
-      <ListView fx:id="lv" prefHeight="203.0" prefWidth="754.0" BorderPane.alignment="CENTER" />
+      <ListView fx:id="lv" prefHeight="182.0" prefWidth="754.0" BorderPane.alignment="CENTER" />
    </bottom>
+   <top>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="merveilleJoueurFace" fitHeight="150.0" fitWidth="200.0" layoutX="275.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="jFace" layoutX="284.0" layoutY="161.0" mnemonicParsing="false" onAction="#voirInfoJFace" text="Voir informations joueur en face" />
+         </children>
+      </Pane>
+   </top>
+   <left>
+      <Pane prefHeight="246.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="merveilleVoisinGauche" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="jGauche" layoutX="7.0" layoutY="157.0" mnemonicParsing="false" onAction="#voirInfoJGauche" text="Voir informations joueur gauche" />
+         </children>
+      </Pane>
+   </left>
+   <right>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="merveilleVoisinDroite" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="jDroite" layoutX="10.0" layoutY="156.0" mnemonicParsing="false" onAction="#voirInfoJDroite" text="Voir informations joueur droite" />
+         </children>
+      </Pane>
+   </right>
 </BorderPane>
