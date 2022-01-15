@@ -57,11 +57,13 @@ public class VueMenuConnecte implements Vue{
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         VueMenuConnecte vue = fxmlLoader.getController();
         vue.setStage(stage);
         Scene scene = new Scene(root);
         vue.setScene(scene);
         vue.initialiserBoutonQuitter();
+        vue.initialiserBoutonCreer();
         return vue;
     }
 
@@ -71,6 +73,10 @@ public class VueMenuConnecte implements Vue{
 
     private void goExit() {
         this.controleur.exit();
+    }
+
+    private void goToWaitingRoom() {
+        this.controleur.goToWaitingRoom();
     }
 
     @Override
