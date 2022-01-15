@@ -1,6 +1,7 @@
 package type;
 
 
+import java.util.ArrayList;
 
 public interface IDeck {
     void ajoutCarteDansDeck(ICarte carte);
@@ -12,4 +13,5 @@ public interface IDeck {
     ICarte getCarteDansDeck(int indice);
 
     void clearDeck();
+    ArrayList<ICarte>getDeck();
 }

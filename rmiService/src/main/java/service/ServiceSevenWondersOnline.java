@@ -18,6 +18,8 @@ public interface ServiceSevenWondersOnline extends Remote
      * Permet de s'inscrire à l'application
      * @param nom
      */
+    public List<ICarte> recuperationDonnees() throws RemoteException;
+    public List<IMerveille> recuperationDonnees2() throws RemoteException;
     User inscriptionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException, PseudoDejaPrisException,RemoteException;
 
     /**
@@ -72,9 +74,6 @@ public interface ServiceSevenWondersOnline extends Remote
      * @param carte
      */
     void jouerCarte(IJoueur joueur, ICarte carte) throws Exception, RemoteException;
-
-    IDeck getDeck(IJoueur joueur) throws RemoteException;
-    IMerveille getMerveille(IJoueur joueur) throws RemoteException;
 
 
     /**

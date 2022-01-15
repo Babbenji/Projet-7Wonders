@@ -28,6 +28,16 @@ public class ServiceSevenWondersOnlineImpl  implements ServiceSevenWondersOnline
 
 
     @Override
+    public List<ICarte> recuperationDonnees() throws RemoteException {
+        return this.facadeSevenWondersOnLine.recuperationDonnees();
+    }
+
+    @Override
+    public List<IMerveille> recuperationDonnees2() throws RemoteException {
+        return this.facadeSevenWondersOnLine.recuperationDonnees2();
+    }
+
+    @Override
     public User inscriptionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException, PseudoDejaPrisException {
         return this.facadeSevenWondersOnLine.inscriptionUser(nom,pw);
     }
@@ -80,15 +90,6 @@ public class ServiceSevenWondersOnlineImpl  implements ServiceSevenWondersOnline
 
     }
 
-    @Override
-    public IDeck getDeck(IJoueur joueur) {
-        return this.facadeSevenWondersOnLine.getDeck(joueur);
-    }
-
-    @Override
-    public IMerveille getMerveille(IJoueur joueur) {
-        return this.facadeSevenWondersOnLine.getMerveille(joueur);
-    }
 
     @Override
     public void deffausserCarte(IJoueur joueur, ICarte carte) throws Exception {

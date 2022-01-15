@@ -32,6 +32,7 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
         //mongodb this.user = null;
         this.userDansPreLobby = new HashMap<>();
         this.parties = new HashMap<>();
+        this.associationJoueurPartie = new HashMap<>();
         //recuperer joueurs inscrits mongodb jsp si on peut ^^ this.joueursInscrits
         this.utilisateursConnectes = new HashMap<>();
         try {
@@ -46,6 +47,14 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
             ex.printStackTrace();
         }
     }
+    public List<ICarte> recuperationDonnees()
+    {
+        return this.lesCartes;
+    }
+    public List<IMerveille> recuperationDonnees2()
+    {
+        return this.lesMerveilles;
+    }
 
     MongodbService mongodbService = new MongodbService();
 
@@ -58,7 +67,7 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
 
     @Override
     public User connexionUser(String pseudo, String pw) throws PseudoOuMotDePasseIncorrectException {
-        System.out.println("Ici2");
+
         return this.mongodbService.loginUser(pseudo, pw);
     }
 
@@ -78,18 +87,6 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
 
     }
 
-    @Override
-    public IMerveille getMerveille(IJoueur joueur)
-    {
-        Partie partie = this.associationJoueurPartie.get(joueur);
-        return partie.getMerveille(joueur);
-    }
-
-    @Override
-    public IDeck getDeck(IJoueur joueur) {
-        Partie partie = this.associationJoueurPartie.get(joueur);
-        return partie.getDeck(joueur);
-    }
 
     @Override
     public void rejoindreUnePartie(String nom)
@@ -101,11 +98,20 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
     public IPartie creePartie() {
 
         ArrayList<IJoueur> listJoueur = new ArrayList<>();
-        for (User user: userDansPreLobby.keySet())
-        {
-            Joueur joueur1 = new Joueur(user.getPseudo());
-            listJoueur.add(joueur1);
-        }
+
+//        for (User user: userDansPreLobby.keySet())
+//        {
+//            Joueur joueur1 = new Joueur(user.getPseudo());
+//            listJoueur.add(joueur1);
+//        }
+        IJoueur joueur1 = new Joueur("Aziz");
+        IJoueur joueur2 = new Joueur("Juli");
+        IJoueur joueur3 = new Joueur("Timo");
+        IJoueur joueur4 = new Joueur("Math");
+        listJoueur.add(joueur1);
+        listJoueur.add(joueur2);
+        listJoueur.add(joueur3);
+        listJoueur.add(joueur4);
         Partie partie = new Partie(listJoueur,lesCartes,lesMerveilles);
         parties.put(partie.getIdPartie(),partie);
 

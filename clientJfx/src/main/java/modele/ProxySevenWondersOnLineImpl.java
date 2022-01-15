@@ -88,15 +88,6 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
         }
     }
 
-    @Override
-    public IMerveille getMerveille(IJoueur joueur) throws RemoteException {
-        return this.serviceSevenWondersOnline.getMerveille(joueur);
-    }
-
-    @Override
-    public IDeck getDeck(IJoueur joueur) throws RemoteException {
-        return this.serviceSevenWondersOnline.getDeck(joueur);
-    }
 
     @Override
     public IPartie creePartie() throws RemoteException {

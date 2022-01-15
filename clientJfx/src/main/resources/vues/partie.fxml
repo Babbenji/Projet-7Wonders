@@ -4,21 +4,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="754.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.VuePartie">
-   <bottom>
-      <HBox fx:id="boxcarte" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fitHeight="102.0" fitWidth="68.0" onMouseClicked="#choixCarteAJoue" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="carte_1" fitHeight="100.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="carte_2" fitHeight="100.0" fitWidth="82.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="carte_3" fitHeight="100.0" fitWidth="82.0" layoutX="92.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="carte_4" fitHeight="98.0" fitWidth="82.0" layoutX="174.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="carte_5" fitHeight="100.0" fitWidth="82.0" layoutX="256.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="carte_6" fitHeight="100.0" fitWidth="82.0" layoutX="338.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="carte_7" fitHeight="100.0" fitWidth="82.0" layoutX="338.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-         </children>
-      </HBox>
-   </bottom>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="754.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.VuePartie">
    <left>
       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
    </left>
@@ -29,13 +15,16 @@
       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
    </right>
    <center>
-      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <Pane prefHeight="281.0" prefWidth="354.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="merveilleIM" fitHeight="175.0" fitWidth="219.0" layoutX="60.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="merveilleIM" fitHeight="175.0" fitWidth="219.0" layoutX="60.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
             <Button fx:id="boutonJouer" layoutX="14.0" layoutY="232.0" mnemonicParsing="false" onAction="#jouerCarte" text="Jouer Carte" />
             <Button fx:id="boutonEtape" layoutX="118.0" layoutY="232.0" mnemonicParsing="false" onAction="#acheterEtape" text="Construire Etape" />
             <Button fx:id="boutonDefausser" layoutX="240.0" layoutY="232.0" mnemonicParsing="false" onAction="#defausserCarte" text="Defausser Carte" />
          </children>
       </Pane>
    </center>
+   <bottom>
+      <HBox fx:id="fp" prefHeight="123.0" prefWidth="754.0" BorderPane.alignment="CENTER" />
+   </bottom>
 </BorderPane>

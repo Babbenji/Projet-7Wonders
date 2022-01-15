@@ -15,6 +15,9 @@ public interface FacadeSevenWondersOnLine {
      * Permet de s'inscrire à l'application
      * @param nom
      */
+
+    public List<IMerveille> recuperationDonnees2();
+    public List<ICarte> recuperationDonnees();
     User inscriptionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException, PseudoDejaPrisException;
 
     /**
@@ -42,8 +45,6 @@ public interface FacadeSevenWondersOnLine {
      */
     void inviterJoueur(IJoueur joueur);
 
-    IMerveille getMerveille(IJoueur joueur);
-    IDeck getDeck(IJoueur joueur);
 
     /**
      * Permet de créer une partie

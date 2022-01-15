@@ -47,8 +47,6 @@ public interface ProxySevenWondersOnLine
      */
     void inviterJoueur(IJoueur joueur);
 
-    IMerveille getMerveille(IJoueur joueur) throws RemoteException;
-    IDeck getDeck (IJoueur joueur) throws RemoteException;
 
     /**
      * Permet de créer une partie

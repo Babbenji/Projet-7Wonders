@@ -1,5 +1,8 @@
 package type;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import java.util.Map;
 
 public interface ICarte {
@@ -27,5 +30,6 @@ public interface ICarte {
 
     void setEffet(Map<String, String> effet);
     String getImage();
+    ImageView creationGraphique();
 
 }

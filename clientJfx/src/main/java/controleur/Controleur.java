@@ -57,11 +57,19 @@ public class Controleur
 
         vuePartie.show();
     }
-    public void miseEnPlace() throws RemoteException
-    {
 
     public void miseEnPlaceDuJeu() throws RemoteException {
-        this.facade.miseEnPlaceDuJeu(this.joueur);
+        FacadeSevenWondersOnlineImpl facade = new FacadeSevenWondersOnlineImpl();
+
+//        IJoueur joueur1 = new Joueur("Aziz");
+//        ArrayList<IJoueur> lj = new ArrayList<>();
+//        lj.add(joueur1);
+//        List<ICarte> lc = facade.getLesCartes();
+//        List<IMerveille> lm = facade.getLesMerveilles();
+        IPartie partie = facade.creePartie();;
+        partie.miseEnPlacePartie();
+        this.merveille = partie.getListeDesJoueurs().get(0).getMerveille();
+        this.deck = partie.getListeDesJoueurs().get(0).getDeck();
     }
 
     public ProxySevenWondersOnLine getFacade() {
@@ -143,5 +151,6 @@ public class Controleur
 
     public void jouerCarte(ICarte carte) throws Exception {
         this.facade.jouerCarte(joueur,carte);
+
     }
 }

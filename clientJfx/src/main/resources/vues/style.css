@@ -1,5 +1,5 @@
 #AnchorPane{
-    -fx-background-image: url("images/indexbg16x9.jpg");
+    -fx-background-image: url("../images/indexbg16x9.jpg");
     -fx-background-size: 100% 100%;
     -fx-background-repeat: stretch;
     -fx-background-position: center center;
@@ -7,7 +7,7 @@
 }
 
 .baseAnchor{
-    -fx-background-image: url("images/indexbg16x9.jpg");
+    -fx-background-image: url("../images/indexbg16x9.jpg");
     -fx-background-size: 100% 100%;
     -fx-background-repeat: stretch;
     -fx-background-position: center center;
@@ -15,7 +15,7 @@
 }
 
 #AnchorPane .baseAnchor{
-    -fx-background-image: url("images/indexbg16x9.jpg");
+    -fx-background-image: url("../images/indexbg16x9.jpg");
     -fx-background-size: 100% 100%;
     -fx-background-repeat: stretch;
     -fx-background-position: center center;

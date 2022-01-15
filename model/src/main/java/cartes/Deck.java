@@ -43,6 +43,10 @@ public class Deck implements IDeck, Serializable {
         deck.clear();
     }
 
+    public ArrayList<ICarte> getDeck() {
+        return deck;
+    }
+
     @Override
     public String toString() {
         return "Deck{" +

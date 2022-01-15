@@ -1,8 +1,10 @@
 package cartes;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import type.ICarte;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.Map;
 
@@ -40,6 +42,16 @@ public class Carte implements ICarte, Serializable {
         this.chainage = chainage;
         this.image = image;
 
+    }
+
+    public ImageView creationGraphique()
+    {
+        File file = new File("C:\\Users\\benja\\IdeaProjects\\projet-7wonders-5\\clientJfx\\src\\main\\resources\\images\\");
+
+        Image image1 = new Image(file.toURI().toString()+this.image);
+        ImageView imageView = new ImageView();
+        imageView.setImage(image1);
+        return imageView;
     }
 
     // Getters & setters
