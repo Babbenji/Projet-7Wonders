@@ -29,6 +29,12 @@ public class VueMenuConnecte implements Vue{
     @FXML
     Button boutonQuitter;
 
+    @FXML
+    Button creerPartie;
+
+    @FXML
+    Button rejoindrePartie;
+
     private Stage stage;
     private Controleur controleur;
 
@@ -60,6 +66,8 @@ public class VueMenuConnecte implements Vue{
     }
 
     private void initialiserBoutonQuitter() { this.boutonQuitter.setOnAction(e -> goExit()); }
+
+    private void initialiserBoutonCreer() { this.creerPartie.setOnAction(e -> goToWaitingRoom()); }
 
     private void goExit() {
         this.controleur.exit();
