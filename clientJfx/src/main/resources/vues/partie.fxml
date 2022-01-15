@@ -4,7 +4,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="754.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.VuePartie">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="612.0" prefWidth="754.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.VuePartie">
    <left>
       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
    </left>
@@ -17,14 +17,15 @@
    <center>
       <Pane prefHeight="281.0" prefWidth="354.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="merveilleIM" fitHeight="175.0" fitWidth="219.0" layoutX="60.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="merveilleIM" fitHeight="175.0" fitWidth="219.0" layoutX="68.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
             <Button fx:id="boutonJouer" layoutX="14.0" layoutY="232.0" mnemonicParsing="false" onAction="#jouerCarte" text="Jouer Carte" />
             <Button fx:id="boutonEtape" layoutX="118.0" layoutY="232.0" mnemonicParsing="false" onAction="#acheterEtape" text="Construire Etape" />
             <Button fx:id="boutonDefausser" layoutX="240.0" layoutY="232.0" mnemonicParsing="false" onAction="#defausserCarte" text="Defausser Carte" />
+            <Label fx:id="lab" layoutX="11.0" layoutY="203.0" prefHeight="17.0" prefWidth="332.0" />
          </children>
       </Pane>
    </center>
    <bottom>
-      <HBox fx:id="fp" prefHeight="123.0" prefWidth="754.0" BorderPane.alignment="CENTER" />
+      <ListView fx:id="lv" prefHeight="203.0" prefWidth="754.0" BorderPane.alignment="CENTER" />
    </bottom>
 </BorderPane>

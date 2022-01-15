@@ -4,8 +4,6 @@ import facade.FacadeSevenWondersOnlineImpl;
 import joueur.Joueur;
 import merveilles.Merveille;
 import partie.Partie;
-import services.exceptions.JoueurDejaDansLaListeDAmisException;
-import services.exceptions.JoueurNonExistantException;
 import services.exceptions.PseudoOuMotDePasseIncorrectException;
 import type.*;
 import services.exceptions.PseudoDejaPrisException;
@@ -38,6 +36,8 @@ public class Controleur
     private IMerveille merveille;
     private String nom;
     private User user;
+    FacadeSevenWondersOnlineImpl facadeta = new FacadeSevenWondersOnlineImpl();
+    IPartie partie = facadeta.creePartie();;
 
     public Controleur(Stage stage) throws IOException, NotBoundException {
         facade = new ProxySevenWondersOnLineImpl();
@@ -57,19 +57,20 @@ public class Controleur
 
     public void run() throws RemoteException {
 
-        this.vueMenuNonConnecte.show();
+        vuePartie.show();
     }
 
     public void miseEnPlaceDuJeu() throws RemoteException {
-        FacadeSevenWondersOnlineImpl facade = new FacadeSevenWondersOnlineImpl();
+
 
 //        IJoueur joueur1 = new Joueur("Aziz");
 //        ArrayList<IJoueur> lj = new ArrayList<>();
 //        lj.add(joueur1);
 //        List<ICarte> lc = facade.getLesCartes();
 //        List<IMerveille> lm = facade.getLesMerveilles();
-        IPartie partie = facade.creePartie();;
+
         partie.miseEnPlacePartie();
+        joueur = partie.getListeDesJoueurs().get(0);
         this.merveille = partie.getListeDesJoueurs().get(0).getMerveille();
         this.deck = partie.getListeDesJoueurs().get(0).getDeck();
     }
@@ -158,11 +159,15 @@ public class Controleur
     }
 
     public void defausserCarte() throws Exception {
-        this.facade.construireEtape(joueur);
+        MouseEvent mouseEvent ;
+        vuePartie.choixCarteAJoue(mouseEvent);
+        partie.deffausserCarte(joueur, vuePartie.getCarte());
     }
 
-    public void jouerCarte(ICarte carte) throws Exception {
-        this.facade.jouerCarte(joueur,carte);
+    public void jouerCarte() throws Exception {
+        ICarte carte = vuePartie.getCarte();
+        partie.jouerCarte(joueur, carte);
+        this.deck = partie.getListeDesJoueurs().get(0).getDeck();
 
     }
 
