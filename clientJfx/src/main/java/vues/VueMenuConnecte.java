@@ -68,6 +68,8 @@ public class VueMenuConnecte implements Vue{
     @Override
     public void show() {
         this.stage.setScene(this.scene);
+        this.stage.setX(0);
+        this.stage.setY(0);
         this.stage.show();
     }
 
