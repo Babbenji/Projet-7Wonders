@@ -34,7 +34,7 @@ public interface ProxySevenWondersOnLine
      * @throws JoueurNonExistantException : Le joueur ajouté n'existe pas
      * @param nom
      */
-    void ajouterJoueurEnAmi(String nom) throws JoueurDejaDansLaListeDAmisException, JoueurNonExistantException;
+    void ajouterJoueurEnAmi(String nom) throws JoueurDejaDansLaListeDAmisException, JoueurNonExistantException, RemoteException;
 
     /**
      * Permet de récupérer une liste d'objets User
@@ -106,5 +106,11 @@ public interface ProxySevenWondersOnLine
      *  - faux : la partie n'est pas encore terminée
      */
     void partieTerminee(IJoueur joueur) throws Exception;
+
+    /**
+     * Permet d'ajouter un ami
+     * @param user
+     * @param pseudoAmi
+     */
 
 }

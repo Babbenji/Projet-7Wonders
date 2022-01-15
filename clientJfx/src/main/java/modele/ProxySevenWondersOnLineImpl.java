@@ -4,22 +4,15 @@ package modele;
 import app.RunServer;
 import exceptions.MaxJoueursAtteintException;
 import exceptions.PartieNonTermineeException;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import service.ServiceSevenWondersOnline;
-import service.ServiceSevenWondersOnlineImpl;
 import services.exceptions.*;
 import type.*;
 import user.User;
 
-import java.net.InetAddress;
 import java.net.MalformedURLException;
-import java.net.UnknownHostException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.util.List;
 
 public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
@@ -60,15 +53,6 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
         return null;
     }
 
-    @Override
-    public void ajouterJoueurEnAmi(String nom) throws JoueurDejaDansLaListeDAmisException, JoueurNonExistantException {
-        try{
-            this.serviceSevenWondersOnline.ajouterJoueurEnAmi(nom);
-        } catch (JoueurDejaDansLaListeDAmisException | JoueurNonExistantException | RemoteException e) {
-            throw new RuntimeException("RMI Problem");
-
-        }
-    }
 
     @Override
     public List<User> getAmis() {
@@ -159,5 +143,15 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
         } catch (Exception e) {
             throw new RuntimeException("RMI Problem");
         }
+    }
+
+    @Override
+    public void ajouterJoueurEnAmi(String pseudoAmi) throws JoueurNonExistantException, JoueurDejaDansLaListeDAmisException, RemoteException {
+        try {
+            this.serviceSevenWondersOnline.ajouterJoueurEnAmi(pseudoAmi);
+        } catch (JoueurDejaDansLaListeDAmisException | JoueurNonExistantException | RemoteException e) {
+            e.printStackTrace();
+        }
+
     }
 }

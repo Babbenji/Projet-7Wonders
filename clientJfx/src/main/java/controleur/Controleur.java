@@ -4,6 +4,8 @@ import facade.FacadeSevenWondersOnlineImpl;
 import joueur.Joueur;
 import merveilles.Merveille;
 import partie.Partie;
+import services.exceptions.JoueurDejaDansLaListeDAmisException;
+import services.exceptions.JoueurNonExistantException;
 import services.exceptions.PseudoOuMotDePasseIncorrectException;
 import type.*;
 import services.exceptions.PseudoDejaPrisException;
@@ -55,7 +57,7 @@ public class Controleur
 
     public void run() throws RemoteException {
 
-        vuePartie.show();
+        this.vueMenuNonConnecte.show();
     }
 
     public void miseEnPlaceDuJeu() throws RemoteException {
@@ -140,6 +142,16 @@ public class Controleur
         System.exit(0);
     }
 
+    public void addFriend(User user, String pseudoAmi){
+        try{
+            this.facade.ajouterJoueurEnAmi( pseudoAmi);
+        } catch (RemoteException | JoueurDejaDansLaListeDAmisException | JoueurNonExistantException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
 
     public void construireEtape() throws Exception {
         this.facade.construireEtape(joueur);
@@ -152,5 +164,9 @@ public class Controleur
     public void jouerCarte(ICarte carte) throws Exception {
         this.facade.jouerCarte(joueur,carte);
 
+    }
+
+    public User getUser() {
+        return this.user;
     }
 }

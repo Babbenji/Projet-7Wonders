@@ -32,6 +32,7 @@ public interface ServiceSevenWondersOnline extends Remote
      * Permet d'ajouter un joueur à sa liste d'amis
      * @throws JoueurDejaDansLaListeDAmisException : Le joueur est déjà dans la liste d'amis
      * @throws JoueurNonExistantException : Le joueur ajouté n'existe pas
+     * @param user
      * @param nom
      */
     void ajouterJoueurEnAmi(String nom) throws JoueurDejaDansLaListeDAmisException, JoueurNonExistantException,RemoteException;

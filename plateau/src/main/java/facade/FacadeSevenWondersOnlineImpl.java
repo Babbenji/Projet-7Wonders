@@ -67,8 +67,8 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
 
     @Override
     public User connexionUser(String pseudo, String pw) throws PseudoOuMotDePasseIncorrectException {
-
-        return this.mongodbService.loginUser(pseudo, pw);
+        this.user = this.mongodbService.loginUser(pseudo, pw);
+        return this.user;
     }
 
     @Override
