@@ -199,7 +199,6 @@ public class Partie implements IPartie, Serializable {
             }
             joueur.getDeck().clearDeck();
         }
-
     }
     @Override
     public void deffausserCarte(IJoueur joueur, ICarte carte) throws Exception {
