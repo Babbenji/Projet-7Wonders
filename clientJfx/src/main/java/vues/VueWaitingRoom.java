@@ -13,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import joueur.Joueur;
+import partie.Partie;
 import services.exceptions.JoueurDejaAjouteException;
 import services.exceptions.JoueurNonExistantException;
 import type.IJoueur;
@@ -39,6 +41,7 @@ public class VueWaitingRoom implements Vue{
 
     private Stage stage;
     private Controleur controleur;
+    private List<Partie>parties;
     private IPartie partie;
     private int nombre;
 
@@ -81,11 +84,22 @@ public class VueWaitingRoom implements Vue{
     @Override
     public void chargerDonnees() {
         try {
-            this.partie = this.controleur.getFacade().creePartie(this.controleur.getUser());
-            this.listJoueurs.getItems().add(this.controleur.getUser().getPseudo());
-            //String nombre = Integer.toString(this.controleur.ajoutUserWaitingRoom());
-            this.nombre = 4;
+            this.parties = this.controleur.getFacade().getParties();
+            for(Partie p : this.parties){
+                for(IJoueur j : p.getListeDesJoueurs()){
+                    if (j.getNom().equals(this.controleur.getUser().getPseudo())){
+                        this.partie = p;
+                    }
+                }
+            }
+            List<IJoueur> j = this.controleur.getFacade().getPartieById(this.controleur.getFacade().getPartieById(this.partie.getIdPartie()).getIdPartie()).getListeDesJoueurs();
+            this.listJoueurs.getItems().clear();
+            for (IJoueur joueur : j){
+                this.listJoueurs.getItems().add(joueur.getNom());
+            }
+            this.nombre = this.controleur.ajoutUserWaitingRoom();
             this.nombreJoueursEnAttente.setText(Integer.toString(this.nombre));
+            this.controleur.setNbUserWaitingRoom(this.nombre);
 
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -112,7 +126,11 @@ public class VueWaitingRoom implements Vue{
             this.controleur.inviterUser(idPartie, user);
             System.out.println("partie dans la vue : "+this.partie+" "+this.partie.getListeDesJoueurs());
             System.out.println("partie côté serveur : "+this.controleur.getFacade().getPartieById(this.partie.getIdPartie())+this.controleur.getFacade().getPartieById(this.partie.getIdPartie()).getListeDesJoueurs());
-            this.listJoueurs.getItems().add(user.getPseudo());
+            List<IJoueur> j = this.controleur.getFacade().getPartieById(idPartie).getListeDesJoueurs();
+            this.listJoueurs.getItems().clear();
+            for (IJoueur joueur : j){
+                this.listJoueurs.getItems().add(joueur.getNom());
+            }
         }
     }
 
