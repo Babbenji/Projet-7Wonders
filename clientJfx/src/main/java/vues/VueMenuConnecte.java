@@ -9,11 +9,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import partie.Partie;
+import type.IJoueur;
+import type.IPartie;
 import user.User;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -47,11 +52,15 @@ public class VueMenuConnecte implements Vue{
 
     private Scene scene;
 
+    private User user;
+
+    private List<Partie>parties;
+
     private void setStage(Stage stage) {
         this.stage = stage;
     }
 
-    public static VueMenuConnecte creer(Stage stage) {
+    public static VueMenuConnecte creer(Stage stage, Controleur controleur) {
         URL location = VueMenuConnecte.class.getResource("menuConnecte.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(location);
         Parent root = null;
@@ -65,19 +74,38 @@ public class VueMenuConnecte implements Vue{
         vue.setStage(stage);
         Scene scene = new Scene(root);
         vue.setScene(scene);
+        vue.initialiserControleur(controleur);
         vue.initialiserBoutonQuitter();
-        vue.initialiserBoutonCreer();
+        try {
+            vue.initialiserBoutonCreer();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         return vue;
     }
 
     private void initialiserBoutonQuitter() { this.boutonQuitter.setOnAction(e -> goExit()); }
 
-    private void initialiserBoutonCreer() {
+    private void initialiserBoutonCreer() throws RemoteException {
+        /*
+        System.out.println(this.controleur.getUser()+" caca");
+        //IPartie partie = this.controleur.getFacade().creePartie(this.controleur.getUser());
         this.creerPartie.setOnAction(e -> {
             this.controleur.ajoutUserWaitingRoom();
             goToWaitingRoom();
+        });
+         */
+    }
 
-        }); }
+    public void buttonCreer(MouseEvent mouseEvent){
+        try {
+            IPartie partie = this.controleur.getFacade().creePartie(this.controleur.getUser());
+            this.controleur.ajoutUserWaitingRoom();
+            this.goToWaitingRoom();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void goExit() {
         this.controleur.exit();
@@ -105,7 +133,13 @@ public class VueMenuConnecte implements Vue{
     public void chargerDonnees() {
         String nom = controleur.getNom();
         this.pseudo.setText(nom);
+        this.user = this.controleur.getUser();
         List<User> amis = controleur.getAmis();
+        try {
+            this.parties = this.controleur.getFacade().getParties();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         this.listAmis.getItems().clear();
         for(User a : amis){
             this.listAmis.getItems().add(a.getPseudo());
@@ -115,6 +149,17 @@ public class VueMenuConnecte implements Vue{
     @Override
     public void initialiserControleur(Controleur controleur) {
         this.controleur = controleur;
+    }
+
+    public void onButtonJoinGame(MouseEvent event){
+        for (Partie p : this.parties){
+            for (IJoueur j : p.getListeDesJoueurs()){
+                if(j.getNom().equals(this.controleur.getUser().getPseudo())){
+                    this.controleur.ajoutUserWaitingRoom();
+                    this.goToWaitingRoom();
+                }
+            }
+        }
     }
 
     public void addFriend(ActionEvent actionEvent) {

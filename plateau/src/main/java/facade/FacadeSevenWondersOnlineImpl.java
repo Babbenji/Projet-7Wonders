@@ -15,7 +15,6 @@ import type.*;
 import user.User;
 
 import java.nio.file.Paths;
-import java.rmi.RemoteException;
 import java.util.*;
 
 public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
@@ -27,11 +26,13 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
     private List<ICarte> lesCartes;
     private List<IMerveille> lesMerveilles;
     private Map<IJoueur,Partie> associationJoueurPartie;
+    private Map<User,IJoueur> associationUserJoueur;
 
 
     public FacadeSevenWondersOnlineImpl() {
         //mongodb this.user = null;
         this.userDansPreLobby = new HashMap<>();
+        this.associationUserJoueur = new HashMap<>();
         this.parties = new ArrayList<>();
         this.associationJoueurPartie = new HashMap<>();
         //recuperer joueurs inscrits mongodb jsp si on peut ^^ this.joueursInscrits
@@ -83,6 +84,11 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
     }
 
     @Override
+    public List<Partie> getParties(){
+        return this.parties;
+    }
+
+    @Override
     public Partie getPartieById(int id) {
         Partie partie = null;
         for (Partie p : this.parties){
@@ -95,21 +101,34 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
 
 
     @Override
-    public void inviterUser(int idPartie, User userInvite) {
+    public void inviterUser(int idPartie, User userInvite)
+    {
         IJoueur joueur = new Joueur(userInvite.getPseudo());
         Partie partie = null;
         partie = getPartieById(idPartie);
         partie.addJoueur(joueur);
+        associationJoueurPartie.put(joueur,partie);
+        associationUserJoueur.put(userInvite,joueur);
+        System.out.println("test");
+
+    }
+    @Override
+    public Partie getPartie(IJoueur joueur){
+        return associationJoueurPartie.get(joueur);
     }
 
     @Override
-    public IPartie creePartie(User createur) {
+    public IPartie creePartie(User createur)
+    {
         ArrayList<IJoueur> listJoueur = new ArrayList<>();
         IJoueur joueur1 = new Joueur(createur.getPseudo());
         listJoueur.add(joueur1);
+        associationUserJoueur.put(createur,joueur1);
         Partie partie = new Partie(listJoueur,lesCartes,lesMerveilles);
         parties.add(partie);
-        for (IJoueur joueur: listJoueur) {
+
+        for (IJoueur joueur: listJoueur)
+        {
             this.associationJoueurPartie.put(joueur,partie);
         }
         return partie;
@@ -162,9 +181,6 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
        return this.mongodbService.getUserByPseudo(pseudo);
     }
 
-    public List<Partie> getParties() {
-        return parties;
-    }
 
     public List<ICarte> getLesCartes() {
         return lesCartes;
@@ -172,5 +188,22 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
 
     public List<IMerveille> getLesMerveilles() {
         return lesMerveilles;
+    }
+
+
+    public Map<User, Partie> getUserDansPreLobby() {
+        return userDansPreLobby;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Map<User, IJoueur> getAssociationUserJoueur() {
+        return associationUserJoueur;
+    }
+
+    public Map<IJoueur, Partie> getAssociationJoueurPartie() {
+        return associationJoueurPartie;
     }
 }

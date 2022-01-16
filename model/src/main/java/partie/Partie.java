@@ -65,6 +65,13 @@ public class Partie implements IPartie, Serializable {
     public void constructionDesListes()
     {
         Collections.shuffle(this.merveilles);
+        this.merveilles.forEach(m->
+        {
+            this.listeDesJoueurs.forEach(j->{
+                j.setMerveille(m);
+            });
+        });
+
         this.cartes.forEach(c -> {
             if (c.getAge() == 1){
                 this.cartesAgeI.add(c);
@@ -493,6 +500,7 @@ public class Partie implements IPartie, Serializable {
 
         // on arrete la partie ici
     }
+
 
     @Override
     public void comptagePointVictoirePourBatimentScientifique(IJoueur joueur)

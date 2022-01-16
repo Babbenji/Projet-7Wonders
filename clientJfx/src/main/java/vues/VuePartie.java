@@ -115,7 +115,7 @@ public class VuePartie implements Vue
         Scene scene = new Scene(root);
         vue.setScene(scene);
         vue.setControleur(controleur);
-        vue.initialiserCarteMerveille();
+
         return vue;
     }
 
@@ -138,7 +138,7 @@ public class VuePartie implements Vue
 
     public void initialiserCarteMerveille() throws RemoteException { // a mettre dans le charge donne quand les tests seront finis
         this.controleur.miseEnPlaceDuJeu();
-        IMerveille merveille = this.controleur.getMerveille();
+        IMerveille merveille = this.controleur.getJoueur().getMerveille();
         File file = new File("clientJfx/src/main/resources/images/");
         Image image = new Image(file.toURI().toString()+merveille.getImage());
         merveilleIM.setImage(image);
@@ -172,10 +172,21 @@ public class VuePartie implements Vue
     }
 
     @Override
-    public void chargerDonnees() throws RemoteException {
+    public void chargerDonnees() throws RemoteException
+    {
+        this.controleur.miseEnPlaceDuJeu();
+
+        this.controleur.miseEnPlaceDuJeu();
+        IMerveille merveille = this.controleur.getJoueur().getMerveille();
+    }
+    public void debutpartie() throws RemoteException {
+        IMerveille merveille = this.controleur.getJoueur().getMerveille();
+        File file = new File("clientJfx/src/main/resources/images/");
+        Image image = new Image(file.toURI().toString()+merveille.getImage());
+        merveilleIM.setImage(image);
+        affichageInteractifDesVariables();
 
         this.joueurGauche = this.controleur.getJoueurGauche();
-        File file = new File("clientJfx/src/main/resources/images/");
         merveilleVoisinGauche.setImage(new Image(file.toURI().toString()+this.joueurGauche.getMerveille().getImage()));
 
         this.joueurDroite = this.controleur.getJoueurDroite();
@@ -183,6 +194,7 @@ public class VuePartie implements Vue
 
         this.joueurEnFace = this.controleur.getJoueurFace();
         merveilleJoueurFace.setImage(new Image(file.toURI().toString()+this.joueurEnFace.getMerveille().getImage()));
+
 
     }
 

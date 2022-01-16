@@ -11,6 +11,7 @@ import user.User;
 
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.Map;
 
 public interface ProxySevenWondersOnLine
 
@@ -47,6 +48,8 @@ public interface ProxySevenWondersOnLine
      *
      */
     IPartie creePartie(User user) throws RemoteException;
+
+    Partie getPartie(IJoueur joueur) throws RemoteException;
 
     /**
      * Permet de rejoindre une partie
@@ -105,16 +108,19 @@ public interface ProxySevenWondersOnLine
     User getUserByPseudo(String user) throws RemoteException;
 
     /**
+     * Retourne la liste des parties
+     * @return partie
+     */
+    List<Partie> getParties() throws RemoteException;
+
+    /**
      * Retourne une partie en fonction d'un id en param
      * @param idPartie
      * @return
      */
     Partie getPartieById(int idPartie) throws RemoteException;
 
-    /**
-     * Permet d'ajouter un ami
-     * @param user
-     * @param pseudoAmi
-     */
+    Map<User, IJoueur> getAssociationUserJoueur() throws RemoteException;
+    Map<IJoueur, Partie> getAssociationJoueurPartie() throws RemoteException;
 
 }

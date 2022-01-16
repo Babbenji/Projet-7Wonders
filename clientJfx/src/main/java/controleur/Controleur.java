@@ -4,6 +4,11 @@ import exceptions.MaxJoueursAtteintException;
 import facade.FacadeSevenWondersOnlineImpl;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import joueur.Joueur;
+import merveilles.exceptions.MaximumEtapeAtteintException;
+import partie.Partie;
+import partie.exceptions.ChoixDejaFaitException;
+import partie.exceptions.PasAssezDeRessourcesException;
 import services.exceptions.JoueurDejaDansLaListeDAmisException;
 import services.exceptions.JoueurNonExistantException;
 import services.exceptions.*;
@@ -26,29 +31,26 @@ public class Controleur
 {
     private ProxySevenWondersOnLine facade;
 
-    private VueMenuNonConnecte vueMenuNonConnecte;
-    private VueConnexion vueConnexion;
-    private VueInscription vueInscription;
-    private VueMenuConnecte vueMenuConnecte;
-    private VuePartie vuePartie;
-    private VueWaitingRoom vueWaitingRoom;
-    private int NB_JOUEURS = 4;
+    private final VueMenuNonConnecte vueMenuNonConnecte;
+    private final VueConnexion vueConnexion;
+    private final VueInscription vueInscription;
+    private final VueMenuConnecte vueMenuConnecte;
+    private final VuePartie vuePartie;
+    private final VueWaitingRoom vueWaitingRoom;
+    private final int NB_JOUEURS = 4;
 
     private IJoueur joueur;
     private String nom;
     private User user;
+    private IPartie partie;
     private static int nbUserWaitingRoom;
-    FacadeSevenWondersOnlineImpl facadeta = new FacadeSevenWondersOnlineImpl();
-    IPartie partie = facadeta.creePartie(
-            //this.user
-            new User("test")
-    );
 //    FacadeSevenWondersOnlineImpl facadeta = new FacadeSevenWondersOnlineImpl();
-//    IPartie partie = facadeta.creePartie();
+//    IPartie partie = facadeta.creePartie(new User("test"));
 
 
     public Controleur(Stage stage) throws IOException, NotBoundException {
         facade = new ProxySevenWondersOnLineImpl();
+
 
         vueMenuNonConnecte = VueMenuNonConnecte.creerVue(stage);
         vueMenuNonConnecte.initialiserControleur(this);
@@ -56,12 +58,20 @@ public class Controleur
         vueConnexion.initialiserControleur(this);
         vueInscription = VueInscription.creerVue(stage);
         vueInscription.initialiserControleur(this);
-        vueMenuConnecte = VueMenuConnecte.creer(stage);
+        vueMenuConnecte = VueMenuConnecte.creer(stage, this);
         vueMenuConnecte.initialiserControleur(this);
         vuePartie = VuePartie.creerVue(stage,this);
         vueWaitingRoom = VueWaitingRoom.creerVue(stage);
         vueWaitingRoom.initialiserControleur(this);
+    }
 
+    public void setNbUserWaitingRoom(int nbUserWaitingRoom) {
+        Controleur.nbUserWaitingRoom = nbUserWaitingRoom;
+    }
+
+    public int ajoutUserWaitingRoom() {
+        System.out.println("nb : "+nbUserWaitingRoom);
+        return nbUserWaitingRoom+1;
     }
 
     public void run() throws RemoteException {
@@ -70,8 +80,18 @@ public class Controleur
 
     public void miseEnPlaceDuJeu() throws RemoteException
     {
+        Map<User,IJoueur> asso = facade.getAssociationUserJoueur();
+
+        for (Map.Entry <User, IJoueur> entryB : asso.entrySet()) {
+            User us = entryB.getKey();
+            IJoueur jou = entryB.getValue();
+            System.out.println(jou);
+            this.joueur = jou;
+            System.out.println(jou);
+        }
 
         partie.miseEnPlacePartie();
+        vuePartie.debutpartie();
     }
 
     public void passerALaSuite()
@@ -79,58 +99,28 @@ public class Controleur
         partie.suitePartie();
     }
 
+    public IPartie getPartie() {
+        return partie;
+    }
 
-    public ProxySevenWondersOnLine getFacade() {
+    public void setPartie(IPartie partie) {
+        this.partie = partie;
+    }
+
+    public ProxySevenWondersOnLine getFacade()
+    {
         return facade;
     }
 
-    public IJoueur getJoueur() {
-        return joueur;
-    }
 
-    public IDeck getDeck() throws RemoteException
+    public void goToPartie() throws RemoteException
     {
-        return deck ;
-    }
-
-    public IMerveille getMerveille() throws RemoteException {
-        return this.merveille;
-    }
-
-    public void goToMenu() {
-        this.vueMenuNonConnecte.show();
-    }
-
-    public void goToMenuConnecte()
-    {
-        vueMenuConnecte.chargerDonnees();
-        this.vueMenuConnecte.show();
-    }
-
-    public void goToConnexion()  {
-        this.vueConnexion.show();
-    }
-
-    public void goToInscription() {
-        this.vueInscription.show();
-    }
-
-    public void goToWaitingRoom() {
-        vueWaitingRoom.chargerDonnees();
-        this.vueWaitingRoom.show();
-    }
-
-    public String getNom() {
-        return this.nom;
-    }
-
-    public void goToPartie() throws RemoteException {
-
         vuePartie.chargerDonnees();
         this.vuePartie.show();
     }
 
-    public Boolean connexion(String pseudo,String mdp) throws PseudoOuMotDePasseIncorrectException, RemoteException, NotBoundException, MalformedURLException {
+    public Boolean connexion(String pseudo,String mdp) throws PseudoOuMotDePasseIncorrectException, RemoteException, NotBoundException, MalformedURLException
+    {
         boolean connexionReussie = false;
         this.user = this.facade.connexionUser(pseudo,mdp);
         if(!Objects.isNull(this.user))
@@ -142,7 +132,8 @@ public class Controleur
         return connexionReussie;
     }
 
-    public Boolean inscription(String pseudo,String mdp) throws PseudoDejaPrisException, RemoteException, NotBoundException, MalformedURLException {
+    public Boolean inscription(String pseudo,String mdp) throws PseudoDejaPrisException, RemoteException, NotBoundException, MalformedURLException
+    {
         boolean inscriptionReussie = false;
         this.user = this.facade.inscriptionUser(pseudo,mdp);
         if(!Objects.isNull(this.user)){
@@ -151,14 +142,17 @@ public class Controleur
         return inscriptionReussie;
     }
 
-    public List<User> getAmis() {
+    public List<User> getAmis()
+    {
         return this.user.getAmis();
     }
-    public void exit() {
+    public void exit()
+    {
         System.exit(0);
     }
 
-    public void addFriend(User user, String pseudoAmi){
+    public void addFriend(User user, String pseudoAmi)
+    {
         try{
             this.facade.ajouterJoueurEnAmi( pseudoAmi);
         } catch (RemoteException | JoueurDejaDansLaListeDAmisException | JoueurNonExistantException e) {
@@ -168,7 +162,8 @@ public class Controleur
 
     }
 
-    public void inviterUser(int idPartie, User user) throws JoueurDejaAjouteException, MaxJoueursAtteintException, JoueurNonExistantException {
+    public void inviterUser(int idPartie, User user) throws JoueurDejaAjouteException, MaxJoueursAtteintException, JoueurNonExistantException
+    {
         try {
             this.facade.inviterUser(idPartie, user);
         } catch (RemoteException e) {
@@ -176,46 +171,49 @@ public class Controleur
         }
     }
 
-    public void construireEtape() throws ChoixDejaFaitException, PasAssezDeRessourcesException, RemoteException, MaximumEtapeAtteintException {
+    public void construireEtape() throws ChoixDejaFaitException, PasAssezDeRessourcesException, RemoteException, MaximumEtapeAtteintException
+    {
         ICarte carte = vuePartie.getCarte();
         partie.construireEtape(joueur,carte);
         vuePartie.affichageInteractifDesVariables();
         System.out.println("carte construite");
     }
 
-    public void defausserCarte() throws Exception {
+    public void defausserCarte() throws ChoixDejaFaitException, RemoteException
+    {
         ICarte carte = vuePartie.getCarte();
         partie.deffausserCarte(joueur, carte);
         vuePartie.affichageInteractifDesVariables();
         System.out.println("carte defausser");
     }
 
-
-    public void jouerCarte() throws Exception
+    public void jouerCarte() throws ChoixDejaFaitException, RemoteException, PasAssezDeRessourcesException
     {
         ICarte carte = vuePartie.getCarte();
         partie.jouerCarte(joueur, carte);
         vuePartie.affichageInteractifDesVariables();
         System.out.println("carte joue");
 
-
     }
 
-
-    public User getUser() {
+    public User getUser()
+    {
         return this.user;
     }
 
-    public IJoueur getJoueurDroite() {
+    public IJoueur getJoueurDroite()
+    {
         int indice = partie.getListeDesJoueurs().indexOf(this.joueur);
         return partie.getListeDesJoueurs().get(voisinDeDroite(indice));
     }
 
-    public IJoueur getJoueurGauche() {
+    public IJoueur getJoueurGauche()
+    {
         int indice = partie.getListeDesJoueurs().indexOf(this.joueur);
         return partie.getListeDesJoueurs().get(voisinDeGauche(indice));
     }
-    public IJoueur getJoueurFace() {
+    public IJoueur getJoueurFace()
+    {
         int indice = partie.getListeDesJoueurs().indexOf(this.joueur);
         return partie.getListeDesJoueurs().get(joueurFace(indice));
     }
@@ -252,12 +250,19 @@ public class Controleur
         }
         return indiceARetourner;
     }
-    public IJoueur getJoueur() {
+    public IJoueur getJoueur()
+    {
         return joueur;
     }
 
     public void goToMenu() {
         this.vueMenuNonConnecte.show();
+    }
+
+    public void goToWaitingRoom()
+    {
+        vueWaitingRoom.chargerDonnees();
+        vueWaitingRoom.show();
     }
 
     public void goToMenuConnecte()
@@ -268,6 +273,14 @@ public class Controleur
 
     public void goToConnexion()  {
         this.vueConnexion.show();
+    }
+
+    public void goToInscription() {
+        this.vueInscription.show();
+    }
+
+    public String getNom() {
+        return this.nom;
     }
 
 }

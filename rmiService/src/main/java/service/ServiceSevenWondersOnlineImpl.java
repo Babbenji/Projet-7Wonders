@@ -12,6 +12,7 @@ import user.User;
 
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.Map;
 
 public class ServiceSevenWondersOnlineImpl  implements ServiceSevenWondersOnline {
 
@@ -98,6 +99,11 @@ public class ServiceSevenWondersOnlineImpl  implements ServiceSevenWondersOnline
     }
 
     @Override
+    public Partie getPartie(IJoueur joueur) throws RemoteException {
+        return this.facadeSevenWondersOnLine.getPartie(joueur);
+    }
+
+    @Override
     public String tableauScore(IJoueur joueur) throws PartieNonTermineeException {
        return this.facadeSevenWondersOnLine.tableauScore(joueur);
     }
@@ -105,6 +111,21 @@ public class ServiceSevenWondersOnlineImpl  implements ServiceSevenWondersOnline
     @Override
     public void partieTerminee(IJoueur joueur) throws Exception {
         this.facadeSevenWondersOnLine.partieTerminee(joueur);
+    }
+
+    @Override
+    public List<Partie> getParties() throws RemoteException{
+        return this.facadeSevenWondersOnLine.getParties();
+    }
+
+    @Override
+    public Map<User, IJoueur> getAssociationUserJoueur() throws RemoteException {
+        return this.facadeSevenWondersOnLine.getAssociationUserJoueur();
+    }
+
+    @Override
+    public Map<IJoueur, Partie> getAssociationJoueurPartie() throws RemoteException {
+        return this.facadeSevenWondersOnLine.getAssociationJoueurPartie();
     }
 
     @Override
