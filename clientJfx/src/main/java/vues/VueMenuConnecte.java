@@ -35,6 +35,9 @@ public class VueMenuConnecte implements Vue{
     @FXML
     Button rejoindrePartie;
 
+    @FXML
+    Button addFriend;
+
     private Stage stage;
     private Controleur controleur;
 
@@ -69,7 +72,12 @@ public class VueMenuConnecte implements Vue{
 
     private void initialiserBoutonQuitter() { this.boutonQuitter.setOnAction(e -> goExit()); }
 
-    private void initialiserBoutonCreer() { this.creerPartie.setOnAction(e -> goToWaitingRoom()); }
+    private void initialiserBoutonCreer() {
+        this.creerPartie.setOnAction(e -> {
+            this.controleur.ajoutUserWaitingRoom();
+            goToWaitingRoom();
+
+        }); }
 
     private void goExit() {
         this.controleur.exit();
@@ -119,6 +127,8 @@ public class VueMenuConnecte implements Vue{
         if (resultat.isPresent()){
             try {
                 this.controleur.addFriend(this.controleur.getUser(), resultat.get());
+                User u = this.controleur.getFacade().getUserByPseudo(resultat.get());
+                this.controleur.addFriend(u, this.controleur.getUser().getPseudo());
                 this.listAmis.getItems().add(resultat.get());
 
             } catch (Exception e) {

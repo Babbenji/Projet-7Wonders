@@ -39,11 +39,13 @@ public class Controleur
     private IMerveille merveille;
     private String nom;
     private User user;
+    private static int nbUserWaitingRoom;
     FacadeSevenWondersOnlineImpl facadeta = new FacadeSevenWondersOnlineImpl();
     IPartie partie = facadeta.creePartie(
             //this.user
             new User("test")
     );
+
 
     public Controleur(Stage stage) throws IOException, NotBoundException {
         facade = new ProxySevenWondersOnLineImpl();
@@ -191,6 +193,7 @@ public class Controleur
     }
 
 
+
     public void jouerCarte() throws Exception
     {
         ICarte carte = vuePartie.getCarte();
@@ -253,5 +256,9 @@ public class Controleur
     public IJoueur getInfoJFace() {
         int indice = partie.getListeDesJoueurs().indexOf(this.joueur);
         return partie.getListeDesJoueurs().get(joueurFace(indice));
+    }
+
+    public int ajoutUserWaitingRoom() {
+       return nbUserWaitingRoom+1;
     }
 }
