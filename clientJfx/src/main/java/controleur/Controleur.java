@@ -85,46 +85,6 @@ public class Controleur
         return facade;
     }
 
-    public IJoueur getJoueur() {
-        return joueur;
-    }
-
-    public IDeck getDeck() throws RemoteException
-    {
-        return deck ;
-    }
-
-    public IMerveille getMerveille() throws RemoteException {
-        return this.merveille;
-    }
-
-    public void goToMenu() {
-        this.vueMenuNonConnecte.show();
-    }
-
-    public void goToMenuConnecte()
-    {
-        vueMenuConnecte.chargerDonnees();
-        this.vueMenuConnecte.show();
-    }
-
-    public void goToConnexion()  {
-        this.vueConnexion.show();
-    }
-
-    public void goToInscription() {
-        this.vueInscription.show();
-    }
-
-    public void goToWaitingRoom() {
-        vueWaitingRoom.chargerDonnees();
-        this.vueWaitingRoom.show();
-    }
-
-    public String getNom() {
-        return this.nom;
-    }
-
     public void goToPartie() throws RemoteException {
 
         vuePartie.chargerDonnees();
@@ -165,8 +125,6 @@ public class Controleur
         } catch (RemoteException | JoueurDejaDansLaListeDAmisException | JoueurNonExistantException e) {
             e.printStackTrace();
         }
-
-
     }
 
     public void inviterUser(int idPartie, User user) throws JoueurDejaAjouteException, MaxJoueursAtteintException, JoueurNonExistantException {
@@ -185,26 +143,20 @@ public class Controleur
     }
 
     public void defausserCarte() throws ChoixDejaFaitException, RemoteException {
-
-    public void defausserCarte() throws Exception {
         ICarte carte = vuePartie.getCarte();
         partie.deffausserCarte(joueur, carte);
         vuePartie.affichageInteractifDesVariables();
         System.out.println("carte defausser");
     }
 
-    public void jouerCarte() throws ChoixDejaFaitException, RemoteException, PasAssezDeRessourcesException {
-
-    public void jouerCarte() throws Exception
+    public void jouerCarte() throws ChoixDejaFaitException, RemoteException, PasAssezDeRessourcesException
     {
         ICarte carte = vuePartie.getCarte();
         partie.jouerCarte(joueur, carte);
         vuePartie.affichageInteractifDesVariables();
         System.out.println("carte joue");
 
-
     }
-
 
     public User getUser() {
         return this.user;
@@ -256,12 +208,19 @@ public class Controleur
         }
         return indiceARetourner;
     }
+
     public IJoueur getJoueur() {
         return joueur;
     }
 
     public void goToMenu() {
         this.vueMenuNonConnecte.show();
+    }
+
+    public void goToWaitingRoom()
+    {
+        vueWaitingRoom.chargerDonnees();
+        vueWaitingRoom.show();
     }
 
     public void goToMenuConnecte()
