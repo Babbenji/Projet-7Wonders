@@ -58,12 +58,16 @@ public class Controleur
         vueConnexion.initialiserControleur(this);
         vueInscription = VueInscription.creerVue(stage);
         vueInscription.initialiserControleur(this);
-        vueMenuConnecte = VueMenuConnecte.creer(stage);
+        vueMenuConnecte = VueMenuConnecte.creer(stage, this);
         vueMenuConnecte.initialiserControleur(this);
         vuePartie = VuePartie.creerVue(stage,this);
         vueWaitingRoom = VueWaitingRoom.creerVue(stage);
         vueWaitingRoom.initialiserControleur(this);
 
+    }
+
+    public int ajoutUserWaitingRoom() {
+        return this.nbUserWaitingRoom+1;
     }
 
     public void run() throws RemoteException {

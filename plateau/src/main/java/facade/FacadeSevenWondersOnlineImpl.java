@@ -15,7 +15,6 @@ import type.*;
 import user.User;
 
 import java.nio.file.Paths;
-import java.rmi.RemoteException;
 import java.util.*;
 
 public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
@@ -80,6 +79,11 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
     @Override
     public List<User> getAmis(){
         return this.user.getAmis();
+    }
+
+    @Override
+    public List<Partie> getParties(){
+        return this.parties;
     }
 
     @Override
@@ -162,9 +166,6 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
        return this.mongodbService.getUserByPseudo(pseudo);
     }
 
-    public List<Partie> getParties() {
-        return parties;
-    }
 
     public List<ICarte> getLesCartes() {
         return lesCartes;

@@ -116,4 +116,10 @@ public interface ServiceSevenWondersOnline extends Remote
      * @return
      */
     Partie getPartieById(int idPartie) throws RemoteException;
+
+    /**
+     * Retourne la liste des parties
+     * @return partie
+     */
+    List<Partie> getParties() throws RemoteException;
 }

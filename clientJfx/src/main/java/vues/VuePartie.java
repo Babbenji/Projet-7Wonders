@@ -138,7 +138,7 @@ public class VuePartie implements Vue
 
     public void initialiserCarteMerveille() throws RemoteException { // a mettre dans le charge donne quand les tests seront finis
         this.controleur.miseEnPlaceDuJeu();
-        IMerveille merveille = this.controleur.getMerveille();
+        IMerveille merveille = this.controleur.getJoueur().getMerveille();
         File file = new File("clientJfx/src/main/resources/images/");
         Image image = new Image(file.toURI().toString()+merveille.getImage());
         merveilleIM.setImage(image);

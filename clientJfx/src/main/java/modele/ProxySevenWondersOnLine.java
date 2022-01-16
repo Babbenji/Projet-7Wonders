@@ -105,6 +105,12 @@ public interface ProxySevenWondersOnLine
     User getUserByPseudo(String user) throws RemoteException;
 
     /**
+     * Retourne la liste des parties
+     * @return partie
+     */
+    List<Partie> getParties() throws RemoteException;
+
+    /**
      * Retourne une partie en fonction d'un id en param
      * @param idPartie
      * @return

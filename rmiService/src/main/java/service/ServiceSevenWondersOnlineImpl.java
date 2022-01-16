@@ -108,6 +108,11 @@ public class ServiceSevenWondersOnlineImpl  implements ServiceSevenWondersOnline
     }
 
     @Override
+    public List<Partie> getParties() throws RemoteException{
+        return this.facadeSevenWondersOnLine.getParties();
+    }
+
+    @Override
     public Partie getPartieById(int idPartie) {
         return this.facadeSevenWondersOnLine.getPartieById(idPartie);
     }

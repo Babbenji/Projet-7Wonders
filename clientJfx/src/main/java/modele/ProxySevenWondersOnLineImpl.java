@@ -156,6 +156,11 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
     }
 
     @Override
+    public List<Partie> getParties() throws RemoteException {
+        return this.serviceSevenWondersOnline.getParties();
+    }
+
+    @Override
     public Partie getPartieById(int idPartie) throws RemoteException {
         return this.serviceSevenWondersOnline.getPartieById(idPartie);
     }

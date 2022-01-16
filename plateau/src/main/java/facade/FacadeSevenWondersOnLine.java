@@ -44,6 +44,12 @@ public interface FacadeSevenWondersOnLine {
     IPartie creePartie(User user) throws RemoteException;
 
     /**
+     * Retourne la liste des parties
+     * @return partie
+     */
+    List<Partie> getParties();
+
+    /**
      * Permet de récupérer la partie en fonction d'un ID donné en param
      * @param idPartie
      * @return
