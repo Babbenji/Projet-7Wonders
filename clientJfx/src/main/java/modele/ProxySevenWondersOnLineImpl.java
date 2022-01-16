@@ -4,6 +4,7 @@ package modele;
 import app.RunServer;
 import exceptions.MaxJoueursAtteintException;
 import exceptions.PartieNonTermineeException;
+import partie.Partie;
 import service.ServiceSevenWondersOnline;
 import services.exceptions.*;
 import type.*;
@@ -33,7 +34,7 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
     }
 
     @Override
-    public User inscriptionUser(String nom, String pw) throws PseudoDejaPrisException {
+    public User inscriptionUser(String nom, String pw) throws PseudoDejaPrisException, RemoteException {
         try {
             return this.serviceSevenWondersOnline.inscriptionUser(nom, pw);
         } catch (RemoteException | PseudoOuMotDePasseIncorrectException e) {
@@ -44,7 +45,7 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
     }
 
     @Override
-    public User connexionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException {
+    public User connexionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException, RemoteException {
         try{
             return this.serviceSevenWondersOnline.connexionUser(nom,pw);
         }catch (PseudoOuMotDePasseIncorrectException | RemoteException e){
@@ -55,7 +56,7 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
 
 
     @Override
-    public List<User> getAmis() {
+    public List<User> getAmis() throws RemoteException {
         try{
            return this.serviceSevenWondersOnline.getAmis();
         } catch (Exception  e) {
@@ -64,28 +65,27 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
     }
 
     @Override
-    public void inviterJoueur(IJoueur joueur) {
+    public User getUserByPseudo(String pseudo) throws RemoteException {
         try{
-            this.serviceSevenWondersOnline.inviterJoueur(joueur);
-        } catch (Exception  e) {
-            throw new RuntimeException("RMI Problem");
+            return this.serviceSevenWondersOnline.getUserByPseudo(pseudo);
+        } catch (Exception e) {
+            throw new RemoteException("can't access to RMI");
         }
     }
 
-
     @Override
-    public IPartie creePartie() throws RemoteException {
+    public IPartie creePartie(User user) throws RemoteException {
         try{
-            return this.serviceSevenWondersOnline.creePartie();
+            return this.serviceSevenWondersOnline.creePartie(user);
         } catch (RemoteException e) {
               throw new RuntimeException("RMI Problem");
         }
     }
 
     @Override
-    public void rejoindreUnePartie(String nomPartie) throws JoueurNonExistantException, MaxJoueursAtteintException, JoueurDejaAjouteException {
+    public void inviterUser(int idPartie, User user) throws JoueurNonExistantException, MaxJoueursAtteintException, JoueurDejaAjouteException, RemoteException {
         try{
-            this.serviceSevenWondersOnline.rejoindreUnePartie(nomPartie);
+            this.serviceSevenWondersOnline.inviterUser(idPartie, user);
         } catch (JoueurNonExistantException | MaxJoueursAtteintException | JoueurDejaAjouteException | RemoteException e) {
             throw new RuntimeException("RMI Problem");
         }
@@ -101,7 +101,7 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
     }
 
     @Override
-    public void jouerCarte(IJoueur joueur, ICarte carte) throws Exception {
+    public void jouerCarte(IJoueur joueur, ICarte carte) throws Exception, RemoteException {
         try{
             this.serviceSevenWondersOnline.jouerCarte(joueur,carte);
         } catch (Exception e) {
@@ -110,7 +110,7 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
     }
 
     @Override
-    public void deffausserCarte(IJoueur joueur, ICarte carte) throws Exception {
+    public void deffausserCarte(IJoueur joueur, ICarte carte) throws Exception, RemoteException {
         try {
             this.serviceSevenWondersOnline.deffausserCarte(joueur, carte);
         } catch (Exception e) {
@@ -128,7 +128,7 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
     }
 
     @Override
-    public String tableauScore(IJoueur joueur) throws PartieNonTermineeException {
+    public String tableauScore(IJoueur joueur) throws PartieNonTermineeException, RemoteException {
         try {
            return this.serviceSevenWondersOnline.tableauScore(joueur);
         } catch (PartieNonTermineeException | RemoteException e) {
@@ -137,17 +137,12 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
     }
 
     @Override
-    public void partieTerminee(IJoueur joueur) throws Exception {
+    public void partieTerminee(IJoueur joueur) throws Exception, RemoteException {
         try {
             this.serviceSevenWondersOnline.partieTerminee(joueur);
         } catch (Exception e) {
             throw new RuntimeException("RMI Problem");
         }
-    }
-
-    @Override
-    public User getUserByPseudo(String user) throws RemoteException {
-        return this.serviceSevenWondersOnline.getUserByPseudo(user);
     }
 
     @Override
@@ -158,5 +153,10 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public Partie getPartieById(int idPartie) throws RemoteException {
+        return this.serviceSevenWondersOnline.getPartieById(idPartie);
     }
 }

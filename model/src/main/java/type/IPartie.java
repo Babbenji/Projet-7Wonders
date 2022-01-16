@@ -57,6 +57,8 @@ public interface IPartie {
 
     void setListeDesJoueurs(ArrayList<IJoueur> listeDesJoueurs);
 
+    void addJoueur(IJoueur joueur);
+
     int getNB_JOUEURS();
 
     int getNB_CARTES();

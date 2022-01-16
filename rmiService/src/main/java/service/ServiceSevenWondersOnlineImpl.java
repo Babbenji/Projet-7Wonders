@@ -4,6 +4,7 @@ import exceptions.MaxJoueursAtteintException;
 import exceptions.PartieNonTermineeException;
 import facade.FacadeSevenWondersOnLine;
 import facade.FacadeSevenWondersOnlineImpl;
+import partie.Partie;
 import services.exceptions.*;
 import type.*;
 import user.User;
@@ -62,20 +63,14 @@ public class ServiceSevenWondersOnlineImpl  implements ServiceSevenWondersOnline
     }
 
     @Override
-    public void inviterJoueur(IJoueur joueur) {
-        this.facadeSevenWondersOnLine.inviterJoueur(joueur);
-
+    public void inviterUser(int idPartie, User user) throws JoueurDejaAjouteException, MaxJoueursAtteintException, JoueurNonExistantException {
+        this.facadeSevenWondersOnLine.inviterUser(idPartie, user);
     }
 
     @Override
-    public IPartie creePartie() throws RemoteException {
-        return this.facadeSevenWondersOnLine.creePartie();
+    public IPartie creePartie(User user) throws RemoteException {
+        return this.facadeSevenWondersOnLine.creePartie(user);
 
-    }
-
-    @Override
-    public void rejoindreUnePartie(String nomPartie) throws JoueurNonExistantException, MaxJoueursAtteintException, JoueurDejaAjouteException {
-        this.facadeSevenWondersOnLine.rejoindreUnePartie(nomPartie);
     }
 
     @Override
@@ -110,7 +105,11 @@ public class ServiceSevenWondersOnlineImpl  implements ServiceSevenWondersOnline
     @Override
     public void partieTerminee(IJoueur joueur) throws Exception {
         this.facadeSevenWondersOnLine.partieTerminee(joueur);
+    }
 
+    @Override
+    public Partie getPartieById(int idPartie) {
+        return this.facadeSevenWondersOnLine.getPartieById(idPartie);
     }
 
     @Override

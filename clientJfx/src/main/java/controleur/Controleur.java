@@ -1,5 +1,6 @@
 package controleur;
 
+import exceptions.MaxJoueursAtteintException;
 import facade.FacadeSevenWondersOnlineImpl;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -8,9 +9,8 @@ import partie.exceptions.ChoixDejaFaitException;
 import partie.exceptions.PasAssezDeRessourcesException;
 import services.exceptions.JoueurDejaDansLaListeDAmisException;
 import services.exceptions.JoueurNonExistantException;
-import services.exceptions.PseudoOuMotDePasseIncorrectException;
+import services.exceptions.*;
 import type.*;
-import services.exceptions.PseudoDejaPrisException;
 import type.IDeck;
 import type.IJoueur;
 import type.IMerveille;
@@ -34,11 +34,17 @@ public class Controleur
     private VueInscription vueInscription;
     private VueMenuConnecte vueMenuConnecte;
     private VuePartie vuePartie;
+    private VueWaitingRoom vueWaitingRoom;
     private int NB_JOUEURS = 4;
 
     private IJoueur joueur;
     private String nom;
     private User user;
+    FacadeSevenWondersOnlineImpl facadeta = new FacadeSevenWondersOnlineImpl();
+    IPartie partie = facadeta.creePartie(
+            //this.user
+            new User("test")
+    );
 //    FacadeSevenWondersOnlineImpl facadeta = new FacadeSevenWondersOnlineImpl();
 //    IPartie partie = facadeta.creePartie();
 
@@ -54,11 +60,13 @@ public class Controleur
         vueMenuConnecte = VueMenuConnecte.creer(stage);
         vueMenuConnecte.initialiserControleur(this);
         vuePartie = VuePartie.creerVue(stage,this);
+        vueWaitingRoom = VueWaitingRoom.creerVue(stage);
+        vueWaitingRoom.initialiserControleur(this);
 
     }
 
     public void run() throws RemoteException {
-        this.goToPartie();
+        vueMenuNonConnecte.show();
     }
 
     public void miseEnPlaceDuJeu() throws RemoteException
@@ -77,6 +85,45 @@ public class Controleur
         return facade;
     }
 
+    public IJoueur getJoueur() {
+        return joueur;
+    }
+
+    public IDeck getDeck() throws RemoteException
+    {
+        return deck ;
+    }
+
+    public IMerveille getMerveille() throws RemoteException {
+        return this.merveille;
+    }
+
+    public void goToMenu() {
+        this.vueMenuNonConnecte.show();
+    }
+
+    public void goToMenuConnecte()
+    {
+        vueMenuConnecte.chargerDonnees();
+        this.vueMenuConnecte.show();
+    }
+
+    public void goToConnexion()  {
+        this.vueConnexion.show();
+    }
+
+    public void goToInscription() {
+        this.vueInscription.show();
+    }
+
+    public void goToWaitingRoom() {
+        vueWaitingRoom.chargerDonnees();
+        this.vueWaitingRoom.show();
+    }
+
+    public String getNom() {
+        return this.nom;
+    }
 
     public void goToPartie() throws RemoteException {
 
@@ -118,6 +165,16 @@ public class Controleur
         } catch (RemoteException | JoueurDejaDansLaListeDAmisException | JoueurNonExistantException e) {
             e.printStackTrace();
         }
+
+
+    }
+
+    public void inviterUser(int idPartie, User user) throws JoueurDejaAjouteException, MaxJoueursAtteintException, JoueurNonExistantException {
+        try {
+            this.facade.inviterUser(idPartie, user);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     public void construireEtape() throws ChoixDejaFaitException, PasAssezDeRessourcesException, RemoteException, MaximumEtapeAtteintException {
@@ -129,6 +186,7 @@ public class Controleur
 
     public void defausserCarte() throws ChoixDejaFaitException, RemoteException {
 
+    public void defausserCarte() throws Exception {
         ICarte carte = vuePartie.getCarte();
         partie.deffausserCarte(joueur, carte);
         vuePartie.affichageInteractifDesVariables();
@@ -136,12 +194,17 @@ public class Controleur
     }
 
     public void jouerCarte() throws ChoixDejaFaitException, RemoteException, PasAssezDeRessourcesException {
+
+    public void jouerCarte() throws Exception
+    {
         ICarte carte = vuePartie.getCarte();
         partie.jouerCarte(joueur, carte);
         vuePartie.affichageInteractifDesVariables();
         System.out.println("carte joue");
 
+
     }
+
 
     public User getUser() {
         return this.user;
@@ -149,7 +212,7 @@ public class Controleur
 
     public IJoueur getJoueurDroite() {
         int indice = partie.getListeDesJoueurs().indexOf(this.joueur);
-       return partie.getListeDesJoueurs().get(voisinDeDroite(indice));
+        return partie.getListeDesJoueurs().get(voisinDeDroite(indice));
     }
 
     public IJoueur getJoueurGauche() {

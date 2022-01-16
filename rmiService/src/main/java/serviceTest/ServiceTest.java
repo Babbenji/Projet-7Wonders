@@ -16,7 +16,5 @@ public class ServiceTest {
             System.out.println(user.getPseudo());
         }
 
-        System.out.println(serviceSevenWondersOnline.getUserByPseudo("tdurand"));
-
     }
 }

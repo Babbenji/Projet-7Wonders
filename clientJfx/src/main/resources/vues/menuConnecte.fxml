@@ -41,7 +41,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <ListView fx:id="listAmis" prefHeight="361.0" prefWidth="100.0" />
+            <ListView fx:id="listAmis" prefHeight="361.0" prefWidth="100.0"/>
          </children>
       </VBox>
    </children>
