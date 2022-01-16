@@ -1,5 +1,6 @@
 package merveilles;
 
+import merveilles.exceptions.MaximumEtapeAtteintException;
 import type.IMerveille;
 
 import java.io.Serializable;
@@ -27,7 +28,7 @@ public class Merveille implements IMerveille, Serializable {
     private HashMap<String,Integer> ressourcesTroisiemeEtape;
     private HashMap<String,String> effetTroisiemeEtape;
 
-    private HashMap<String,Integer> ressourceEtapeCourante; //ressources nécessaires pour construire l'étape à suivre
+    private HashMap<String,Integer> ressourceEtapeSuivante; //ressources nécessaires pour construire l'étape à suivre
 
     public Merveille() {
         super();
@@ -151,30 +152,24 @@ public class Merveille implements IMerveille, Serializable {
     }
 
     @Override
-    public HashMap<String, Integer> getRessourceEtapeCourante() {
-        return ressourceEtapeCourante;
+    public HashMap<String, Integer> getRessourceEtapeSuivante() throws MaximumEtapeAtteintException {
+        switch(etape+1){
+            case 1: //on retourne le coût de l'étape qui suit celle actuelle
+                return ressourcesPremiereEtape;
+            case 2:
+                return ressourcesDeuxiemeEtape;
+            case 3:
+                return ressourcesTroisiemeEtape;
+        }
+        throw new MaximumEtapeAtteintException();
     }
 
     @Override
-    public void setRessourceEtapeCourante(HashMap<String, Integer> ressourceEtapeCourante) {
-        this.ressourceEtapeCourante = ressourceEtapeCourante;
+    public void setRessourceEtapeSuivante(HashMap<String, Integer> ressourceEtapeSuivante) {
+        this.ressourceEtapeSuivante = ressourceEtapeSuivante;
     }
 
     //fonctions spécifiques (pas getters et setters)
-
-    //retourne la prix en ressources de la prochaine étape
-    @Override
-    public HashMap<String, Integer> prixEtapeSuivante() {
-        switch(etape){
-            case 0: //on retourne le coût de l'étape qui suit celle actuelle
-                return ressourcesPremiereEtape;
-            case 1:
-                return ressourcesDeuxiemeEtape;
-            case 2:
-                return ressourcesTroisiemeEtape;
-        }
-        return null;
-    }
 
     @Override
     public boolean peutAcheterEtape() {
@@ -194,7 +189,7 @@ public class Merveille implements IMerveille, Serializable {
                 ", effetDeuxiemeEtape=" + effetDeuxiemeEtape +
                 ", ressourcesTroisiemeEtape=" + ressourcesTroisiemeEtape +
                 ", effetTroisiemeEtape=" + effetTroisiemeEtape +
-                ", ressourceEtapeCourante=" + ressourceEtapeCourante +
+                ", ressourceEtapeCourante=" + ressourceEtapeSuivante +
                 '}';
     }
 }

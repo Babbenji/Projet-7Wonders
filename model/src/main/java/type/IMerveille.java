@@ -1,5 +1,7 @@
 package type;
 
+import merveilles.exceptions.MaximumEtapeAtteintException;
+
 import java.util.HashMap;
 
 public interface IMerveille {
@@ -43,12 +45,11 @@ public interface IMerveille {
 
     void setImage(String image);
 
-    HashMap<String, Integer> getRessourceEtapeCourante();
 
-    void setRessourceEtapeCourante(HashMap<String, Integer> ressourceEtapeCourante);
+    HashMap<String, Integer> getRessourceEtapeSuivante() throws MaximumEtapeAtteintException;
 
-    //retourne la prix en ressources de la prochaine étape
-    HashMap<String, Integer> prixEtapeSuivante();
+    void setRessourceEtapeSuivante(HashMap<String, Integer> ressourceEtapeSuivante) throws MaximumEtapeAtteintException;
+
 
     //TO DO: finir cette méthode permettant de vérifier (avec la liste des ressources d'un joueur (liste ou joueur en parametre ?), si il peut construire l'étape suivante)
     boolean peutAcheterEtape();

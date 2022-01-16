@@ -5,38 +5,25 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="baseAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.VueMenuNonConnecte">
-   <children>
-      <ImageView fx:id="imageFond" fitHeight="1080.0" fitWidth="1920.0" managed="false" nodeOrientation="INHERIT" pickOnBounds="true">
-         <image>
-            <Image url="@../images/indexbg16x9.jpg" />
-         </image>
-      </ImageView>
-      <VBox fx:id="vboxMenu" layoutX="796.0" layoutY="470.0">
+<AnchorPane fx:id="baseAnchor" prefHeight="386.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.VueMenuNonConnecte">
+    <children>
+        <ImageView fx:id="imageFond" fitHeight="423.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/newbg.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="200.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/logo.png" />
+            </image>
+        </ImageView>
+      <VBox fx:id="vboxMenu" alignment="CENTER" layoutX="200.0" layoutY="105.0" prefHeight="180.0" prefWidth="200.0" spacing="10.0">
          <children>
-            <Button fx:id="buttonConnexion" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" opacity="0.9" prefHeight="46.0" prefWidth="328.0" text="Se connecter">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
-            <Button fx:id="buttonInscription" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" opacity="0.9" prefHeight="46.0" prefWidth="328.0" text="S'inscrire">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
-            <Button fx:id="buttonQuitter" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="56.0" mnemonicParsing="false" opacity="0.9" prefHeight="46.0" prefWidth="328.0" text="Quitter">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
+            <Button fx:id="buttonConnexion" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="CONNEXION" />
+            <Button fx:id="buttonInscription" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="INSCRIPTION" />
+            <Button fx:id="buttonQuitter" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="QUITTER" />
          </children>
       </VBox>
-      <ImageView fitHeight="231.0" fitWidth="684.0" layoutX="618.0" layoutY="106.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/logo.png" />
-         </image>
-      </ImageView>
-   </children>
+    </children>
 </AnchorPane>

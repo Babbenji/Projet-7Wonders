@@ -21,7 +21,7 @@
                      </image>
                   </ImageView>
                   <Label fx:id="argent" layoutX="35.0" layoutY="17.0" prefHeight="17.0" prefWidth="118.0" text="Label" />
-                  <Label fx:id="pv" layoutX="35.0" layoutY="55.0" prefHeight="17.0" prefWidth="106.0" text="Label" />
+                  <Label fx:id="pv" layoutX="35.0" layoutY="55.0" prefHeight="17.0" prefWidth="171.0" text="Label" />
                   <Label fx:id="pvm" layoutX="35.0" layoutY="86.0" prefHeight="21.0" prefWidth="153.0" text="Label" />
                   <Label fx:id="pdm" layoutX="32.0" layoutY="126.0" prefHeight="17.0" prefWidth="176.0" text="Label" />
                   <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="1.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">

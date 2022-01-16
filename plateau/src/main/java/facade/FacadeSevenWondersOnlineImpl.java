@@ -93,6 +93,7 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
         return partie;
     }
 
+
     @Override
     public void inviterUser(int idPartie, User userInvite) {
         IJoueur joueur = new Joueur(userInvite.getPseudo());

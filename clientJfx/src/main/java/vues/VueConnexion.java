@@ -24,18 +24,16 @@ public class VueConnexion implements Vue{
     /* Les noms des attributs doivent être les noms des fx:id */
     @FXML
     private AnchorPane baseAnchor;
-    @FXML
-    private ImageView imageFond;
-    @FXML
-    private ImageView imageLogo;
-    @FXML
-    private VBox vbChamps;
+
     @FXML
     private TextField textFieldPseudo;
+
     @FXML
     private PasswordField textFieldMDP;
+
     @FXML
     private Button buttonRetour;
+
     @FXML
     private Button buttonValider;
 
@@ -125,6 +123,8 @@ public class VueConnexion implements Vue{
     @Override
     public void show() {
         this.stage.setScene(this.scene);
+        this.stage.setX(0);
+        this.stage.setY(0);
         this.stage.show();
     }
 

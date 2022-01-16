@@ -35,8 +35,6 @@ public class Controleur
     private int NB_JOUEURS = 4;
 
     private IJoueur joueur;
-    private IDeck deck;
-    private IMerveille merveille;
     private String nom;
     private User user;
     private static int nbUserWaitingRoom;
@@ -45,6 +43,8 @@ public class Controleur
             //this.user
             new User("test")
     );
+//    FacadeSevenWondersOnlineImpl facadeta = new FacadeSevenWondersOnlineImpl();
+//    IPartie partie = facadeta.creePartie();
 
 
     public Controleur(Stage stage) throws IOException, NotBoundException {
@@ -61,27 +61,24 @@ public class Controleur
         vuePartie = VuePartie.creerVue(stage,this);
         vueWaitingRoom = VueWaitingRoom.creerVue(stage);
         vueWaitingRoom.initialiserControleur(this);
+
     }
 
     public void run() throws RemoteException {
         vueMenuNonConnecte.show();
     }
 
-    public void miseEnPlaceDuJeu() throws RemoteException {
-
-
-//        IJoueur joueur1 = new Joueur("Aziz");
-//        ArrayList<IJoueur> lj = new ArrayList<>();
-//        lj.add(joueur1);
-//        List<ICarte> lc = facade.getLesCartes();
-//        List<IMerveille> lm = facade.getLesMerveilles();
+    public void miseEnPlaceDuJeu() throws RemoteException
+    {
 
         partie.miseEnPlacePartie();
-        joueur = partie.getListeDesJoueurs().get(0);
-        this.merveille = partie.getListeDesJoueurs().get(0).getMerveille();
-        this.deck = partie.getListeDesJoueurs().get(0).getDeck();
-        System.out.println(this.deck.getCarteDansDeck(0));
     }
+
+    public void passerALaSuite()
+    {
+        partie.suitePartie();
+    }
+
 
     public ProxySevenWondersOnLine getFacade() {
         return facade;
@@ -128,6 +125,7 @@ public class Controleur
     }
 
     public void goToPartie() throws RemoteException {
+
         vuePartie.chargerDonnees();
         this.vuePartie.show();
     }
@@ -178,9 +176,9 @@ public class Controleur
         }
     }
 
-    public void construireEtape() throws Exception {
+    public void construireEtape() throws ChoixDejaFaitException, PasAssezDeRessourcesException, RemoteException, MaximumEtapeAtteintException {
         ICarte carte = vuePartie.getCarte();
-        partie.construireEtape(joueur, carte);
+        partie.construireEtape(joueur,carte);
         vuePartie.affichageInteractifDesVariables();
         System.out.println("carte construite");
     }
@@ -191,7 +189,6 @@ public class Controleur
         vuePartie.affichageInteractifDesVariables();
         System.out.println("carte defausser");
     }
-
 
 
     public void jouerCarte() throws Exception
@@ -209,16 +206,19 @@ public class Controleur
         return this.user;
     }
 
-    public IJoueur getInfoJDroite() {
+    public IJoueur getJoueurDroite() {
         int indice = partie.getListeDesJoueurs().indexOf(this.joueur);
         return partie.getListeDesJoueurs().get(voisinDeDroite(indice));
     }
 
-    public IJoueur getInfoJGauche() {
+    public IJoueur getJoueurGauche() {
         int indice = partie.getListeDesJoueurs().indexOf(this.joueur);
         return partie.getListeDesJoueurs().get(voisinDeGauche(indice));
     }
-
+    public IJoueur getJoueurFace() {
+        int indice = partie.getListeDesJoueurs().indexOf(this.joueur);
+        return partie.getListeDesJoueurs().get(joueurFace(indice));
+    }
 
     public int voisinDeDroite(int indice)
     {
@@ -252,13 +252,22 @@ public class Controleur
         }
         return indiceARetourner;
     }
-
-    public IJoueur getInfoJFace() {
-        int indice = partie.getListeDesJoueurs().indexOf(this.joueur);
-        return partie.getListeDesJoueurs().get(joueurFace(indice));
+    public IJoueur getJoueur() {
+        return joueur;
     }
 
-    public int ajoutUserWaitingRoom() {
-       return nbUserWaitingRoom+1;
+    public void goToMenu() {
+        this.vueMenuNonConnecte.show();
     }
+
+    public void goToMenuConnecte()
+    {
+        vueMenuConnecte.chargerDonnees();
+        this.vueMenuConnecte.show();
+    }
+
+    public void goToConnexion()  {
+        this.vueConnexion.show();
+    }
+
 }
