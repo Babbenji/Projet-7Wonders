@@ -10,4 +10,6 @@ module model
     exports user;
     exports partie;
     exports type;
+    exports partie.exceptions;
+    exports merveilles.exceptions;
 }

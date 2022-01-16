@@ -3,19 +3,19 @@ package vues;
 import controleur.Controleur;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
-import javafx.stage.Popup;
-import javafx.scene.layout.Pane;
-import javafx.stage.Window;
-import joueur.Joueur;
+import merveilles.exceptions.MaximumEtapeAtteintException;
+import partie.exceptions.ChoixDejaFaitException;
+import partie.exceptions.PasAssezDeRessourcesException;
 import type.ICarte;
 import type.IDeck;
 import type.IJoueur;
@@ -26,7 +26,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -48,41 +47,41 @@ public class VuePartie implements Vue
     public Button boutonDefausser;
     @FXML
     public ListView lv;
-
+    @FXML
     public Label lab;
+    @FXML
     public Button jGauche;
+    @FXML
     public Button jFace;
-
+    @FXML
     public Label argent;
+    @FXML
     public Label pvm;
+    @FXML
     public Label bouclier;
+    @FXML
     public Label pdm;
+    @FXML
     public Label pv;
+    @FXML
     public Label rouages;
+    @FXML
     public Label compas;
+    @FXML
     public Label tabelettes;
-
-
     @FXML
     private ImageView merveilleIM;
-
     @FXML
     ImageView merveilleJoueurFace;
-
     @FXML
     ImageView merveilleVoisinGauche;
-
     @FXML
     ImageView merveilleVoisinDroite;
-
     @FXML
     Button jDroite;
 
 
-
-
     private ImageView imageSelectionne;
-
     private IJoueur joueurGauche;
     private IJoueur joueurDroite;
     private IJoueur joueurEnFace;
@@ -145,7 +144,6 @@ public class VuePartie implements Vue
         merveilleIM.setImage(image);
         affichageInteractifDesVariables();
 
-
     }
     public void affichageInteractifDesVariables() throws RemoteException {
         IJoueur joueur = this.controleur.getJoueur();
@@ -176,60 +174,113 @@ public class VuePartie implements Vue
     @Override
     public void chargerDonnees() throws RemoteException {
 
-        this.joueurGauche = this.controleur.getInfoJGauche();
+        this.joueurGauche = this.controleur.getJoueurGauche();
         File file = new File("clientJfx/src/main/resources/images/");
         merveilleVoisinGauche.setImage(new Image(file.toURI().toString()+this.joueurGauche.getMerveille().getImage()));
 
-        this.joueurDroite = this.controleur.getInfoJDroite();
+        this.joueurDroite = this.controleur.getJoueurDroite();
         merveilleVoisinDroite.setImage(new Image(file.toURI().toString()+this.joueurDroite.getMerveille().getImage()));
 
-        this.joueurEnFace = this.controleur.getInfoJFace();
+        this.joueurEnFace = this.controleur.getJoueurFace();
         merveilleJoueurFace.setImage(new Image(file.toURI().toString()+this.joueurEnFace.getMerveille().getImage()));
 
     }
 
-    public void jouerCarte(ActionEvent actionEvent) throws Exception
-    {
+    public void jouerCarte(ActionEvent actionEvent) throws ChoixDejaFaitException, RemoteException, PasAssezDeRessourcesException {
+
         this.boutonJouer.setOnAction(e->
         {
             try {
                 this.controleur.jouerCarte();
-            } catch (Exception exception) {
+            }
+            catch (RemoteException exception)
+            {
                 exception.printStackTrace();
             }
+            catch (ChoixDejaFaitException exception ) {
+                Alert alert =  new Alert(Alert.AlertType.ERROR,"VOUS AVEZ DEJA JOUEZ!! ATTENDEZ LE TOUR SUIVANT",ButtonType.OK);
+                alert.showAndWait();
+            }
+            catch (PasAssezDeRessourcesException exception)
+            {
+                Alert alert =  new Alert(Alert.AlertType.ERROR,"Vous N avez pas les ressources ,necessaires",ButtonType.OK);
+                alert.showAndWait();
+            }
         });
+        attendreChoixAdversaires(this.controleur.getJoueur().getAJoue());
         affichageInteractifDesVariables();
-
     }
 
-    public void construireEtape(ActionEvent actionEvent) throws Exception
+    public void construireEtape(ActionEvent actionEvent) throws ChoixDejaFaitException,PasAssezDeRessourcesException,RemoteException
     {
         this.boutonEtape.setOnAction(e->
         {
             try {
                 this.controleur.construireEtape();
-            } catch (Exception exception) {
+            } catch ( RemoteException exception) {
                 exception.printStackTrace();
+            }
+            catch (ChoixDejaFaitException exception ) {
+                Alert alert =  new Alert(Alert.AlertType.ERROR,"VOUS AVEZ DEJA JOUEZ!! ATTENDEZ LE TOUR SUIVANT",ButtonType.OK);
+                alert.showAndWait();
+            }
+            catch (PasAssezDeRessourcesException exception)
+            {
+                Alert alert =  new Alert(Alert.AlertType.ERROR,"Vous N avez pas les ressources ,necessaires",ButtonType.OK);
+                alert.showAndWait();
+            } catch (MaximumEtapeAtteintException maximumEtapeAtteintException) {
+                Alert alert =  new Alert(Alert.AlertType.ERROR,"Vous avez deja construit toute vos etapes",ButtonType.OK);
+                alert.showAndWait();
             }
         });
     }
 
-    public void defausserCarte(ActionEvent actionEvent) throws Exception
-    {
+    public void defausserCarte(ActionEvent actionEvent) throws ChoixDejaFaitException, RemoteException {
         this.boutonDefausser.setOnAction(e->
         {
             try {
                 this.controleur.defausserCarte();
-            } catch (Exception exception) {
+            } catch (RemoteException exception) {
                 exception.printStackTrace();
             }
+            catch (ChoixDejaFaitException exception)
+            {
+                Alert alert =  new Alert(Alert.AlertType.ERROR,"VOUS AVEZ DEJA JOUEZ!! ATTENDEZ LE TOUR SUIVANT",ButtonType.OK);
+                alert.showAndWait();
+            }
         });
-        System.out.println(this.controleur.getJoueur().getDeck().getDeck());
+
         affichageInteractifDesVariables();
-        System.out.println(this.controleur.getJoueur().getDeck().getDeck());
-
-
     }
+
+    public void attendreChoixAdversaires(boolean ajoue)
+    {
+        IJoueur joueurD = this.controleur.getJoueurDroite();
+        IJoueur joueurF = this.controleur.getJoueurGauche();
+        IJoueur joueurG = this.controleur.getJoueurFace();
+        Task<Boolean> attenteCoup = new Task<Boolean>()
+        {
+            @Override
+            protected Boolean call() throws Exception
+            {
+                Boolean AjoueD = null;
+                Boolean AjoueG = null;
+                Boolean AjoueF = null;
+                do
+                {
+                    AjoueD = joueurD.getAJoue();
+                    AjoueF = joueurF.getAJoue();
+                    AjoueG = joueurG.getAJoue();
+                }
+                    while (!AjoueD || !AjoueF || !AjoueG || !ajoue);
+                    return true;
+                }
+            };
+        attenteCoup.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, e -> controleur.passerALaSuite());
+        Thread thread = new Thread(attenteCoup);
+        thread.start();
+    }
+
 
     public ICarte getCarte() {
         return carte;
@@ -271,7 +322,6 @@ public class VuePartie implements Vue
         dialogVbox.getChildren().add(rouagesD);
         dialogVbox.getChildren().add(compasD);
         dialogVbox.getChildren().add(tabelettesD);
-
         Scene dialogScene = new Scene(dialogVbox, 400, 400);
         dialog.setScene(dialogScene);
         dialog.show();
@@ -368,7 +418,6 @@ public class VuePartie implements Vue
             ImageView imageView = (ImageView) lv.getSelectionModel().getSelectedItem();
             this.carte = associationCarteImageview.get(imageView);
         }
-
 
     }
 }

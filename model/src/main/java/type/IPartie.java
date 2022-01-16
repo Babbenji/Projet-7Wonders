@@ -1,5 +1,9 @@
 package type;
 
+import merveilles.exceptions.MaximumEtapeAtteintException;
+import partie.exceptions.ChoixDejaFaitException;
+import partie.exceptions.PasAssezDeRessourcesException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,14 +12,14 @@ public interface IPartie {
 
     void miseEnPlacePartie();
 
-    void jouerCarte(IJoueur joueur, ICarte carte) throws Exception;
+    void jouerCarte(IJoueur joueur, ICarte carte) throws ChoixDejaFaitException, PasAssezDeRessourcesException;
 
-    void deffausserCarteFinAge();
+    void deffausserCarteFinAge() throws ChoixDejaFaitException;
 
-    void deffausserCarte(IJoueur joueur, ICarte carte) throws Exception;
+    void deffausserCarte(IJoueur joueur, ICarte carte) throws ChoixDejaFaitException;
 
 
-    void construireEtape(IJoueur p, ICarte carte) throws Exception;
+    void construireEtape(IJoueur p, ICarte carte) throws ChoixDejaFaitException, PasAssezDeRessourcesException, MaximumEtapeAtteintException;
 
     void passerAuTourSuivant();
 
@@ -80,4 +84,5 @@ public interface IPartie {
     void setCartes(ArrayList<ICarte> cartes);
 
     List<IMerveille> getMerveilles();
+    public void suitePartie();
 }

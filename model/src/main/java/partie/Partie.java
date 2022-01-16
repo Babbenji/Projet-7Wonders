@@ -1,6 +1,9 @@
 package partie;
 
 import cartes.*;
+import merveilles.exceptions.MaximumEtapeAtteintException;
+import partie.exceptions.ChoixDejaFaitException;
+import partie.exceptions.PasAssezDeRessourcesException;
 import type.ICarte;
 import type.IDeck;
 import type.IJoueur;
@@ -58,8 +61,6 @@ public class Partie implements IPartie, Serializable {
         this.partieTerminee = false;
     }
 
-
-
     @Override
     public void constructionDesListes()
     {
@@ -98,100 +99,83 @@ public class Partie implements IPartie, Serializable {
     }
 
     @Override
-    public void jouerCarte(IJoueur joueur, ICarte carte) throws Exception
+    public void jouerCarte(IJoueur joueur, ICarte carte) throws ChoixDejaFaitException, PasAssezDeRessourcesException
     {
-        int indice = listeDesJoueurs.indexOf(joueur);
-        boolean achatPossible = true;
-        int pieceRedevableVoisinGauche = 0; // ces variables permettent d'appliquer l'achat de la carte que apres la verification de tous les conditions possible
-        int pieceRedevableVoisinDroite = 0;
+        if(joueur.getAJoue()){
+            throw new ChoixDejaFaitException();
+        }
+        else {
 
-        AtomicBoolean carteGratuite = new AtomicBoolean(false);
-        joueur.getCartesJouees().forEach(cj -> {
+            int indice = listeDesJoueurs.indexOf(joueur);
+            boolean achatPossible = true;
+            int pieceRedevableVoisinGauche = 0; // ces variables permettent d'appliquer l'achat de la carte que apres la verification de tous les conditions possible
+            int pieceRedevableVoisinDroite = 0;
 
-            if(carte.getChainage() == null)
-            {
+            AtomicBoolean carteGratuite = new AtomicBoolean(false);
+            joueur.getCartesJouees().forEach(cj -> {
 
-            }
-            else if (carte.getChainage().containsKey(cj.getNom())){
+                if (carte.getChainage() == null) {
+
+                } else if (carte.getChainage().containsKey(cj.getNom())) {
+                    carteGratuite.set(true);
+                }
+            });
+
+            if (carte.getCout().isEmpty()) {
                 carteGratuite.set(true);
             }
-        });
 
-        if (carte.getCout().isEmpty())
-        {
-            carteGratuite.set(true);
+            if (!carteGratuite.get()) {
+                if (carte.getCout().containsKey("pieces")) {
+                    joueur.enleverPieces(carte.getCout().get("pieces"));
+                    joueur.getCartesJouees().add(carte);
+                    joueur.getDeck().enleverCarteDuDeck(carte);
+                    gestionsEffetCarte.appliquerEffetCarte(carte.getEffet(), joueur, listeDesJoueurs.get(voisinDeGauche(indice)), listeDesJoueurs.get(voisinDeDroite(indice)));
+                } else {
+                    for (Map.Entry<String, Integer> entryCarte : carte.getCout().entrySet()) {
+                        String cle = entryCarte.getKey();
+                        int cout = entryCarte.getValue();
+
+
+                        // On va verifier la condition de si il a pas les ressources nécessaire, il va donc verifier chez le voisin
+                        if (joueur.getRessources().get(cle) < cout) {
+                            // verification voisin de gauche
+                            if (listeDesJoueurs.get(voisinDeGauche(indice)).getRessources().get(cle) + joueur.getRessources().get(cle) > cout) {
+                                // verification si il a des batiments commerciale qui lui donne un avantage pour l'achat
+                                if (joueur.isCommerceMatieresPremieresGauche() && joueur.isCommerceProduitsManufactures()) //TODO a amilioré !
+                                {
+                                    pieceRedevableVoisinGauche += cout - joueur.getRessources().get(cle);
+                                } else {
+                                    pieceRedevableVoisinGauche += (cout - joueur.getRessources().get(cle)) * 2;
+                                }
+
+                            } else if (listeDesJoueurs.get(voisinDeDroite(indice)).getRessources().get(cle) + joueur.getRessources().get(cle) > cout) {
+                                // verification si il a des batiments commerciale qui lui donne un avantage pour l'achat
+                                if (joueur.isCommerceMatieresPremieresDroite() && joueur.isCommerceProduitsManufactures()) //TODO a amilioré !
+                                {
+                                    pieceRedevableVoisinDroite += cout - joueur.getRessources().get(cle);
+                                } else {
+                                    pieceRedevableVoisinDroite += (cout - joueur.getRessources().get(cle)) * 2;
+                                }
+                            } else {
+                                achatPossible = false;
+                            }
+                        }
+                    }
+                }
+            }
+            if (achatPossible) {
+                listeDesJoueurs.get(voisinDeGauche(indice)).addPieces(pieceRedevableVoisinGauche);
+                listeDesJoueurs.get(voisinDeDroite(indice)).addPieces(pieceRedevableVoisinDroite);
+                joueur.enleverPieces(pieceRedevableVoisinGauche + pieceRedevableVoisinDroite);
+                joueur.getCartesJouees().add(carte);
+                joueur.getDeck().enleverCarteDuDeck(carte);
+                gestionsEffetCarte.appliquerEffetCarte(carte.getEffet(), joueur, listeDesJoueurs.get(voisinDeGauche(indice)), listeDesJoueurs.get(voisinDeDroite(indice)));
+            } else {
+                throw new PasAssezDeRessourcesException();
+            }
+            joueur.setAJoue(true);
         }
-
-        if(!carteGratuite.get())
-        {
-          if(carte.getCout().containsKey("pieces"))
-          {
-              joueur.enleverPieces(carte.getCout().get("pieces"));
-              joueur.getCartesJouees().add(carte);
-              joueur.getDeck().enleverCarteDuDeck(carte);
-              gestionsEffetCarte.appliquerEffetCarte(carte.getEffet(),joueur, listeDesJoueurs.get(voisinDeGauche(indice)), listeDesJoueurs.get(voisinDeDroite(indice)));
-          }
-          else
-          {
-              for (Map.Entry<String,Integer> entryCarte: carte.getCout().entrySet())
-              {
-                  String cle = entryCarte.getKey();
-                  int cout = entryCarte.getValue();
-
-
-                  // On va verifier la condition de si il a pas les ressources nécessaire, il va donc verifier chez le voisin
-                  if(joueur.getRessources().get(cle) < cout)
-                  {
-                      // verification voisin de gauche
-                      if(listeDesJoueurs.get(voisinDeGauche(indice)).getRessources().get(cle) + joueur.getRessources().get(cle) > cout)
-                      {
-                          // verification si il a des batiments commerciale qui lui donne un avantage pour l'achat
-                          if(joueur.isCommerceMatieresPremieresGauche() && joueur.isCommerceProduitsManufactures()) //TODO a amilioré !
-                          {
-                              pieceRedevableVoisinGauche += cout - joueur.getRessources().get(cle);
-                          }
-                          else
-                          {
-                              pieceRedevableVoisinGauche +=(cout - joueur.getRessources().get(cle)) * 2;
-                          }
-
-                      }
-                      else if (listeDesJoueurs.get(voisinDeDroite(indice)).getRessources().get(cle) + joueur.getRessources().get(cle) > cout)
-                      {
-                          // verification si il a des batiments commerciale qui lui donne un avantage pour l'achat
-                          if(joueur.isCommerceMatieresPremieresDroite() && joueur.isCommerceProduitsManufactures()) //TODO a amilioré !
-                          {
-                              pieceRedevableVoisinDroite += cout - joueur.getRessources().get(cle);
-                          }
-                          else
-                          {
-                              pieceRedevableVoisinDroite +=(cout - joueur.getRessources().get(cle)) * 2;
-                          }
-                      }
-                      else
-                      {
-                          achatPossible = false;
-                      }
-                  }
-              }
-          }
-        }
-        if(achatPossible)
-        {
-            listeDesJoueurs.get(voisinDeGauche(indice)).addPieces(pieceRedevableVoisinGauche);
-            listeDesJoueurs.get(voisinDeDroite(indice)).addPieces(pieceRedevableVoisinDroite);
-            joueur.enleverPieces(pieceRedevableVoisinGauche + pieceRedevableVoisinDroite);
-            joueur.getCartesJouees().add(carte);
-            joueur.getDeck().enleverCarteDuDeck(carte);
-            gestionsEffetCarte.appliquerEffetCarte(carte.getEffet(),joueur, listeDesJoueurs.get(voisinDeGauche(indice)), listeDesJoueurs.get(voisinDeDroite(indice)));
-        }
-
-        else
-        {
-            // Notif si il clique sur acheter ca doit lui afficher qu'il ne peut pas !
-        }
-        joueur.setAJoue(true);
-        //suitePartie();
     }
 
     @Override
@@ -206,20 +190,82 @@ public class Partie implements IPartie, Serializable {
         }
     }
     @Override
-    public void deffausserCarte(IJoueur joueur, ICarte carte) throws Exception {
-        joueur.getDeck().enleverCarteDuDeck(carte);
-        carteDefausse.add(carte);
-        joueur.addPieces(3);
-        //suitePartie();
+    public void deffausserCarte(IJoueur joueur, ICarte carte) throws ChoixDejaFaitException {
+        if(joueur.getAJoue()){
+            throw new ChoixDejaFaitException();
+        }
+        else {
+            joueur.getDeck().enleverCarteDuDeck(carte);
+            carteDefausse.add(carte);
+            joueur.addPieces(3);
+            joueur.setAJoue(true);
+        }
     }
 
     @Override
-    public void construireEtape(IJoueur p, ICarte carte) throws Exception
+    public void construireEtape(IJoueur joueur, ICarte carte) throws ChoixDejaFaitException, PasAssezDeRessourcesException, MaximumEtapeAtteintException
     {
-        this.gestionsEffetsEtape.appliquerEffetMerveille(p);
-        p.getMerveille().setEtape(p.getMerveille().getEtape()+1);  //on incrémente le num de l'étape de la merveille
-        //suitePartie();
+        if(joueur.getAJoue()){
+            throw new ChoixDejaFaitException();
+        }
+        else
+        {
+            int indice = listeDesJoueurs.indexOf(joueur);
+            boolean achatPossible = true;
+            int pieceRedevableVoisinGauche = 0; // ces variables permettent d'appliquer l'achat de la carte que apres la verification de tous les conditions possible
+            int pieceRedevableVoisinDroite = 0;
+            Map<String, Integer> ressourceEtapeSuivante = joueur.getMerveille().getRessourceEtapeSuivante();
+            if (joueur.getMerveille().getEtape() == 3) {
+                throw new MaximumEtapeAtteintException();
+            }
+            for (HashMap.Entry<String, Integer> entryRessource : ressourceEtapeSuivante.entrySet()) {
+                String cle = entryRessource.getKey();
+                int cout = entryRessource.getValue();
+
+                // On va verifier la condition de si il a pas les ressources nécessaire, il va donc verifier chez le voisin
+                if (joueur.getRessources().get(cle) < cout) {
+                    // verification voisin de gauche
+                    if (listeDesJoueurs.get(voisinDeGauche(indice)).getRessources().get(cle) + joueur.getRessources().get(cle) > cout) {
+                        // verification si il a des batiments commerciale qui lui donne un avantage pour l'achat
+                        if (joueur.isCommerceMatieresPremieresGauche() && joueur.isCommerceProduitsManufactures()) //TODO a amilioré !
+                        {
+                            pieceRedevableVoisinGauche += cout - joueur.getRessources().get(cle);
+                        } else {
+                            pieceRedevableVoisinGauche += (cout - joueur.getRessources().get(cle)) * 2;
+                        }
+
+                    } else if (listeDesJoueurs.get(voisinDeDroite(indice)).getRessources().get(cle) + joueur.getRessources().get(cle) > cout) {
+                        // verification si il a des batiments commerciale qui lui donne un avantage pour l'achat
+                        if (joueur.isCommerceMatieresPremieresDroite() && joueur.isCommerceProduitsManufactures()) //TODO a amilioré !
+                        {
+                            pieceRedevableVoisinDroite += cout - joueur.getRessources().get(cle);
+                        } else {
+                            pieceRedevableVoisinDroite += (cout - joueur.getRessources().get(cle)) * 2;
+                        }
+                    } else {
+                        achatPossible = false;
+                    }
+                }
+                if (achatPossible) {
+                    listeDesJoueurs.get(voisinDeGauche(indice)).addPieces(pieceRedevableVoisinGauche);
+                    listeDesJoueurs.get(voisinDeDroite(indice)).addPieces(pieceRedevableVoisinDroite);
+                    joueur.enleverPieces(pieceRedevableVoisinGauche + pieceRedevableVoisinDroite);
+                    joueur.getCartesJouees().add(carte);
+                    joueur.getDeck().enleverCarteDuDeck(carte);
+                    gestionsEffetCarte.appliquerEffetCarte(carte.getEffet(), joueur, listeDesJoueurs.get(voisinDeGauche(indice)), listeDesJoueurs.get(voisinDeDroite(indice)));
+                } else {
+                    throw new PasAssezDeRessourcesException();
+                }
+                joueur.setAJoue(true);
+            }
+
+            this.gestionsEffetsEtape.appliquerEffetMerveille(joueur);
+            joueur.getMerveille().setEtape(joueur.getMerveille().getEtape() + 1);  //on incrémente le num de l'étape de la merveille
+            carteDefausse.add(carte);
+            joueur.getDeck().enleverCarteDuDeck(carte);
+        }
     }
+
 
     @Override
     public void passerAuTourSuivant()
@@ -265,8 +311,7 @@ public class Partie implements IPartie, Serializable {
     }
 
     @Override
-    public void passerAgeSuivant()
-    {
+    public void passerAgeSuivant() {
         deffausserCarteFinAge();
         ageEnCours +=1;
         Iterator<ICarte> iter2 = this.cartesAgeII.iterator();
@@ -423,33 +468,31 @@ public class Partie implements IPartie, Serializable {
         }
 
     }
-//    @Override
-//    public void suitePartie() throws Exception {
-//
-//        if(!finDernierTourDernierAge())
-//        {
-//            if (finAge())
-//            {
-//                conflitsMilitaire();
-//                deffausserCarteFinAge();
-//                passerAgeSuivant();
-//            }
-//
-//            if (toutLeMondeAJoue())
-//            {
-//                passerAuTourSuivant();
-//            }
-//        }
-//        else {
-//            conflitsMilitaire();
-//            deffausserCarteFinAge();
-//            partieTerminee = true;
-//        }
-//
-//
-//
-//        // on arrete la partie ici
-//    }
+    @Override
+    public void suitePartie() {
+
+        if(!finDernierTourDernierAge())
+        {
+            if (finAge())
+            {
+                conflitsMilitaire();
+                deffausserCarteFinAge();
+                passerAgeSuivant();
+            }
+
+            if (toutLeMondeAJoue())
+            {
+                passerAuTourSuivant();
+            }
+        }
+        else {
+            conflitsMilitaire();
+            deffausserCarteFinAge();
+            partieTerminee = true;
+        }
+
+        // on arrete la partie ici
+    }
 
     @Override
     public void comptagePointVictoirePourBatimentScientifique(IJoueur joueur)

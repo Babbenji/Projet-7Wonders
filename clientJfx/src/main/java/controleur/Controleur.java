@@ -3,6 +3,9 @@ package controleur;
 import facade.FacadeSevenWondersOnlineImpl;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import merveilles.exceptions.MaximumEtapeAtteintException;
+import partie.exceptions.ChoixDejaFaitException;
+import partie.exceptions.PasAssezDeRessourcesException;
 import services.exceptions.JoueurDejaDansLaListeDAmisException;
 import services.exceptions.JoueurNonExistantException;
 import services.exceptions.PseudoOuMotDePasseIncorrectException;
@@ -34,12 +37,10 @@ public class Controleur
     private int NB_JOUEURS = 4;
 
     private IJoueur joueur;
-    private IDeck deck;
-    private IMerveille merveille;
     private String nom;
     private User user;
-    FacadeSevenWondersOnlineImpl facadeta = new FacadeSevenWondersOnlineImpl();
-    IPartie partie = facadeta.creePartie();
+//    FacadeSevenWondersOnlineImpl facadeta = new FacadeSevenWondersOnlineImpl();
+//    IPartie partie = facadeta.creePartie();
 
     public Controleur(Stage stage) throws IOException, NotBoundException {
         facade = new ProxySevenWondersOnLineImpl();
@@ -54,70 +55,31 @@ public class Controleur
         vueMenuConnecte.initialiserControleur(this);
         vuePartie = VuePartie.creerVue(stage,this);
 
-
     }
 
     public void run() throws RemoteException {
         this.goToPartie();
     }
 
-    public void miseEnPlaceDuJeu() throws RemoteException {
-
-
-//        IJoueur joueur1 = new Joueur("Aziz");
-//        ArrayList<IJoueur> lj = new ArrayList<>();
-//        lj.add(joueur1);
-//        List<ICarte> lc = facade.getLesCartes();
-//        List<IMerveille> lm = facade.getLesMerveilles();
+    public void miseEnPlaceDuJeu() throws RemoteException
+    {
 
         partie.miseEnPlacePartie();
-        joueur = partie.getListeDesJoueurs().get(0);
-        this.merveille = partie.getListeDesJoueurs().get(0).getMerveille();
-        this.deck = partie.getListeDesJoueurs().get(0).getDeck();
-        System.out.println(this.deck.getCarteDansDeck(0));
     }
+
+    public void passerALaSuite()
+    {
+        partie.suitePartie();
+    }
+
 
     public ProxySevenWondersOnLine getFacade() {
         return facade;
     }
 
-    public IJoueur getJoueur() {
-        return joueur;
-    }
-
-    public IDeck getDeck() throws RemoteException
-    {
-        return deck ;
-    }
-
-    public IMerveille getMerveille() throws RemoteException {
-        return this.merveille;
-    }
-
-
-    public void goToMenu() {
-        this.vueMenuNonConnecte.show();
-    }
-
-    public void goToMenuConnecte()
-    {
-        vueMenuConnecte.chargerDonnees();
-        this.vueMenuConnecte.show();
-    }
-
-    public void goToConnexion()  {
-        this.vueConnexion.show();
-    }
-
-    public void goToInscription() {
-        this.vueInscription.show();
-    }
-
-    public String getNom() {
-        return this.nom;
-    }
 
     public void goToPartie() throws RemoteException {
+
         vuePartie.chargerDonnees();
         this.vuePartie.show();
     }
@@ -158,15 +120,14 @@ public class Controleur
         }
     }
 
-    public void construireEtape() throws Exception
-    {
+    public void construireEtape() throws ChoixDejaFaitException, PasAssezDeRessourcesException, RemoteException, MaximumEtapeAtteintException {
         ICarte carte = vuePartie.getCarte();
         partie.construireEtape(joueur,carte);
         vuePartie.affichageInteractifDesVariables();
         System.out.println("carte construite");
     }
 
-    public void defausserCarte() throws Exception {
+    public void defausserCarte() throws ChoixDejaFaitException, RemoteException {
 
         ICarte carte = vuePartie.getCarte();
         partie.deffausserCarte(joueur, carte);
@@ -174,31 +135,31 @@ public class Controleur
         System.out.println("carte defausser");
     }
 
-    public void jouerCarte() throws Exception
-    {
+    public void jouerCarte() throws ChoixDejaFaitException, RemoteException, PasAssezDeRessourcesException {
         ICarte carte = vuePartie.getCarte();
         partie.jouerCarte(joueur, carte);
         vuePartie.affichageInteractifDesVariables();
         System.out.println("carte joue");
 
-
     }
-
 
     public User getUser() {
         return this.user;
     }
 
-    public IJoueur getInfoJDroite() {
+    public IJoueur getJoueurDroite() {
         int indice = partie.getListeDesJoueurs().indexOf(this.joueur);
        return partie.getListeDesJoueurs().get(voisinDeDroite(indice));
     }
 
-    public IJoueur getInfoJGauche() {
+    public IJoueur getJoueurGauche() {
         int indice = partie.getListeDesJoueurs().indexOf(this.joueur);
         return partie.getListeDesJoueurs().get(voisinDeGauche(indice));
     }
-
+    public IJoueur getJoueurFace() {
+        int indice = partie.getListeDesJoueurs().indexOf(this.joueur);
+        return partie.getListeDesJoueurs().get(joueurFace(indice));
+    }
 
     public int voisinDeDroite(int indice)
     {
@@ -232,9 +193,30 @@ public class Controleur
         }
         return indiceARetourner;
     }
-
-    public IJoueur getInfoJFace() {
-        int indice = partie.getListeDesJoueurs().indexOf(this.joueur);
-        return partie.getListeDesJoueurs().get(joueurFace(indice));
+    public IJoueur getJoueur() {
+        return joueur;
     }
+
+    public void goToMenu() {
+        this.vueMenuNonConnecte.show();
+    }
+
+    public void goToMenuConnecte()
+    {
+        vueMenuConnecte.chargerDonnees();
+        this.vueMenuConnecte.show();
+    }
+
+    public void goToConnexion()  {
+        this.vueConnexion.show();
+    }
+
+    public void goToInscription() {
+        this.vueInscription.show();
+    }
+
+    public String getNom() {
+        return this.nom;
+    }
+
 }

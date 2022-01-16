@@ -99,19 +99,12 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
 
         ArrayList<IJoueur> listJoueur = new ArrayList<>();
 
-//        for (User user: userDansPreLobby.keySet())
-//        {
-//            Joueur joueur1 = new Joueur(user.getPseudo());
-//            listJoueur.add(joueur1);
-//        }
-        IJoueur joueur1 = new Joueur("Aziz");
-        IJoueur joueur2 = new Joueur("Juli");
-        IJoueur joueur3 = new Joueur("Timo");
-        IJoueur joueur4 = new Joueur("Math");
-        listJoueur.add(joueur1);
-        listJoueur.add(joueur2);
-        listJoueur.add(joueur3);
-        listJoueur.add(joueur4);
+        for (User user: userDansPreLobby.keySet())
+        {
+            Joueur joueur1 = new Joueur(user.getPseudo());
+            listJoueur.add(joueur1);
+        }
+
         Partie partie = new Partie(listJoueur,lesCartes,lesMerveilles);
         parties.put(partie.getIdPartie(),partie);
 
