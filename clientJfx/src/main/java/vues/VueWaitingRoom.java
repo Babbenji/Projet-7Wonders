@@ -2,10 +2,14 @@ package vues;
 
 import controleur.Controleur;
 import exceptions.MaxJoueursAtteintException;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -30,9 +34,13 @@ public class VueWaitingRoom implements Vue{
     @FXML
     ListView listJoueurs;
 
+    @FXML
+    Label nombreJoueursEnAttente;
+
     private Stage stage;
     private Controleur controleur;
     private IPartie partie;
+    private int nombre;
 
     private void setScene(Scene scene) {
         this.scene = scene;
@@ -75,6 +83,10 @@ public class VueWaitingRoom implements Vue{
         try {
             this.partie = this.controleur.getFacade().creePartie(this.controleur.getUser());
             this.listJoueurs.getItems().add(this.controleur.getUser().getPseudo());
+            //String nombre = Integer.toString(this.controleur.ajoutUserWaitingRoom());
+            this.nombre = 4;
+            this.nombreJoueursEnAttente.setText(Integer.toString(this.nombre));
+
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -104,4 +116,27 @@ public class VueWaitingRoom implements Vue{
         }
     }
 
+
+    public void goToPartie(ActionEvent actionEvent) {
+        System.out.println("ICICICICICICICCI");
+        Task<Boolean> attenteJoueur = new Task<Boolean>() {
+            @Override
+            protected Boolean call() throws Exception {
+                while (nombre != 4);
+                System.out.println("ICICICICICICICCI2");
+                return true;
+            }
+        };
+        attenteJoueur.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, e -> {
+            try {
+                System.out.println("ICICICICICICICCI3");
+                controleur.goToPartie();
+                System.out.println("ICICICICICICICCI4");
+            } catch (RemoteException remoteException) {
+                remoteException.printStackTrace();
+            }
+        });
+        Thread thread = new Thread(attenteJoueur);
+        thread.start();
+    }
 }

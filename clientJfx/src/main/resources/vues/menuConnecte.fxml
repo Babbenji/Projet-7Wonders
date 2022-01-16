@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="386.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.VueMenuConnecte">
+<AnchorPane prefHeight="386.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.VueMenuConnecte">
    <children>
       <ImageView fitHeight="423.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -31,7 +35,7 @@
          <children>
             <Button fx:id="creerPartie" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="CREER PARTIE" />
             <Button fx:id="rejoindrePartie" mnemonicParsing="false" prefHeight="42.0" prefWidth="200.0" text="REJOINDRE PARTIE" />
-            <Button fx:id="boutonQuitter" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Quitter" />
+            <Button fx:id="boutonQuitter" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="QUITTER" />
          </children>
       </VBox>
       <VBox alignment="TOP_CENTER" layoutX="474.0" layoutY="7.0" prefHeight="375.0" prefWidth="100.0">
@@ -41,7 +45,8 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <ListView fx:id="listAmis" prefHeight="361.0" prefWidth="100.0"/>
+            <ListView fx:id="listAmis" prefHeight="361.0" prefWidth="100.0" />
+            <Button fx:id="addFriend" mnemonicParsing="false" prefHeight="25.0" prefWidth="109.0" text="Ajouter ami" onAction="#addFriend" />
          </children>
       </VBox>
    </children>

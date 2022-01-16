@@ -40,6 +40,7 @@ public class Controleur
     private IJoueur joueur;
     private String nom;
     private User user;
+    private static int nbUserWaitingRoom;
     FacadeSevenWondersOnlineImpl facadeta = new FacadeSevenWondersOnlineImpl();
     IPartie partie = facadeta.creePartie(
             //this.user
@@ -85,6 +86,7 @@ public class Controleur
         return facade;
     }
 
+
     public void goToPartie() throws RemoteException {
 
         vuePartie.chargerDonnees();
@@ -125,6 +127,8 @@ public class Controleur
         } catch (RemoteException | JoueurDejaDansLaListeDAmisException | JoueurNonExistantException e) {
             e.printStackTrace();
         }
+
+
     }
 
     public void inviterUser(int idPartie, User user) throws JoueurDejaAjouteException, MaxJoueursAtteintException, JoueurNonExistantException {
@@ -156,7 +160,9 @@ public class Controleur
         vuePartie.affichageInteractifDesVariables();
         System.out.println("carte joue");
 
+
     }
+
 
     public User getUser() {
         return this.user;
@@ -208,7 +214,6 @@ public class Controleur
         }
         return indiceARetourner;
     }
-
     public IJoueur getJoueur() {
         return joueur;
     }
