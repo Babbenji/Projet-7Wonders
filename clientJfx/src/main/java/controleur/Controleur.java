@@ -37,7 +37,7 @@ public class Controleur
     private VueMenuConnecte vueMenuConnecte;
     private VuePartie vuePartie;
     private VueWaitingRoom vueWaitingRoom;
-    private int NB_JOUEURS = 4;
+    private final int NB_JOUEURS = 4;
 
     private IJoueur joueur;
     private String nom;
@@ -65,8 +65,13 @@ public class Controleur
         vueWaitingRoom.initialiserControleur(this);
     }
 
+    public void setNbUserWaitingRoom(int nbUserWaitingRoom) {
+        Controleur.nbUserWaitingRoom = nbUserWaitingRoom;
+    }
+
     public int ajoutUserWaitingRoom() {
-        return this.nbUserWaitingRoom+1;
+        System.out.println("nb : "+nbUserWaitingRoom);
+        return nbUserWaitingRoom+1;
     }
 
     public void run() throws RemoteException {

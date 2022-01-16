@@ -13,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import joueur.Joueur;
+import partie.Partie;
 import services.exceptions.JoueurDejaAjouteException;
 import services.exceptions.JoueurNonExistantException;
 import type.IJoueur;
@@ -80,12 +82,27 @@ public class VueWaitingRoom implements Vue{
 
     @Override
     public void chargerDonnees() {
-        System.out.println("lalalala");
-        this.listJoueurs.getItems().add(this.controleur.getUser().getPseudo());
-        //String nombre = Integer.toString(this.controleur.ajoutUserWaitingRoom());
-        this.nombre = 4;
-        this.nombreJoueursEnAttente.setText(Integer.toString(this.nombre));
+        try {
+            this.parties = this.controleur.getFacade().getParties();
+            for(Partie p : this.parties){
+                for(IJoueur j : p.getListeDesJoueurs()){
+                    if (j.getNom().equals(this.controleur.getUser().getPseudo())){
+                        this.partie = p;
+                    }
+                }
+            }
+            List<IJoueur> j = this.controleur.getFacade().getPartieById(this.controleur.getFacade().getPartieById(this.partie.getIdPartie()).getIdPartie()).getListeDesJoueurs();
+            this.listJoueurs.getItems().clear();
+            for (IJoueur joueur : j){
+                this.listJoueurs.getItems().add(joueur.getNom());
+            }
+            this.nombre = this.controleur.ajoutUserWaitingRoom();
+            this.nombreJoueursEnAttente.setText(Integer.toString(this.nombre));
+            this.controleur.setNbUserWaitingRoom(this.nombre);
 
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         List<User> amis = controleur.getAmis();
         this.listAmis.getItems().clear();
         for(User a : amis){
@@ -100,8 +117,7 @@ public class VueWaitingRoom implements Vue{
 
     @FXML
     public void onButtonInvit(MouseEvent arg) throws JoueurDejaAjouteException, MaxJoueursAtteintException, JoueurNonExistantException, RemoteException {
-        if(this.listJoueurs.getItems().size()<4)
-        {
+        if(this.listJoueurs.getItems().size()<4){
             System.out.println("invitation de "+listAmis.getSelectionModel().getSelectedItem().toString()+" à la partie");
             User user = this.controleur.getFacade().getUserByPseudo(listAmis.getSelectionModel().getSelectedItem().toString());
             System.out.println(user);
@@ -109,9 +125,14 @@ public class VueWaitingRoom implements Vue{
             this.controleur.inviterUser(idPartie, user);
             System.out.println("partie dans la vue : "+this.partie+" "+this.partie.getListeDesJoueurs());
             System.out.println("partie côté serveur : "+this.controleur.getFacade().getPartieById(this.partie.getIdPartie())+this.controleur.getFacade().getPartieById(this.partie.getIdPartie()).getListeDesJoueurs());
-            this.listJoueurs.getItems().add(user.getPseudo());
+            List<IJoueur> j = this.controleur.getFacade().getPartieById(idPartie).getListeDesJoueurs();
+            this.listJoueurs.getItems().clear();
+            for (IJoueur joueur : j){
+                this.listJoueurs.getItems().add(joueur.getNom());
+            }
         }
     }
+
 
     public void goToPartie(ActionEvent actionEvent) {
         System.out.println("ICICICICICICICCI");
