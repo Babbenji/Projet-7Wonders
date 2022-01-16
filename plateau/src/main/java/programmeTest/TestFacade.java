@@ -5,6 +5,8 @@ import facade.FacadeSevenWondersOnlineImpl;
 import services.exceptions.PseudoOuMotDePasseIncorrectException;
 import user.User;
 
+import java.rmi.RemoteException;
+
 public class TestFacade {
 
     public static void main(String[] args) throws PseudoOuMotDePasseIncorrectException {
@@ -16,7 +18,5 @@ public class TestFacade {
         for(User user : u.getAmis()){
             System.out.println(user.getPseudo());
         }
-
-        System.out.println(facadeSevenWondersOnLine.getUserByPseudo("tdurand"));
     }
 }

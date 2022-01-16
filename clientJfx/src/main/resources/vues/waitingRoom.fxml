@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.VueWaitingRoom">
+<AnchorPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.VueWaitingRoom">
    <children>
       <ImageView fitHeight="265.0" fitWidth="448.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -33,5 +35,25 @@
             </Label>
          </children>
       </HBox>
+      <VBox alignment="TOP_CENTER" layoutX="448.0" layoutY="9.0" prefHeight="235.0" prefWidth="100.0">
+         <children>
+            <Label alignment="TOP_LEFT" text="Inviter dans la partie :">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+            <ListView fx:id="listAmis" onMouseClicked="#onButtonInvit" prefHeight="231.0" prefWidth="100.0" />
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="174.0" layoutY="41.0" prefHeight="123.0" prefWidth="100.0">
+         <children>
+            <Label alignment="TOP_LEFT" prefHeight="42.0" prefWidth="79.0" text="JOUEURS" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ListView fx:id="listJoueurs" prefHeight="142.0" prefWidth="100.0" />
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

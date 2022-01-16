@@ -2,6 +2,7 @@ package service;
 
 import exceptions.MaxJoueursAtteintException;
 import exceptions.PartieNonTermineeException;
+import partie.Partie;
 import services.exceptions.*;
 import type.*;
 import user.User;
@@ -16,7 +17,6 @@ public interface ServiceSevenWondersOnline extends Remote
 
     /**
      * Permet de s'inscrire à l'application
-     * @param nom
      */
     public List<ICarte> recuperationDonnees() throws RemoteException;
     public List<IMerveille> recuperationDonnees2() throws RemoteException;
@@ -32,7 +32,6 @@ public interface ServiceSevenWondersOnline extends Remote
      * Permet d'ajouter un joueur à sa liste d'amis
      * @throws JoueurDejaDansLaListeDAmisException : Le joueur est déjà dans la liste d'amis
      * @throws JoueurNonExistantException : Le joueur ajouté n'existe pas
-     * @param user
      * @param nom
      */
     void ajouterJoueurEnAmi(String nom) throws JoueurDejaDansLaListeDAmisException, JoueurNonExistantException,RemoteException;
@@ -43,25 +42,20 @@ public interface ServiceSevenWondersOnline extends Remote
     List<User> getAmis()throws RemoteException;
 
     /**
-     * Permet d'inviter un joueur
-     * @param joueur
-     */
-    void inviterJoueur(IJoueur joueur)throws RemoteException;
-
-    /**
      * Permet de créer une partie
      *
      */
-    IPartie creePartie() throws RemoteException;
+    IPartie creePartie(User user) throws RemoteException;
 
     /**
      * Permet de rejoindre une partie
-     * @param nomPartie : nom de la partie que le joueur createur va nommer
+     * @param idPartie
+     * @param user
      * @throws JoueurNonExistantException : Le joueur ajouté n'existe pas
      * @throws MaxJoueursAtteintException : La partie est pleine
      * @throws JoueurDejaAjouteException : Le joueur est déjà dans la partie
      */
-    void rejoindreUnePartie(String nomPartie) throws JoueurNonExistantException, MaxJoueursAtteintException, JoueurDejaAjouteException, RemoteException;
+    void inviterUser(int idPartie, User user) throws JoueurNonExistantException, MaxJoueursAtteintException, JoueurDejaAjouteException, RemoteException;
 
     /**
      * TO DO
@@ -109,5 +103,17 @@ public interface ServiceSevenWondersOnline extends Remote
      */
     void partieTerminee(IJoueur joueur) throws Exception, RemoteException;
 
+    /**
+     *
+     * @param pseudo
+     * @return
+     */
     User getUserByPseudo(String pseudo) throws RemoteException;
+
+    /**
+     * Retourner une partie en fonction d'un id en paramètre
+     * @param idPartie
+     * @return
+     */
+    Partie getPartieById(int idPartie) throws RemoteException;
 }

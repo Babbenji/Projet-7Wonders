@@ -539,6 +539,11 @@ public class Partie implements IPartie, Serializable {
     }
 
     @Override
+    public void addJoueur(IJoueur joueur){
+        this.listeDesJoueurs.add(joueur);
+    }
+
+    @Override
     public int getNB_JOUEURS() {
         return NB_JOUEURS;
     }

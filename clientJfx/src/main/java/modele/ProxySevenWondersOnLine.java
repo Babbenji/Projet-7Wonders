@@ -3,6 +3,7 @@ package modele;
 
 import exceptions.MaxJoueursAtteintException;
 import exceptions.PartieNonTermineeException;
+import partie.Partie;
 import services.exceptions.*;
 import type.*;
 import user.User;
@@ -19,14 +20,14 @@ public interface ProxySevenWondersOnLine
      * @param nom  pseudo choisi
      * @param pw   mot de passe choisi
      */
-    User inscriptionUser(String nom, String pw) throws PseudoDejaPrisException;
+    User inscriptionUser(String nom, String pw) throws PseudoDejaPrisException, RemoteException;
 
     /**
      * Permet de se connecter à l'application
      * @param nom  pseudo renseigné
      * @param pw  mot de passe renseigné
      */
-    User connexionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException;
+    User connexionUser(String nom, String pw) throws PseudoOuMotDePasseIncorrectException, RemoteException;
 
     /**
      * Permet d'ajouter un joueur à sa liste d'amis
@@ -39,29 +40,23 @@ public interface ProxySevenWondersOnLine
     /**
      * Permet de récupérer une liste d'objets User
      */
-    List<User> getAmis();
-
-    /**
-     * Permet d'inviter un joueur
-     * @param joueur
-     */
-    void inviterJoueur(IJoueur joueur);
-
+    List<User> getAmis() throws RemoteException;
 
     /**
      * Permet de créer une partie
      *
      */
-    IPartie creePartie() throws RemoteException;
+    IPartie creePartie(User user) throws RemoteException;
 
     /**
      * Permet de rejoindre une partie
-     * @param nomPartie : nom de la partie que le joueur createur va nommer
+     * @param idPartie
+     * @param user
      * @throws JoueurNonExistantException : Le joueur ajouté n'existe pas
      * @throws MaxJoueursAtteintException : La partie est pleine
      * @throws JoueurDejaAjouteException : Le joueur est déjà dans la partie
      */
-    void rejoindreUnePartie(String nomPartie) throws JoueurNonExistantException, MaxJoueursAtteintException, JoueurDejaAjouteException;
+    void inviterUser(int idPartie, User user) throws JoueurNonExistantException, MaxJoueursAtteintException, JoueurDejaAjouteException, RemoteException;
 
     /**
      * TO DO
@@ -96,7 +91,7 @@ public interface ProxySevenWondersOnLine
      * @return : tous les joueurs avec leurs nombre de points
      * @throws PartieNonTermineeException : la partie n'est pas terminée, donc il n'y a pas encore de vainqueur
      */
-    String tableauScore(IJoueur joueur) throws PartieNonTermineeException;
+    String tableauScore(IJoueur joueur) throws PartieNonTermineeException, RemoteException;
 
     /**
      * Permet de savoir si la partie est terminée ou non
@@ -108,6 +103,13 @@ public interface ProxySevenWondersOnLine
     void partieTerminee(IJoueur joueur) throws Exception;
 
     User getUserByPseudo(String user) throws RemoteException;
+
+    /**
+     * Retourne une partie en fonction d'un id en param
+     * @param idPartie
+     * @return
+     */
+    Partie getPartieById(int idPartie) throws RemoteException;
 
     /**
      * Permet d'ajouter un ami

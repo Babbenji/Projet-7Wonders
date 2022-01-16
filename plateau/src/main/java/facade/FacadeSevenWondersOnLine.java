@@ -2,6 +2,7 @@ package facade;
 
 import exceptions.MaxJoueursAtteintException;
 import exceptions.PartieNonTermineeException;
+import partie.Partie;
 import services.exceptions.*;
 import type.*;
 import user.User;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public interface FacadeSevenWondersOnLine {
 
-    
+
 
     public List<IMerveille> recuperationDonnees2();
     public List<ICarte> recuperationDonnees();
@@ -37,26 +38,27 @@ public interface FacadeSevenWondersOnLine {
     List<User> getAmis();
 
     /**
-     * Permet d'inviter un joueur
-     * @param joueur
-     */
-    void inviterJoueur(IJoueur joueur);
-
-
-    /**
      * Permet de créer une partie
      *
      */
-    IPartie creePartie() throws RemoteException;
+    IPartie creePartie(User user) throws RemoteException;
+
+    /**
+     * Permet de récupérer la partie en fonction d'un ID donné en param
+     * @param idPartie
+     * @return
+     */
+    Partie getPartieById(int idPartie);
 
     /**
      * Permet de rejoindre une partie
-     * @param nomPartie : nom de la partie que le joueur createur va nommer
+     * @param idPartie
+     * @param userInvite : user à ajouter à la partie
      * @throws JoueurNonExistantException : Le joueur ajouté n'existe pas
      * @throws MaxJoueursAtteintException : La partie est pleine
      * @throws JoueurDejaAjouteException : Le joueur est déjà dans la partie
      */
-    void rejoindreUnePartie(String nomPartie) throws JoueurNonExistantException, MaxJoueursAtteintException, JoueurDejaAjouteException;
+    void inviterUser(int idPartie, User userInvite) throws JoueurNonExistantException, MaxJoueursAtteintException, JoueurDejaAjouteException;
 
     /**
      * TO DO
@@ -102,6 +104,11 @@ public interface FacadeSevenWondersOnLine {
      */
     void partieTerminee(IJoueur joueur) throws Exception;
 
+    /**
+     *
+     * @param pseudo
+     * @return
+     */
+    User getUserByPseudo(String pseudo) throws RemoteException;
 
-    User getUserByPseudo(String pseudo);
 }

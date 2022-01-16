@@ -76,7 +76,7 @@ public class VueMenuConnecte implements Vue{
     }
 
     private void goToWaitingRoom() {
-        //this.controleur.goToWaitingRoom();
+        this.controleur.goToWaitingRoom();
     }
 
     @Override
