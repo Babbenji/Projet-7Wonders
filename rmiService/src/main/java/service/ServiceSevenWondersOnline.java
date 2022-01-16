@@ -10,6 +10,7 @@ import user.User;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.Map;
 
 
 public interface ServiceSevenWondersOnline extends Remote
@@ -84,6 +85,7 @@ public interface ServiceSevenWondersOnline extends Remote
      * @param joueur
      */
     void construireEtape(IJoueur joueur,ICarte carte) throws Exception, RemoteException;
+    Partie getPartie(IJoueur joueur) throws RemoteException;
 
 
 
@@ -122,4 +124,7 @@ public interface ServiceSevenWondersOnline extends Remote
      * @return partie
      */
     List<Partie> getParties() throws RemoteException;
+    Map<User, IJoueur> getAssociationUserJoueur() throws RemoteException;
+    Map<IJoueur, Partie> getAssociationJoueurPartie() throws RemoteException;
+
 }

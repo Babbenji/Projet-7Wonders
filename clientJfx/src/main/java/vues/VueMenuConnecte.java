@@ -79,12 +79,18 @@ public class VueMenuConnecte implements Vue{
 
     private void initialiserBoutonQuitter() { this.boutonQuitter.setOnAction(e -> goExit()); }
 
-    private void initialiserBoutonCreer() {
+    private void initialiserBoutonCreer()
+    {
         this.creerPartie.setOnAction(e -> {
             this.controleur.ajoutUserWaitingRoom();
+            try {
+                this.controleur.setPartie(this.controleur.getFacade().creePartie(this.controleur.getUser()));
+            } catch (RemoteException exception) {
+                exception.printStackTrace();
+            }
             goToWaitingRoom();
-
-        }); }
+        });
+    }
 
     private void goExit() {
         this.controleur.exit();

@@ -80,16 +80,12 @@ public class VueWaitingRoom implements Vue{
 
     @Override
     public void chargerDonnees() {
-        try {
-            this.partie = this.controleur.getFacade().creePartie(this.controleur.getUser());
-            this.listJoueurs.getItems().add(this.controleur.getUser().getPseudo());
-            //String nombre = Integer.toString(this.controleur.ajoutUserWaitingRoom());
-            this.nombre = 4;
-            this.nombreJoueursEnAttente.setText(Integer.toString(this.nombre));
+        System.out.println("lalalala");
+        this.listJoueurs.getItems().add(this.controleur.getUser().getPseudo());
+        //String nombre = Integer.toString(this.controleur.ajoutUserWaitingRoom());
+        this.nombre = 4;
+        this.nombreJoueursEnAttente.setText(Integer.toString(this.nombre));
 
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
         List<User> amis = controleur.getAmis();
         this.listAmis.getItems().clear();
         for(User a : amis){
@@ -104,7 +100,8 @@ public class VueWaitingRoom implements Vue{
 
     @FXML
     public void onButtonInvit(MouseEvent arg) throws JoueurDejaAjouteException, MaxJoueursAtteintException, JoueurNonExistantException, RemoteException {
-        if(this.listJoueurs.getItems().size()<4){
+        if(this.listJoueurs.getItems().size()<4)
+        {
             System.out.println("invitation de "+listAmis.getSelectionModel().getSelectedItem().toString()+" à la partie");
             User user = this.controleur.getFacade().getUserByPseudo(listAmis.getSelectionModel().getSelectedItem().toString());
             System.out.println(user);
@@ -115,7 +112,6 @@ public class VueWaitingRoom implements Vue{
             this.listJoueurs.getItems().add(user.getPseudo());
         }
     }
-
 
     public void goToPartie(ActionEvent actionEvent) {
         System.out.println("ICICICICICICICCI");

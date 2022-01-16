@@ -15,6 +15,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.Map;
 
 public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
 {
@@ -79,6 +80,15 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
             return this.serviceSevenWondersOnline.creePartie(user);
         } catch (RemoteException e) {
               throw new RuntimeException("RMI Problem");
+        }
+    }
+
+    @Override
+    public Partie getPartie(IJoueur joueur) throws RemoteException {
+        try{
+            return this.serviceSevenWondersOnline.getPartie(joueur);
+        } catch (RemoteException e) {
+            throw new RuntimeException("RMI Problem");
         }
     }
 
@@ -163,5 +173,17 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
     @Override
     public Partie getPartieById(int idPartie) throws RemoteException {
         return this.serviceSevenWondersOnline.getPartieById(idPartie);
+    }
+
+    @Override
+    public Map<User, IJoueur> getAssociationUserJoueur() throws RemoteException {
+
+        return this.serviceSevenWondersOnline.getAssociationUserJoueur();
+
+    }
+
+    @Override
+    public Map<IJoueur, Partie> getAssociationJoueurPartie() throws RemoteException {
+        return this.serviceSevenWondersOnline.getAssociationJoueurPartie();
     }
 }

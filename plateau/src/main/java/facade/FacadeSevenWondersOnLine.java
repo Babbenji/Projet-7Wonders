@@ -9,6 +9,7 @@ import user.User;
 
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.Map;
 
 public interface FacadeSevenWondersOnLine {
 
@@ -116,5 +117,9 @@ public interface FacadeSevenWondersOnLine {
      * @return
      */
     User getUserByPseudo(String pseudo) throws RemoteException;
+
+    Partie getPartie(IJoueur joueur);
+    Map<User, IJoueur> getAssociationUserJoueur();
+    Map<IJoueur, Partie> getAssociationJoueurPartie();
 
 }

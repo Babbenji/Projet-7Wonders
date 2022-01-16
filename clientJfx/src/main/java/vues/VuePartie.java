@@ -115,7 +115,7 @@ public class VuePartie implements Vue
         Scene scene = new Scene(root);
         vue.setScene(scene);
         vue.setControleur(controleur);
-        vue.initialiserCarteMerveille();
+
         return vue;
     }
 
@@ -124,6 +124,7 @@ public class VuePartie implements Vue
     {
         this.controleur = controleur;
     }
+
 
     public void setControleur(Controleur controleur) {
         this.controleur = controleur;
@@ -136,15 +137,6 @@ public class VuePartie implements Vue
         this.stage.show();
     }
 
-    public void initialiserCarteMerveille() throws RemoteException { // a mettre dans le charge donne quand les tests seront finis
-        this.controleur.miseEnPlaceDuJeu();
-        IMerveille merveille = this.controleur.getJoueur().getMerveille();
-        File file = new File("clientJfx/src/main/resources/images/");
-        Image image = new Image(file.toURI().toString()+merveille.getImage());
-        merveilleIM.setImage(image);
-        affichageInteractifDesVariables();
-
-    }
     public void affichageInteractifDesVariables() throws RemoteException {
         IJoueur joueur = this.controleur.getJoueur();
         argent.setText(joueur.argentString());
@@ -172,10 +164,19 @@ public class VuePartie implements Vue
     }
 
     @Override
-    public void chargerDonnees() throws RemoteException {
+    public void chargerDonnees() throws RemoteException
+    {
+        this.controleur.miseEnPlaceDuJeu();
+
+    }
+    public void debutpartie() throws RemoteException {
+        IMerveille merveille = this.controleur.getJoueur().getMerveille();
+        File file = new File("clientJfx/src/main/resources/images/");
+        Image image = new Image(file.toURI().toString()+merveille.getImage());
+        merveilleIM.setImage(image);
+        affichageInteractifDesVariables();
 
         this.joueurGauche = this.controleur.getJoueurGauche();
-        File file = new File("clientJfx/src/main/resources/images/");
         merveilleVoisinGauche.setImage(new Image(file.toURI().toString()+this.joueurGauche.getMerveille().getImage()));
 
         this.joueurDroite = this.controleur.getJoueurDroite();
@@ -183,7 +184,6 @@ public class VuePartie implements Vue
 
         this.joueurEnFace = this.controleur.getJoueurFace();
         merveilleJoueurFace.setImage(new Image(file.toURI().toString()+this.joueurEnFace.getMerveille().getImage()));
-
     }
 
     public void jouerCarte(ActionEvent actionEvent) throws ChoixDejaFaitException, RemoteException, PasAssezDeRessourcesException {
