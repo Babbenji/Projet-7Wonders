@@ -31,7 +31,7 @@
          <children>
             <Button fx:id="creerPartie" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="CREER PARTIE" />
             <Button fx:id="rejoindrePartie" mnemonicParsing="false" prefHeight="42.0" prefWidth="200.0" text="REJOINDRE PARTIE" />
-            <Button fx:id="boutonQuitter" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Quitter" />
+            <Button fx:id="boutonQuitter" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="QUITTER" />
          </children>
       </VBox>
       <VBox alignment="TOP_CENTER" layoutX="474.0" layoutY="7.0" prefHeight="375.0" prefWidth="100.0">
