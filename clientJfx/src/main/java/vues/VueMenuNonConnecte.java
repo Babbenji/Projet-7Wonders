@@ -24,14 +24,13 @@ public class VueMenuNonConnecte implements Vue{
     /* Les noms des attributs doivent être les noms des fx:id */
     @FXML
     private AnchorPane baseAnchor;
-    @FXML
-    private ImageView imageFond;
-    @FXML
-    private VBox vboxMenu;
+
     @FXML
     private Button buttonConnexion;
+
     @FXML
     private Button buttonInscription;
+
     @FXML
     private Button buttonQuitter;
 
@@ -119,6 +118,8 @@ public class VueMenuNonConnecte implements Vue{
     @Override
     public void show() {
         this.stage.setScene(this.scene);
+        this.stage.setX(0);
+        this.stage.setY(0);
         this.stage.show();
     }
 

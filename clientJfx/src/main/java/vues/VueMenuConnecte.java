@@ -63,21 +63,21 @@ public class VueMenuConnecte implements Vue{
         Scene scene = new Scene(root);
         vue.setScene(scene);
         vue.initialiserBoutonQuitter();
-        vue.initialiserBoutonCreer();
+        /*vue.initialiserBoutonCreer();*/
         return vue;
     }
 
     private void initialiserBoutonQuitter() { this.boutonQuitter.setOnAction(e -> goExit()); }
 
-    private void initialiserBoutonCreer() { this.creerPartie.setOnAction(e -> goToWaitingRoom()); }
+    /*private void initialiserBoutonCreer() { this.creerPartie.setOnAction(e -> goToWaitingRoom()); }*/
 
     private void goExit() {
         this.controleur.exit();
     }
 
-    private void goToWaitingRoom() {
+    /*private void goToWaitingRoom() {
         this.controleur.goToWaitingRoom();
-    }
+    }*/
 
     @Override
     public void show() {
