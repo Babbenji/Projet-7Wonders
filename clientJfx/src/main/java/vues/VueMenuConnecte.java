@@ -52,6 +52,8 @@ public class VueMenuConnecte implements Vue{
 
     private Scene scene;
 
+    private User user;
+
     private List<Partie>parties;
 
     private void setStage(Stage stage) {
@@ -98,8 +100,6 @@ public class VueMenuConnecte implements Vue{
     public void buttonCreer(MouseEvent mouseEvent){
         try {
             IPartie partie = this.controleur.getFacade().creePartie(this.controleur.getUser());
-            System.out.println(partie);
-            System.out.println(this.controleur.getFacade().getParties());
             this.controleur.ajoutUserWaitingRoom();
             this.goToWaitingRoom();
         } catch (RemoteException e) {

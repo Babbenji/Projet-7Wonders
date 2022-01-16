@@ -120,9 +120,9 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
     @Override
     public IPartie creePartie(User createur)
     {
-        System.out.println("crreeeeeeeeeeeeeeeeeeee");
         ArrayList<IJoueur> listJoueur = new ArrayList<>();
         IJoueur joueur1 = new Joueur(createur.getPseudo());
+        listJoueur.add(joueur1);
         associationUserJoueur.put(createur,joueur1);
         Partie partie = new Partie(listJoueur,lesCartes,lesMerveilles);
         parties.add(partie);
