@@ -1,5 +1,7 @@
 # 7 Wonders - Groupe 5
 
+🚨 Pour un meilleur rendu du README (y compris la gestion des images), ouvrez le sur IntelliJ une fois le projet cloné, le markdown y est mieux géré) 🚨
+
 Bonjour, nous sommes le groupe 5, composé de :
 + Matthieu BLOND
 + Timothé DURAND
