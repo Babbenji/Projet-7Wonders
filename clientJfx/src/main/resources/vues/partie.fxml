@@ -1,101 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="974.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.VuePartie">
-   <center>
-      <Pane prefHeight="430.0" prefWidth="574.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fx:id="merveilleIM" fitHeight="175.0" fitWidth="219.0" layoutX="166.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="boutonJouer" layoutX="96.0" layoutY="218.0" mnemonicParsing="false" onAction="#jouerCarte" text="Jouer Carte" />
-            <Button fx:id="boutonEtape" layoutX="200.0" layoutY="218.0" mnemonicParsing="false" onAction="#construireEtape" text="Construire Etape" />
-            <Button fx:id="boutonDefausser" layoutX="317.0" layoutY="218.0" mnemonicParsing="false" onAction="#defausserCarte" text="Defausser Carte" />
-            <Label fx:id="lab" layoutX="96.0" layoutY="172.0" prefHeight="17.0" prefWidth="332.0" />
-            <Pane fx:id="info" layoutX="26.0" layoutY="243.0" prefHeight="193.0" prefWidth="487.0">
-               <children>
-                  <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="1.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/piece3.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="argent" layoutX="35.0" layoutY="17.0" prefHeight="17.0" prefWidth="118.0" text="Label" />
-                  <Label fx:id="pv" layoutX="35.0" layoutY="55.0" prefHeight="17.0" prefWidth="171.0" text="Label" />
-                  <Label fx:id="pvm" layoutX="35.0" layoutY="86.0" prefHeight="21.0" prefWidth="153.0" text="Label" />
-                  <Label fx:id="pdm" layoutX="32.0" layoutY="126.0" prefHeight="17.0" prefWidth="176.0" text="Label" />
-                  <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="1.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/piece1.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="3.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/fight1.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="1.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/fight0.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="bouclier" layoutX="260.0" layoutY="16.0" prefHeight="17.0" prefWidth="147.0" text="Label" />
-                  <Label fx:id="rouages" layoutX="260.0" layoutY="55.0" prefHeight="17.0" prefWidth="136.0" text="Label" />
-                  <Label fx:id="compas" layoutX="260.0" layoutY="89.0" prefHeight="17.0" prefWidth="128.0" text="Label" />
-                  <Label fx:id="tabelettes" layoutX="260.0" layoutY="123.0" prefHeight="17.0" prefWidth="127.0" text="Label" />
-                  <ImageView fitHeight="29.0" fitWidth="32.0" layoutX="207.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/bouclier.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="210.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/rouages.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="210.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/compas.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="210.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/tablettes.png" />
-                     </image>
-                  </ImageView>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="974.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.VuePartie">
+   <ImageView fitHeight="635.0" fitWidth="974.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../images/fondPartie.png" />
+      </image>
+   </ImageView>
+   <BorderPane prefHeight="715.0" prefWidth="974.0">
+      <center>
+         <Pane prefHeight="430.0" prefWidth="574.0" BorderPane.alignment="CENTER">
+            <children>
+               <ImageView fx:id="merveilleIM" fitHeight="175.0" fitWidth="219.0" layoutX="166.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+               <Button fx:id="boutonJouer" layoutX="96.0" layoutY="218.0" mnemonicParsing="false" onAction="#jouerCarte" text="Jouer Carte" />
+               <Button fx:id="boutonEtape" layoutX="200.0" layoutY="218.0" mnemonicParsing="false" onAction="#construireEtape" text="Construire Etape" />
+               <Button fx:id="boutonDefausser" layoutX="317.0" layoutY="218.0" mnemonicParsing="false" onAction="#defausserCarte" text="Defausser Carte" />
+               <Label fx:id="lab" layoutX="96.0" layoutY="172.0" prefHeight="17.0" prefWidth="332.0" />
+               <Pane fx:id="info" layoutX="26.0" layoutY="243.0" prefHeight="193.0" prefWidth="487.0">
+                  <children>
+                     <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="1.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../images/piece3.png" />
+                        </image>
+                     </ImageView>
+                     <Label fx:id="argent" layoutX="35.0" layoutY="17.0" prefHeight="17.0" prefWidth="118.0" text="Label" />
+                     <Label fx:id="pv" layoutX="35.0" layoutY="55.0" prefHeight="17.0" prefWidth="171.0" text="Label" />
+                     <Label fx:id="pvm" layoutX="35.0" layoutY="86.0" prefHeight="21.0" prefWidth="153.0" text="Label" />
+                     <Label fx:id="pdm" layoutX="32.0" layoutY="126.0" prefHeight="17.0" prefWidth="176.0" text="Label" />
+                     <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="1.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../images/piece1.png" />
+                        </image>
+                     </ImageView>
+                     <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="3.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../images/fight1.png" />
+                        </image>
+                     </ImageView>
+                     <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="1.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../images/fight0.png" />
+                        </image>
+                     </ImageView>
+                     <Label fx:id="bouclier" layoutX="260.0" layoutY="16.0" prefHeight="17.0" prefWidth="147.0" text="Label" />
+                     <Label fx:id="rouages" layoutX="260.0" layoutY="55.0" prefHeight="17.0" prefWidth="136.0" text="Label" />
+                     <Label fx:id="compas" layoutX="260.0" layoutY="89.0" prefHeight="17.0" prefWidth="128.0" text="Label" />
+                     <Label fx:id="tabelettes" layoutX="260.0" layoutY="123.0" prefHeight="17.0" prefWidth="127.0" text="Label" />
+                     <ImageView fitHeight="29.0" fitWidth="32.0" layoutX="207.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../images/bouclier.png" />
+                        </image>
+                     </ImageView>
+                     <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="210.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../images/rouages.png" />
+                        </image>
+                     </ImageView>
+                     <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="210.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../images/compas.png" />
+                        </image>
+                     </ImageView>
+                     <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="210.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../images/tablettes.png" />
+                        </image>
+                     </ImageView>
 
 
-               </children>
-            </Pane>
-         </children>
-      </Pane>
+                  </children>
+               </Pane>
+            </children>
+         </Pane>
 
-   </center>
-   <bottom>
-      <ListView fx:id="lv" onMouseClicked="#onClickAfficher" prefHeight="169.0" prefWidth="974.0" BorderPane.alignment="CENTER" />
-   </bottom>
-   <top>
-      <Pane prefHeight="149.0" prefWidth="974.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fx:id="merveilleJoueurFace" fitHeight="103.0" fitWidth="200.0" layoutX="354.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="jFace" layoutX="394.0" layoutY="92.0" mnemonicParsing="false" onAction="#voirInfoJFace" text="Voir informations joueur en face" />
-         </children>
-      </Pane>
-   </top>
-   <left>
-      <Pane prefHeight="246.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fx:id="merveilleVoisinGauche" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="jGauche" layoutX="7.0" layoutY="157.0" mnemonicParsing="false" onAction="#voirInfoJGauche" text="Voir informations joueur gauche" />
-         </children>
-      </Pane>
-   </left>
-   <right>
-      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fx:id="merveilleVoisinDroite" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="jDroite" layoutX="10.0" layoutY="156.0" mnemonicParsing="false" onAction="#voirInfoJDroite" text="Voir informations joueur droite" />
-         </children>
-      </Pane>
-   </right>
-</BorderPane>
+      </center>
+      <bottom>
+         <ListView fx:id="lv" onMouseClicked="#onClickAfficher" prefHeight="169.0" prefWidth="974.0" BorderPane.alignment="CENTER" />
+      </bottom>
+      <top>
+         <Pane prefHeight="149.0" prefWidth="974.0" BorderPane.alignment="CENTER">
+            <children>
+               <ImageView fx:id="merveilleJoueurFace" fitHeight="103.0" fitWidth="200.0" layoutX="354.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" />
+               <Button fx:id="jFace" layoutX="394.0" layoutY="92.0" mnemonicParsing="false" onAction="#voirInfoJFace" text="Voir informations joueur en face" />
+            </children>
+         </Pane>
+      </top>
+      <left>
+         <Pane prefHeight="246.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+               <ImageView fx:id="merveilleVoisinGauche" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+               <Button fx:id="jGauche" layoutX="7.0" layoutY="157.0" mnemonicParsing="false" onAction="#voirInfoJGauche" text="Voir informations joueur gauche" />
+            </children>
+         </Pane>
+      </left>
+      <right>
+         <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+               <ImageView fx:id="merveilleVoisinDroite" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+               <Button fx:id="jDroite" layoutX="10.0" layoutY="156.0" mnemonicParsing="false" onAction="#voirInfoJDroite" text="Voir informations joueur droite" />
+            </children>
+         </Pane>
+      </right>
+   </BorderPane>
+</AnchorPane>
