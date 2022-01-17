@@ -105,9 +105,9 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
     {
         IJoueur joueur = new Joueur(userInvite.getPseudo());
         Partie partie = null;
-        partie = getPartieById(idPartie);
+        partie = getPartieById(0);
         partie.addJoueur(joueur);
-        userDansPreLobby.put(userInvite,partie);
+        this.associationJoueurPartie.put(joueur,partie);
 
     }
     @Override
@@ -125,11 +125,7 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
         Partie partie = new Partie(listJoueur,lesCartes,lesMerveilles);
         parties.add(partie);
         userDansPreLobby.put(createur,partie);
-
-        for (IJoueur joueur: listJoueur)
-        {
-            this.associationJoueurPartie.put(joueur,partie);
-        }
+        this.associationJoueurPartie.put(joueur1,partie);
         return partie;
     }
 
@@ -137,7 +133,7 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
     public void miseEnPlaceDuJeu(IJoueur joueur)
     {
 
-        Partie partie = this.associationJoueurPartie.get(joueur);
+        Partie partie = parties.get(0);
         partie.miseEnPlacePartie();
     }
 

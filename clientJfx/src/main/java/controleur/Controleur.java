@@ -82,19 +82,21 @@ public class Controleur
             };
         };
         List<IJoueur> lt = this.partie.getListeDesJoueurs();
+        System.out.println(lt);
         for (IJoueur joueur: lt) {
-            System.out.println(joueur);
             if (user.getPseudo().equals(joueur.getNom()))
             {
                 this.joueur = joueur;
+                System.out.println(joueur);
+
             }
         }
-        if (joueur.getNom().equals("jlietard"))
-        {
-            partie.miseEnPlacePartie();
+        if (joueur.getNom().equals("jlietard")) {
+            facade.miseEnPlaceDuJeu(joueur);
         }
 
-
+        System.out.println(joueur.getMerveille());
+        System.out.println(partie.getListeDesJoueurs());
         vuePartie.debutpartie();
     }
 

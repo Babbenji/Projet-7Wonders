@@ -101,7 +101,6 @@ public class VueMenuConnecte implements Vue{
         try {
             IPartie partie = this.controleur.getFacade().creePartie(this.controleur.getUser());
             System.out.println(partie);
-
             this.controleur.ajoutUserWaitingRoom(this.controleur.getUser(), (Partie) partie);
             this.goToWaitingRoom();
         } catch (RemoteException e) {

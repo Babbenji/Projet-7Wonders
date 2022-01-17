@@ -185,6 +185,7 @@ public class VuePartie implements Vue
 
         this.joueurGauche = this.controleur.getJoueurGauche();
         merveilleVoisinGauche.setImage(new Image(file.toURI().toString()+this.joueurGauche.getMerveille().getImage()));
+
         this.joueurDroite = this.controleur.getJoueurDroite();
         merveilleVoisinDroite.setImage(new Image(file.toURI().toString()+this.joueurDroite.getMerveille().getImage()));
 
@@ -257,7 +258,7 @@ public class VuePartie implements Vue
                 alert.showAndWait();
             }
         });
-
+        attendreChoixAdversaires(this.controleur.getJoueur().getAJoue());
         affichageInteractifDesVariables();
     }
 

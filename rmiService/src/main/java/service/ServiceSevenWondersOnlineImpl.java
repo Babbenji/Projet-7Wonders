@@ -123,16 +123,12 @@ public class ServiceSevenWondersOnlineImpl  implements ServiceSevenWondersOnline
         return this.facadeSevenWondersOnLine.getAssociationUserJoueur();
     }
 
+
     @Override
     public Map<User, Partie> getUserDansPreLobby() throws RemoteException {
         return this.facadeSevenWondersOnLine.getUserDansPreLobby();
     }
 
-
-    @Override
-    public Map<User, Partie> getUserDansPreLobby() {
-        return this.facadeSevenWondersOnLine.getUserDansPreLobby();
-    }
 
     @Override
     public void setUserDansPreLobby(Map<User, Partie> userDansPreLobby) throws RemoteException {

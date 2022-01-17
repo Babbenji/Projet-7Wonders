@@ -61,6 +61,7 @@ public class Partie implements IPartie, Serializable {
         this.partieTerminee = false;
     }
 
+
     @Override
     public void constructionDesListes()
     {

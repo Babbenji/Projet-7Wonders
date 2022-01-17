@@ -121,7 +121,7 @@ public interface ProxySevenWondersOnLine
     Partie getPartieById(int idPartie) throws RemoteException;
 
     Map<User, IJoueur> getAssociationUserJoueur() throws RemoteException;
-    Map<IJoueur, Partie> getAssociationJoueurPartie() throws RemoteException;
+
     Map<User, Partie> getUserDansPreLobby() throws RemoteException;
     void setUserDansPreLobby(Map<User, Partie> userDansPreLobby) throws RemoteException;
 
