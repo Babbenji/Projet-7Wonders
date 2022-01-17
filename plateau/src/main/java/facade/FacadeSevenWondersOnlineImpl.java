@@ -30,8 +30,6 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
 
 
     public FacadeSevenWondersOnlineImpl() {
-
-
         //mongodb this.user = null;
         this.userDansPreLobby = new HashMap<>();
         this.associationUserJoueur = new HashMap<>();
@@ -109,9 +107,7 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
         Partie partie = null;
         partie = getPartieById(idPartie);
         partie.addJoueur(joueur);
-        associationJoueurPartie.put(joueur,partie);
-        associationUserJoueur.put(userInvite,joueur);
-        System.out.println("test");
+        userDansPreLobby.put(userInvite,partie);
 
     }
     @Override
@@ -128,6 +124,7 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
         associationUserJoueur.put(createur,joueur1);
         Partie partie = new Partie(listJoueur,lesCartes,lesMerveilles);
         parties.add(partie);
+        userDansPreLobby.put(createur,partie);
 
         for (IJoueur joueur: listJoueur)
         {
@@ -183,14 +180,6 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
        return this.mongodbService.getUserByPseudo(pseudo);
     }
 
-
-    public List<ICarte> getLesCartes() {
-        return lesCartes;
-    }
-
-    public List<IMerveille> getLesMerveilles() {
-        return lesMerveilles;
-    }
 
     @Override
     public Map<User, Partie> getUserDansPreLobby() {

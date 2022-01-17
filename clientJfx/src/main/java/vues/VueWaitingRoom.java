@@ -44,7 +44,9 @@ public class VueWaitingRoom implements Vue{
 
     private Stage stage;
     private Controleur controleur;
+    private List<Partie>parties;
     private IPartie partie;
+    private int nombre;
     private List<Partie> parties;
 
     private void setScene(Scene scene) {
@@ -93,7 +95,6 @@ public class VueWaitingRoom implements Vue{
                 for(IJoueur j : p.getListeDesJoueurs()){
                     if (j.getNom().equals(this.controleur.getUser().getPseudo())){
                         this.partie = p;
-
                     }
                 }
             }

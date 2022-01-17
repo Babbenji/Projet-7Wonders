@@ -115,6 +115,7 @@ public class VuePartie implements Vue
         Scene scene = new Scene(root);
         vue.setScene(scene);
         vue.setControleur(controleur);
+
         return vue;
     }
 
@@ -171,11 +172,9 @@ public class VuePartie implements Vue
     }
 
     @Override
-    public void chargerDonnees() throws RemoteException {
-
-
+    public void chargerDonnees() throws RemoteException
+    {
         this.controleur.miseEnPlaceDuJeu();
-        IMerveille merveille = this.controleur.getJoueur().getMerveille();
     }
     public void debutpartie() throws RemoteException {
         IMerveille merveille = this.controleur.getJoueur().getMerveille();
@@ -186,7 +185,6 @@ public class VuePartie implements Vue
 
         this.joueurGauche = this.controleur.getJoueurGauche();
         merveilleVoisinGauche.setImage(new Image(file.toURI().toString()+this.joueurGauche.getMerveille().getImage()));
-
         this.joueurDroite = this.controleur.getJoueurDroite();
         merveilleVoisinDroite.setImage(new Image(file.toURI().toString()+this.joueurDroite.getMerveille().getImage()));
 

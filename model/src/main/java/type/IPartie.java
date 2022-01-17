@@ -1,7 +1,6 @@
 package type;
 
 import merveilles.exceptions.MaximumEtapeAtteintException;
-import partie.Partie;
 import partie.exceptions.ChoixDejaFaitException;
 import partie.exceptions.PasAssezDeRessourcesException;
 
@@ -87,5 +86,5 @@ public interface IPartie {
     void setCartes(ArrayList<ICarte> cartes);
 
     List<IMerveille> getMerveilles();
-    public void suitePartie();
+    void suitePartie();
 }
