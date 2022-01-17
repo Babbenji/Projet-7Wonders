@@ -124,8 +124,19 @@ public class ServiceSevenWondersOnlineImpl  implements ServiceSevenWondersOnline
     }
 
     @Override
-    public Map<IJoueur, Partie> getAssociationJoueurPartie() throws RemoteException {
-        return this.facadeSevenWondersOnLine.getAssociationJoueurPartie();
+    public Map<User, Partie> getUserDansPreLobby() throws RemoteException {
+        return this.facadeSevenWondersOnLine.getUserDansPreLobby();
+    }
+
+
+    @Override
+    public Map<User, Partie> getUserDansPreLobby() {
+        return this.facadeSevenWondersOnLine.getUserDansPreLobby();
+    }
+
+    @Override
+    public void setUserDansPreLobby(Map<User, Partie> userDansPreLobby) throws RemoteException {
+        this.facadeSevenWondersOnLine.setUserDansPreLobby(userDansPreLobby);
     }
 
     @Override
@@ -137,4 +148,6 @@ public class ServiceSevenWondersOnlineImpl  implements ServiceSevenWondersOnline
     public User getUserByPseudo(String pseudo) throws RemoteException {
         return this.facadeSevenWondersOnLine.getUserByPseudo(pseudo);
     }
+
+
 }

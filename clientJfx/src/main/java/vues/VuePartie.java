@@ -199,9 +199,6 @@ public class VuePartie implements Vue
     public void chargerDonnees() throws RemoteException
     {
         this.controleur.miseEnPlaceDuJeu();
-
-        this.controleur.miseEnPlaceDuJeu();
-        IMerveille merveille = this.controleur.getJoueur().getMerveille();
     }
     public void debutpartie() throws RemoteException {
         IMerveille merveille = this.controleur.getJoueur().getMerveille();
@@ -212,7 +209,6 @@ public class VuePartie implements Vue
 
         this.joueurGauche = this.controleur.getJoueurGauche();
         merveilleVoisinGauche.setImage(new Image(file.toURI().toString()+this.joueurGauche.getMerveille().getImage()));
-
         this.joueurDroite = this.controleur.getJoueurDroite();
         merveilleVoisinDroite.setImage(new Image(file.toURI().toString()+this.joueurDroite.getMerveille().getImage()));
 

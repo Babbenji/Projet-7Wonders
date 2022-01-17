@@ -100,7 +100,9 @@ public class VueMenuConnecte implements Vue{
     public void buttonCreer(MouseEvent mouseEvent){
         try {
             IPartie partie = this.controleur.getFacade().creePartie(this.controleur.getUser());
-            this.controleur.ajoutUserWaitingRoom();
+            System.out.println(partie);
+
+            this.controleur.ajoutUserWaitingRoom(this.controleur.getUser(), (Partie) partie);
             this.goToWaitingRoom();
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -151,11 +153,11 @@ public class VueMenuConnecte implements Vue{
         this.controleur = controleur;
     }
 
-    public void onButtonJoinGame(MouseEvent event){
+    public void onButtonJoinGame(MouseEvent event) throws RemoteException {
         for (Partie p : this.parties){
             for (IJoueur j : p.getListeDesJoueurs()){
                 if(j.getNom().equals(this.controleur.getUser().getPseudo())){
-                    this.controleur.ajoutUserWaitingRoom();
+                    this.controleur.ajoutUserWaitingRoom(this.controleur.getUser(),p);
                     this.goToWaitingRoom();
                 }
             }

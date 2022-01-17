@@ -44,14 +44,11 @@ public class Controleur
     private User user;
     private IPartie partie;
     private static int nbUserWaitingRoom;
-//    FacadeSevenWondersOnlineImpl facadeta = new FacadeSevenWondersOnlineImpl();
-//    IPartie partie = facadeta.creePartie(new User("test"));
 
 
-    public Controleur(Stage stage) throws IOException, NotBoundException {
+    public Controleur(Stage stage) throws IOException, NotBoundException
+    {
         facade = new ProxySevenWondersOnLineImpl();
-
-
         vueMenuNonConnecte = VueMenuNonConnecte.creerVue(stage);
         vueMenuNonConnecte.initialiserControleur(this);
         vueConnexion = VueConnexion.creerVue(stage);
@@ -63,15 +60,7 @@ public class Controleur
         vuePartie = VuePartie.creerVue(stage,this);
         vueWaitingRoom = VueWaitingRoom.creerVue(stage);
         vueWaitingRoom.initialiserControleur(this);
-    }
 
-    public void setNbUserWaitingRoom(int nbUserWaitingRoom) {
-        Controleur.nbUserWaitingRoom = nbUserWaitingRoom;
-    }
-
-    public int ajoutUserWaitingRoom() {
-        System.out.println("nb : "+nbUserWaitingRoom);
-        return nbUserWaitingRoom+1;
     }
 
     public void run() throws RemoteException {
@@ -80,17 +69,32 @@ public class Controleur
 
     public void miseEnPlaceDuJeu() throws RemoteException
     {
-        Map<User,IJoueur> asso = facade.getAssociationUserJoueur();
 
-        for (Map.Entry <User, IJoueur> entryB : asso.entrySet()) {
-            User us = entryB.getKey();
-            IJoueur jou = entryB.getValue();
-            System.out.println(jou);
-            this.joueur = jou;
-            System.out.println(jou);
+        List<Partie> lj = this.facade.getParties();
+        for (Partie partie: lj) {
+            for (Map.Entry<User,Partie> test: facade.getUserDansPreLobby().entrySet()) {
+                User user = test.getKey();
+                Partie p = test.getValue();
+                if (partie.getIdPartie() == p.getIdPartie())
+                {
+                    this.partie = partie;
+                }
+            };
+        };
+        List<IJoueur> lt = this.partie.getListeDesJoueurs();
+        for (IJoueur joueur: lt) {
+            System.out.println(joueur);
+            if (user.getPseudo().equals(joueur.getNom()))
+            {
+                this.joueur = joueur;
+            }
+        }
+        if (joueur.getNom().equals("jlietard"))
+        {
+            partie.miseEnPlacePartie();
         }
 
-        partie.miseEnPlacePartie();
+
         vuePartie.debutpartie();
     }
 
@@ -158,8 +162,6 @@ public class Controleur
         } catch (RemoteException | JoueurDejaDansLaListeDAmisException | JoueurNonExistantException e) {
             e.printStackTrace();
         }
-
-
     }
 
     public void inviterUser(int idPartie, User user) throws JoueurDejaAjouteException, MaxJoueursAtteintException, JoueurNonExistantException
@@ -281,6 +283,23 @@ public class Controleur
 
     public String getNom() {
         return this.nom;
+    }
+
+    public int getNbUserWaitingRoom() throws RemoteException {
+        return this.facade.getUserDansPreLobby().size();
+    }
+
+    public void ajoutUserWaitingRoom(User u , Partie p) throws RemoteException {
+
+            Map<User, Partie> map = this.facade.getUserDansPreLobby();
+        if (map.keySet().stream()
+                .noneMatch(user1 ->
+                        user1.getPseudo()
+                                .equals(u.getPseudo()))) {
+                map.put(u, p);
+                this.facade.setUserDansPreLobby(map);
+
+        }
     }
 
 }
