@@ -55,6 +55,10 @@ Si toutefois vous avez besoin d'identifiants, en voici 4 :
 
 ## Informations supplémentaires
 
+La base de données est sur serveur distant et est accessible [ici](https://account.mongodb.com/account/login) avec les identifiants suivants
+
 |                Mail                |   Mot de passe   |
 |:----------------------------------:|:----------------:|
 | accesbddmongo.professeur@gmail.com | jeSuisUnProf123! |
+
+<img src="/images/Capture4.PNG"/>
