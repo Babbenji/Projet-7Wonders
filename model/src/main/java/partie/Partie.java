@@ -660,4 +660,7 @@ public class Partie implements IPartie, Serializable {
     public List<IMerveille> getMerveilles() {
         return merveilles;
     }
+
+    @Override
+    public int getAgeEnCours(){ return ageEnCours;}
 }
