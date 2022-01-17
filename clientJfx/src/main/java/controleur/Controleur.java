@@ -71,24 +71,21 @@ public class Controleur
     {
 
         List<Partie> lj = this.facade.getParties();
-        for (Partie partie: lj) {
-            for (Map.Entry<User,Partie> test: facade.getUserDansPreLobby().entrySet()) {
-                User user = test.getKey();
-                Partie p = test.getValue();
-                if (partie.getIdPartie() == p.getIdPartie())
-                {
-                    this.partie = partie;
+        System.out.println(lj);
+        for(Partie p : lj){
+            for(IJoueur j : p.getListeDesJoueurs()){
+                if (j.getNom().equals(this.user.getPseudo())){
+                    this.partie = p;
+                    System.out.println("Partie ou le controleur est" + partie);
                 }
-            };
-        };
+            }
+        }
         List<IJoueur> lt = this.partie.getListeDesJoueurs();
         System.out.println(lt);
         for (IJoueur joueur: lt) {
             if (user.getPseudo().equals(joueur.getNom()))
             {
                 this.joueur = joueur;
-                System.out.println(joueur);
-
             }
         }
         if (joueur.getNom().equals("jlietard")) {
@@ -97,8 +94,8 @@ public class Controleur
 
         System.out.println(joueur.getMerveille());
         System.out.println(partie.getListeDesJoueurs());
-        vuePartie.debutpartie();
     }
+
 
     public void passerALaSuite()
     {
@@ -181,6 +178,7 @@ public class Controleur
         partie.construireEtape(joueur,carte);
         vuePartie.affichageInteractifDesVariables();
         System.out.println("carte construite");
+        vuePartie.attendreChoixAdversaires(this.joueur.getAJoue());
     }
 
     public void defausserCarte() throws ChoixDejaFaitException, RemoteException
@@ -189,6 +187,7 @@ public class Controleur
         partie.deffausserCarte(joueur, carte);
         vuePartie.affichageInteractifDesVariables();
         System.out.println("carte defausser");
+        vuePartie.attendreChoixAdversaires(this.joueur.getAJoue());
     }
 
     public void jouerCarte() throws ChoixDejaFaitException, RemoteException, PasAssezDeRessourcesException
@@ -197,7 +196,7 @@ public class Controleur
         partie.jouerCarte(joueur, carte);
         vuePartie.affichageInteractifDesVariables();
         System.out.println("carte joue");
-
+        vuePartie.attendreChoixAdversaires(this.joueur.getAJoue());
     }
 
     public User getUser()

@@ -11,7 +11,6 @@ public class Main extends Application
     {
         Controleur controleur = new Controleur(stage);
         controleur.run();
-
     }
 
     public static void main(String[] args) {
