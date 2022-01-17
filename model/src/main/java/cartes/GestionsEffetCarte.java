@@ -32,7 +32,7 @@ public class GestionsEffetCarte implements Serializable {
         }
         if (effet.get("nomEffet").equals("commerceRessourcesSecondaires"))
         {
-            joueur.setCommerceMatieresPremieresDroite(true);
+            joueur.setCommerceProduitsManufactures(true);
         }
         if (effet.get("nomEffet").equals("gain_ressources"))
         {

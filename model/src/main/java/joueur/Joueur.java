@@ -209,6 +209,7 @@ public class Joueur implements IJoueur, Serializable {
         ressources = lesRessources;
     }
 
+
     //Donne au joueur n ressources dont le nom est fourni
     @Override
     public void augmenterRessource(String nom, int n) {

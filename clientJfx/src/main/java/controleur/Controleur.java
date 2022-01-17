@@ -178,6 +178,7 @@ public class Controleur
         partie.construireEtape(joueur,carte);
         vuePartie.affichageInteractifDesVariables();
         System.out.println("carte construite");
+        vuePartie.attendreChoixAdversaires(this.joueur.getAJoue());
     }
 
     public void defausserCarte() throws ChoixDejaFaitException, RemoteException
@@ -186,6 +187,7 @@ public class Controleur
         partie.deffausserCarte(joueur, carte);
         vuePartie.affichageInteractifDesVariables();
         System.out.println("carte defausser");
+        vuePartie.attendreChoixAdversaires(this.joueur.getAJoue());
     }
 
     public void jouerCarte() throws ChoixDejaFaitException, RemoteException, PasAssezDeRessourcesException
@@ -194,7 +196,7 @@ public class Controleur
         partie.jouerCarte(joueur, carte);
         vuePartie.affichageInteractifDesVariables();
         System.out.println("carte joue");
-
+        vuePartie.attendreChoixAdversaires(this.joueur.getAJoue());
     }
 
     public User getUser()

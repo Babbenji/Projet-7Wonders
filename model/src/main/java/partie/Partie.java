@@ -259,13 +259,13 @@ public class Partie implements IPartie, Serializable {
                 } else {
                     throw new PasAssezDeRessourcesException();
                 }
-                joueur.setAJoue(true);
             }
 
             this.gestionsEffetsEtape.appliquerEffetMerveille(joueur);
             joueur.getMerveille().setEtape(joueur.getMerveille().getEtape() + 1);  //on incrémente le num de l'étape de la merveille
             carteDefausse.add(carte);
             joueur.getDeck().enleverCarteDuDeck(carte);
+            joueur.setAJoue(true);
         }
     }
 
@@ -476,6 +476,9 @@ public class Partie implements IPartie, Serializable {
 
         if(!finDernierTourDernierAge())
         {
+            for (IJoueur joueur : listeDesJoueurs) {
+                joueur.setAJoue(false);
+            }
             if (finAge())
             {
                 conflitsMilitaire();

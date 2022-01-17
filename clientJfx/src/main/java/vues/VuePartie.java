@@ -94,6 +94,12 @@ public class VuePartie implements Vue
     @FXML
     public Label tissusOuVerresOuPapiers;
     @FXML
+    public ImageView marche;
+    @FXML
+    public ImageView marcheDroite;
+    @FXML
+    public ImageView marcheGauche;
+    @FXML
     private ImageView merveilleIM;
     @FXML
     ImageView merveilleJoueurFace;
@@ -212,6 +218,26 @@ public class VuePartie implements Vue
         lv.setItems(observableList);
         lv.setOrientation(Orientation.HORIZONTAL);
 
+        if (joueur.isCommerceProduitsManufactures())
+        {
+            Image image1 = new Image(file.toURI().toString()+"markt.png");
+            marche.setImage(image1);
+        }
+
+        if (joueur.isCommerceMatieresPremieresDroite())
+        {
+            Image image = new Image(file.toURI().toString()+"kontor_right.png");
+            marcheDroite.setImage(image);
+        }
+
+        if (joueur.isCommerceMatieresPremieresGauche())
+        {
+            Image image = new Image(file.toURI().toString()+"kontor_left.png");
+            marcheGauche.setImage(image);
+        }
+
+
+
     }
 
     @Override
@@ -283,7 +309,7 @@ public class VuePartie implements Vue
                 alert.showAndWait();
             }
         });
-        attendreChoixAdversaires(this.controleur.getJoueur().getAJoue());
+
     }
 
     public void defausserCarte(ActionEvent actionEvent) throws ChoixDejaFaitException, RemoteException {
@@ -302,7 +328,6 @@ public class VuePartie implements Vue
                 ex.printStackTrace();
             }
         });
-        attendreChoixAdversaires(this.controleur.getJoueur().getAJoue());
         affichageInteractifDesVariables();
     }
 
@@ -316,16 +341,7 @@ public class VuePartie implements Vue
             @Override
             protected Boolean call() throws Exception
             {
-                Boolean AjoueD = null;
-                Boolean AjoueG = null;
-                Boolean AjoueF = null;
-                do
-                {
-                    AjoueD = joueurD.getAJoue();
-                    AjoueF = joueurF.getAJoue();
-                    AjoueG = joueurG.getAJoue();
-                }
-                    while (AjoueD || AjoueF || AjoueG || ajoue);
+                    while (!joueurD.getAJoue() || !joueurG.getAJoue() || !joueurF.getAJoue() || !ajoue);
                     return true;
                 }
             };
