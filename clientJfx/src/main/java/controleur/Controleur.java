@@ -31,12 +31,12 @@ public class Controleur
 {
     private ProxySevenWondersOnLine facade;
 
-    private VueMenuNonConnecte vueMenuNonConnecte;
-    private VueConnexion vueConnexion;
-    private VueInscription vueInscription;
-    private VueMenuConnecte vueMenuConnecte;
-    private VuePartie vuePartie;
-    private VueWaitingRoom vueWaitingRoom;
+    private final VueMenuNonConnecte vueMenuNonConnecte;
+    private final VueConnexion vueConnexion;
+    private final VueInscription vueInscription;
+    private final VueMenuConnecte vueMenuConnecte;
+    private final VuePartie vuePartie;
+    private final VueWaitingRoom vueWaitingRoom;
     private final int NB_JOUEURS = 4;
 
     private IJoueur joueur;
