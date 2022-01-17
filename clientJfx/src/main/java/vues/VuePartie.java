@@ -48,7 +48,7 @@ public class VuePartie implements Vue
     @FXML
     public ListView lv;
     @FXML
-    public Label lab;
+    public Label nomJoueur;
     @FXML
     public Button jGauche;
     @FXML
@@ -184,6 +184,7 @@ public class VuePartie implements Vue
             Image imageAge = new Image("images/ph3.png");
             this.imageAge.setImage(imageAge);
         }
+        nomJoueur.setText(joueur.getNom());
         argent.setText(joueur.argentString());
         bouclier.setText(joueur.bouclierString());
         pv.setText(joueur.pointVictoireString());
