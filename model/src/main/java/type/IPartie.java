@@ -83,6 +83,8 @@ public interface IPartie {
 
     List<ICarte> getCartes();
 
+    int getAgeEnCours();
+
     void setCartes(ArrayList<ICarte> cartes);
 
     List<IMerveille> getMerveilles();

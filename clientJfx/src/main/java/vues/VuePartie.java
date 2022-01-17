@@ -48,7 +48,7 @@ public class VuePartie implements Vue
     @FXML
     public ListView lv;
     @FXML
-    public Label lab;
+    public Label nomJoueur;
     @FXML
     public Button jGauche;
     @FXML
@@ -70,6 +70,30 @@ public class VuePartie implements Vue
     @FXML
     public Label tabelettes;
     @FXML
+    public Label bois;
+    @FXML
+    public Label pierres;
+    @FXML
+    public Label minerais;
+    @FXML
+    public Label briques;
+    @FXML
+    public Label tissus;
+    @FXML
+    public Label verres;
+    @FXML
+    public Label papiers;
+    @FXML
+    public Label pierresOuBriques;
+    @FXML
+    public Label mineraisOuBriques;
+    @FXML
+    public Label boisOuPierres;
+    @FXML
+    public Label boisOuBriquesOuPierresOuMinerais;
+    @FXML
+    public Label tissusOuVerresOuPapiers;
+    @FXML
     private ImageView merveilleIM;
     @FXML
     ImageView merveilleJoueurFace;
@@ -77,6 +101,8 @@ public class VuePartie implements Vue
     ImageView merveilleVoisinGauche;
     @FXML
     ImageView merveilleVoisinDroite;
+    @FXML
+    ImageView imageAge;
     @FXML
     Button jDroite;
 
@@ -147,6 +173,18 @@ public class VuePartie implements Vue
     }
     public void affichageInteractifDesVariables() throws RemoteException {
         IJoueur joueur = this.controleur.getJoueur();
+        int age= this.controleur.getPartie().getAgeEnCours();
+        if(age == 1){
+            Image imageAge = new Image("images/ph1.png");
+            this.imageAge.setImage(imageAge);
+        }else if(age== 2){
+            Image imageAge = new Image("images/ph2.png");
+            this.imageAge.setImage(imageAge);
+        }else{
+            Image imageAge = new Image("images/ph3.png");
+            this.imageAge.setImage(imageAge);
+        }
+        nomJoueur.setText(joueur.getNom());
         argent.setText(joueur.argentString());
         bouclier.setText(joueur.bouclierString());
         pv.setText(joueur.pointVictoireString());
@@ -156,6 +194,18 @@ public class VuePartie implements Vue
         rouages.setText(joueur.rouagesString());
         compas.setText(joueur.compasString());
         tabelettes.setText(joueur.tablettesString());
+        bois.setText(joueur.getRessources().get("Bois").toString());
+        pierres.setText(joueur.getRessources().get("Pierres").toString());
+        briques.setText(joueur.getRessources().get("Briques").toString());
+        minerais.setText(joueur.getRessources().get("Minerais").toString());
+        tissus.setText(joueur.getRessources().get("Tissus").toString());
+        verres.setText(joueur.getRessources().get("Verres").toString());
+        papiers.setText(joueur.getRessources().get("Papiers").toString());
+        pierresOuBriques.setText(joueur.getRessources().get("PierresOuBriques").toString());
+        mineraisOuBriques.setText(joueur.getRessources().get("MineraisOuBriques").toString());
+        boisOuPierres.setText(joueur.getRessources().get("BoisOuPierres").toString());
+        boisOuBriquesOuPierresOuMinerais.setText(joueur.getRessources().get("BoisOuBriquesOuPierresOuMinerais").toString());
+        tissusOuVerresOuPapiers.setText(joueur.getRessources().get("TissusOuVerresOuPapiers").toString());
         IDeck deck = this.controleur.getJoueur().getDeck();
         List<ImageView> im = new ArrayList<>();
         this.associationCarteImageview = new HashMap<>();
@@ -256,6 +306,8 @@ public class VuePartie implements Vue
             {
                 Alert alert =  new Alert(Alert.AlertType.ERROR,"VOUS AVEZ DEJA JOUEZ!! ATTENDEZ LE TOUR SUIVANT",ButtonType.OK);
                 alert.showAndWait();
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         });
         attendreChoixAdversaires(this.controleur.getJoueur().getAJoue());
