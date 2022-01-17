@@ -70,6 +70,30 @@ public class VuePartie implements Vue
     @FXML
     public Label tabelettes;
     @FXML
+    public Label bois;
+    @FXML
+    public Label pierres;
+    @FXML
+    public Label minerais;
+    @FXML
+    public Label briques;
+    @FXML
+    public Label tissus;
+    @FXML
+    public Label verres;
+    @FXML
+    public Label papiers;
+    @FXML
+    public Label pierresOuBriques;
+    @FXML
+    public Label mineraisOuBriques;
+    @FXML
+    public Label boisOuPierres;
+    @FXML
+    public Label boisOuBriquesOuPierresOuMinerais;
+    @FXML
+    public Label tissusOuVerresOuPapiers;
+    @FXML
     private ImageView merveilleIM;
     @FXML
     ImageView merveilleJoueurFace;
@@ -259,6 +283,8 @@ public class VuePartie implements Vue
             {
                 Alert alert =  new Alert(Alert.AlertType.ERROR,"VOUS AVEZ DEJA JOUEZ!! ATTENDEZ LE TOUR SUIVANT",ButtonType.OK);
                 alert.showAndWait();
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         });
 

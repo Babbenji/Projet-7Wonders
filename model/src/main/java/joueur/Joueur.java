@@ -520,44 +520,42 @@ public class Joueur implements IJoueur, Serializable {
         return commerceMatieresPremieresGauche;
     }
 
-    public String argentString()
-    {
-        return "Pieces:" + pieces;
-    }
+    @Override
+    public String argentString() { return "" + pieces; }
 
     @Override
     public String pointVictoireString() {
-        return "Points de victoire: "+ptsVictoire;
+        return ""+ptsVictoire;
     }
 
     @Override
     public String bouclierString() {
-        return "Bouclier: "+ puissanceMilitaire;
+        return ""+ puissanceMilitaire;
     }
 
     @Override
     public String pointsVictoireMilitaireString() {
-        return "Points de victoire militaire: " + ptsVictoireMilitaire;
+        return "" + ptsVictoireMilitaire;
     }
 
     @Override
     public String pointDefaiteMilitaireString() {
-        return "Points de dafaite militaire: " + nbJetonsDefaite;
+        return "" + nbJetonsDefaite;
     }
 
     @Override
     public String compasString() {
-        return "Symbole compas: "+ nbCompas;
+        return ""+ nbCompas;
     }
 
     @Override
     public String rouagesString() {
-        return "Symbole rouages:" + nbRouages;
+        return "" + nbRouages;
     }
 
     @Override
     public String tablettesString() {
-        return "Symbole tablettes: " + nbTablettes;
+        return "" + nbTablettes;
     }
 
     @Override
