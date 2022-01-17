@@ -47,7 +47,6 @@ public class VueWaitingRoom implements Vue{
     private List<Partie>parties;
     private IPartie partie;
     private int nombre;
-    private List<Partie> parties;
 
     private void setScene(Scene scene) {
         this.scene = scene;
