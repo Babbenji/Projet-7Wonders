@@ -1,0 +1,23 @@
+#AnchorPane{
+    -fx-background-image: url("../images/indexbg16x9.jpg");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: stretch;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+}
+
+.baseAnchor{
+    -fx-background-image: url("../images/indexbg16x9.jpg");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: stretch;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+}
+
+#AnchorPane .baseAnchor{
+    -fx-background-image: url("../images/indexbg16x9.jpg");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: stretch;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="baseAnchor" prefHeight="386.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.VueMenuNonConnecte">
+    <children>
+        <ImageView fx:id="imageFond" fitHeight="423.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/newbg.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="200.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/logo.png" />
+            </image>
+        </ImageView>
+      <VBox fx:id="vboxMenu" alignment="CENTER" layoutX="200.0" layoutY="105.0" prefHeight="180.0" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Button fx:id="buttonConnexion" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="CONNEXION" />
+            <Button fx:id="buttonInscription" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="INSCRIPTION" />
+            <Button fx:id="buttonQuitter" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="QUITTER" />
+         </children>
+      </VBox>
+    </children>
+</AnchorPane>

@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="974.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.VuePartie">
+   <ImageView fitHeight="635.0" fitWidth="974.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../images/fondPartie.png" />
+      </image>
+   </ImageView>
+   <ImageView fx:id="imageAge" fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
+   <BorderPane prefHeight="715.0" prefWidth="974.0">
+      <center>
+         <Pane prefHeight="430.0" prefWidth="574.0" BorderPane.alignment="CENTER">
+            <children>
+               <ImageView fx:id="merveilleIM" fitHeight="175.0" fitWidth="219.0" layoutX="178.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+               <HBox layoutX="36.0" layoutY="207.0" prefHeight="25.0" prefWidth="450.0" spacing="45.0">
+                  <children>
+                     <Button fx:id="boutonJouer" mnemonicParsing="false" onAction="#jouerCarte" prefWidth="120.0" text="Jouer Carte" />
+                     <Button fx:id="boutonEtape" mnemonicParsing="false" onAction="#construireEtape" prefWidth="120.0" text="Construire Étape" />
+                     <Button fx:id="boutonDefausser" mnemonicParsing="false" onAction="#defausserCarte" prefWidth="120.0" text="Défausser Carte" />
+                  </children>
+               </HBox>
+               <Pane fx:id="info" layoutX="-52.0" layoutY="241.0" prefHeight="155.0" prefWidth="680.0">
+                  <children>
+                     <HBox prefHeight="100.0" prefWidth="680.0" spacing="35.0">
+                        <children>
+                           <VBox prefHeight="150.0" prefWidth="100.0" spacing="15.0">
+                              <children>
+                                 <HBox prefHeight="26.0" prefWidth="80.0" spacing="10.0">
+                                    <children>
+                                       <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/piece1.png" />
+                                          </image>
+                                       </ImageView>
+                                       <Label fx:id="pv" contentDisplay="CENTER" prefHeight="26.0" prefWidth="50.0" text="Label" />
+                                    </children>
+                                 </HBox>
+                                 <HBox prefHeight="26.0" prefWidth="80.0" spacing="10.0">
+                                    <children>
+                                       <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/piece3.png" />
+                                          </image>
+                                       </ImageView>
+                                       <Label fx:id="argent" contentDisplay="CENTER" prefHeight="26.0" prefWidth="50.0" text="Label" />
+                                    </children>
+                                 </HBox>
+                                 <HBox layoutX="10.0" layoutY="36.0" prefHeight="26.0" prefWidth="80.0" spacing="10.0">
+                                    <children>
+                                       <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/fight1.png" />
+                                          </image>
+                                       </ImageView>
+                                       <Label fx:id="pvm" contentDisplay="CENTER" prefHeight="26.0" prefWidth="50.0" text="Label" />
+                                    </children>
+                                 </HBox>
+                                 <HBox layoutX="10.0" layoutY="93.0" prefHeight="26.0" prefWidth="80.0" spacing="10.0">
+                                    <children>
+                                       <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/fight0.png" />
+                                          </image>
+                                       </ImageView>
+                                       <Label fx:id="pdm" prefHeight="26.0" prefWidth="50.0" text="Label" />
+                                    </children>
+                                 </HBox>
+                              </children>
+                           </VBox>
+                           <VBox prefHeight="150.0" prefWidth="100.0" spacing="15.0">
+                              <children>
+                                 <HBox prefHeight="26.0" prefWidth="80.0" spacing="10.0">
+                                    <children>
+                                       <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/bouclier.png" />
+                                          </image>
+                                       </ImageView>
+                                       <Label fx:id="bouclier" prefHeight="26.0" prefWidth="50.0" text="Label" />
+                                    </children>
+                                 </HBox>
+                                 <HBox prefHeight="26.0" prefWidth="80.0" spacing="10.0">
+                                    <children>
+                                       <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/rouages.png" />
+                                          </image>
+                                       </ImageView>
+                                       <Label fx:id="rouages" prefHeight="26.0" prefWidth="50.0" text="Label" />
+                                    </children>
+                                 </HBox>
+                                 <HBox layoutX="10.0" layoutY="36.0" prefHeight="26.0" prefWidth="80.0" spacing="10.0">
+                                    <children>
+                                       <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/compas.png" />
+                                          </image>
+                                       </ImageView>
+                                       <Label fx:id="compas" prefHeight="26.0" prefWidth="50.0" text="Label" />
+                                    </children>
+                                 </HBox>
+                                 <HBox layoutX="10.0" layoutY="93.0" prefHeight="26.0" prefWidth="80.0" spacing="10.0">
+                                    <children>
+                                       <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/tablettes.png" />
+                                          </image>
+                                       </ImageView>
+                                       <Label fx:id="tabelettes" prefHeight="26.0" prefWidth="50.0" text="Label" />
+                                    </children>
+                                 </HBox>
+                              </children>
+                           </VBox>
+                           <VBox prefHeight="150.0" prefWidth="100.0" spacing="15.0">
+                              <children>
+                                 <HBox prefHeight="26.0" prefWidth="80.0" spacing="10.0">
+                                    <children>
+                                       <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/rs1.png" />
+                                          </image>
+                                       </ImageView>
+                                       <Label fx:id="briques" prefHeight="26.0" prefWidth="50.0" text="Label" />
+                                    </children>
+                                 </HBox>
+                                 <HBox prefHeight="26.0" prefWidth="80.0" spacing="10.0">
+                                    <children>
+                                       <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/rs2.png" />
+                                          </image>
+                                       </ImageView>
+                                       <Label fx:id="minerais" prefHeight="26.0" prefWidth="50.0" text="Label" />
+                                    </children>
+                                 </HBox>
+                                 <HBox layoutX="10.0" layoutY="36.0" prefHeight="26.0" prefWidth="80.0" spacing="10.0">
+                                    <children>
+                                       <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/rs3.png" />
+                                          </image>
+                                       </ImageView>
+                                       <Label fx:id="pierres" prefHeight="26.0" prefWidth="50.0" text="Label" />
+                                    </children>
+                                 </HBox>
+                                 <HBox layoutX="10.0" layoutY="93.0" prefHeight="26.0" prefWidth="80.0" spacing="10.0">
+                                    <children>
+                                       <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/rs4.png" />
+                                          </image>
+                                       </ImageView>
+                                       <Label fx:id="bois" prefHeight="26.0" prefWidth="50.0" text="Label" />
+                                    </children>
+                                 </HBox>
+                              </children>
+                           </VBox>
+                           <VBox layoutX="210.0" layoutY="10.0" prefHeight="150.0" prefWidth="100.0" spacing="15.0">
+                              <children>
+                                 <HBox prefHeight="26.0" prefWidth="80.0" spacing="10.0">
+                                    <children>
+                                       <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/rs5.png" />
+                                          </image>
+                                       </ImageView>
+                                       <Label fx:id="tissus" prefHeight="26.0" prefWidth="50.0" text="Label" />
+                                    </children>
+                                 </HBox>
+                                 <HBox prefHeight="26.0" prefWidth="80.0" spacing="10.0">
+                                    <children>
+                                       <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/rs6.png" />
+                                          </image>
+                                       </ImageView>
+                                       <Label fx:id="verres" prefHeight="26.0" prefWidth="50.0" text="Label" />
+                                    </children>
+                                 </HBox>
+                                 <HBox layoutX="10.0" layoutY="36.0" prefHeight="26.0" prefWidth="80.0" spacing="10.0">
+                                    <children>
+                                       <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/rs7.png" />
+                                          </image>
+                                       </ImageView>
+                                       <Label fx:id="papiers" prefHeight="26.0" prefWidth="50.0" text="Label" />
+                                    </children>
+                                 </HBox>
+                                 <HBox layoutX="10.0" layoutY="93.0" prefHeight="26.0" prefWidth="80.0" spacing="10.0">
+                                    <children>
+                                       <ImageView fitHeight="26.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/rs9.png" />
+                                          </image>
+                                       </ImageView>
+                                       <Label fx:id="pierresOuBriques" prefHeight="26.0" prefWidth="50.0" text="Label" />
+                                    </children>
+                                 </HBox>
+                              </children>
+                           </VBox>
+                           <VBox layoutX="310.0" layoutY="10.0" prefHeight="150.0" prefWidth="115.0" spacing="15.0">
+                              <children>
+                                 <HBox prefHeight="26.0" prefWidth="80.0" spacing="10.0">
+                                    <children>
+                                       <ImageView fitHeight="26.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/rs10.png" />
+                                          </image>
+                                       </ImageView>
+                                       <Label fx:id="mineraisOuBriques" prefHeight="26.0" prefWidth="50.0" text="Label" />
+                                    </children>
+                                 </HBox>
+                                 <HBox prefHeight="26.0" prefWidth="80.0" spacing="10.0">
+                                    <children>
+                                       <ImageView fitHeight="26.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/rs11.png" />
+                                          </image>
+                                       </ImageView>
+                                       <Label fx:id="boisOuPierres" prefHeight="26.0" prefWidth="50.0" text="Label" />
+                                    </children>
+                                 </HBox>
+                                 <HBox layoutX="10.0" layoutY="36.0" prefHeight="26.0" prefWidth="80.0" spacing="10.0">
+                                    <children>
+                                       <ImageView fitHeight="26.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/rs14.png" />
+                                          </image>
+                                       </ImageView>
+                                       <Label fx:id="tissusOuVerresOuPapiers" prefHeight="26.0" prefWidth="50.0" text="Label" />
+                                    </children>
+                                 </HBox>
+                                 <HBox layoutX="10.0" layoutY="93.0" prefHeight="26.0" prefWidth="80.0" spacing="10.0">
+                                    <children>
+                                       <ImageView fitHeight="26.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/rs15.png" />
+                                          </image>
+                                       </ImageView>
+                                       <Label fx:id="boisOuBriquesOuPierresOuMinerais" prefHeight="26.0" prefWidth="50.0" text="Label" />
+                                    </children>
+                                 </HBox>
+                              </children>
+                           </VBox>
+                        </children>
+                     </HBox>
+                  </children>
+               </Pane>
+               <VBox layoutX="36.0" layoutY="1.0" prefHeight="128.0" prefWidth="27.0">
+                  <children>
+                     <ImageView fx:id="marche" fitHeight="60.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" />
+                     <ImageView fx:id="marcheDroite" fitHeight="52.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true" />
+                     <ImageView fx:id="marcheGauche" fitHeight="53.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true" />
+                  </children>
+               </VBox>
+            </children>
+         </Pane>
+      </center>
+      <bottom>
+         <ListView fx:id="lv" onMouseClicked="#onClickAfficher" prefHeight="169.0" prefWidth="974.0" BorderPane.alignment="CENTER" />
+      </bottom>
+      <top>
+         <Pane prefHeight="149.0" prefWidth="974.0" BorderPane.alignment="CENTER">
+            <children>
+               <VBox layoutX="387.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                  <children>
+                     <ImageView fx:id="merveilleJoueurFace" fitHeight="125.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                     <Button fx:id="jFace" mnemonicParsing="false" onAction="#voirInfoJFace" prefHeight="25.0" prefWidth="200.0" text="Voir informations joueur en face" />
+                  </children>
+               </VBox>
+               <Label fx:id="nomJoueur" layoutX="766.0" layoutY="14.0" text="">
+                  <font>
+                     <Font size="24.0" />
+                  </font>
+               </Label>
+            </children>
+         </Pane>
+      </top>
+      <left>
+         <Pane prefHeight="246.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+               <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                  <children>
+                     <ImageView fx:id="merveilleVoisinGauche" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                     <Button fx:id="jGauche" mnemonicParsing="false" onAction="#voirInfoJGauche" prefHeight="25.0" prefWidth="200.0" text="Voir informations joueur gauche" />
+                  </children>
+               </VBox>
+            </children>
+         </Pane>
+      </left>
+      <right>
+         <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+               <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                  <children>
+                     <ImageView fx:id="merveilleVoisinDroite" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                     <Button fx:id="jDroite" mnemonicParsing="false" onAction="#voirInfoJDroite" prefHeight="25.0" prefWidth="200.0" text="Voir informations joueur droite" />
+                  </children>
+               </VBox>
+            </children>
+         </Pane>
+      </right>
+   </BorderPane>
+</AnchorPane>
