@@ -63,15 +63,7 @@ public class Controleur
         vuePartie = VuePartie.creerVue(stage,this);
         vueWaitingRoom = VueWaitingRoom.creerVue(stage);
         vueWaitingRoom.initialiserControleur(this);
-    }
 
-    public void setNbUserWaitingRoom(int nbUserWaitingRoom) {
-        Controleur.nbUserWaitingRoom = nbUserWaitingRoom;
-    }
-
-    public int ajoutUserWaitingRoom() {
-        System.out.println("nb : "+nbUserWaitingRoom);
-        return nbUserWaitingRoom+1;
     }
 
     public void run() throws RemoteException {
@@ -113,8 +105,9 @@ public class Controleur
     }
 
 
-    public void goToPartie() throws RemoteException
-    {
+    public void goToPartie() throws RemoteException {
+        System.out.println(this.partie);
+
         vuePartie.chargerDonnees();
         this.vuePartie.show();
     }
@@ -194,6 +187,7 @@ public class Controleur
         vuePartie.affichageInteractifDesVariables();
         System.out.println("carte joue");
 
+
     }
 
     public User getUser()
@@ -250,8 +244,7 @@ public class Controleur
         }
         return indiceARetourner;
     }
-    public IJoueur getJoueur()
-    {
+    public IJoueur getJoueur() {
         return joueur;
     }
 
@@ -281,6 +274,23 @@ public class Controleur
 
     public String getNom() {
         return this.nom;
+    }
+
+    public int getNbUserWaitingRoom() throws RemoteException {
+        return this.facade.getUserDansPreLobby().size();
+    }
+
+    public void ajoutUserWaitingRoom(User u , Partie p) throws RemoteException {
+
+            Map<User, Partie> map = this.facade.getUserDansPreLobby();
+        if (map.keySet().stream()
+                .noneMatch(user1 ->
+                        user1.getPseudo()
+                                .equals(u.getPseudo()))) {
+                map.put(u, p);
+                this.facade.setUserDansPreLobby(map);
+
+        }
     }
 
 }

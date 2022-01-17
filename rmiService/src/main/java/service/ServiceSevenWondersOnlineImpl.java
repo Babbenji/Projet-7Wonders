@@ -129,6 +129,16 @@ public class ServiceSevenWondersOnlineImpl  implements ServiceSevenWondersOnline
     }
 
     @Override
+    public Map<User, Partie> getUserDansPreLobby() {
+        return this.facadeSevenWondersOnLine.getUserDansPreLobby();
+    }
+
+    @Override
+    public void setUserDansPreLobby(Map<User, Partie> userDansPreLobby) throws RemoteException {
+        this.facadeSevenWondersOnLine.setUserDansPreLobby(userDansPreLobby);
+    }
+
+    @Override
     public Partie getPartieById(int idPartie) {
         return this.facadeSevenWondersOnLine.getPartieById(idPartie);
     }
@@ -137,4 +147,6 @@ public class ServiceSevenWondersOnlineImpl  implements ServiceSevenWondersOnline
     public User getUserByPseudo(String pseudo) throws RemoteException {
         return this.facadeSevenWondersOnLine.getUserByPseudo(pseudo);
     }
+
+
 }

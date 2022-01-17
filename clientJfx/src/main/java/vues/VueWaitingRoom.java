@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
@@ -22,7 +23,9 @@ import type.IPartie;
 import user.User;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,13 +39,12 @@ public class VueWaitingRoom implements Vue{
     @FXML
     ListView listJoueurs;
 
-    @FXML
-    Label nombreJoueursEnAttente;
+   @FXML
+    Button boutonRetour;
 
     private Stage stage;
     private Controleur controleur;
     private IPartie partie;
-    private int nombre;
     private List<Partie> parties;
 
     private void setScene(Scene scene) {
@@ -55,7 +57,7 @@ public class VueWaitingRoom implements Vue{
         this.stage = stage;
     }
 
-    public static VueWaitingRoom creerVue(Stage stage) {
+    public static VueWaitingRoom creerVue(Stage stage) throws RemoteException {
         URL location = VueWaitingRoom.class.getResource("waitingRoom.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(location);
         Parent root = null;
@@ -68,6 +70,8 @@ public class VueWaitingRoom implements Vue{
         vue.setStage(stage);
         Scene scene = new Scene(root);
         vue.setScene(scene);
+        vue.initBoutonRetour();
+
         return vue;
     }
 
@@ -89,6 +93,7 @@ public class VueWaitingRoom implements Vue{
                 for(IJoueur j : p.getListeDesJoueurs()){
                     if (j.getNom().equals(this.controleur.getUser().getPseudo())){
                         this.partie = p;
+
                     }
                 }
             }
@@ -97,9 +102,8 @@ public class VueWaitingRoom implements Vue{
             for (IJoueur joueur : j){
                 this.listJoueurs.getItems().add(joueur.getNom());
             }
-            this.nombre = this.controleur.ajoutUserWaitingRoom();
-            this.nombreJoueursEnAttente.setText(Integer.toString(this.nombre));
-            this.controleur.setNbUserWaitingRoom(this.nombre);
+
+
 
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -133,14 +137,19 @@ public class VueWaitingRoom implements Vue{
             }
         }
     }
+    private void initBoutonRetour() throws RemoteException {
+            this.boutonRetour.setOnAction(e -> {
+            this.controleur.goToMenuConnecte();
 
+        });
+    }
 
     public void goToPartie(ActionEvent actionEvent) {
         System.out.println("ICICICICICICICCI");
         Task<Boolean> attenteJoueur = new Task<Boolean>() {
             @Override
             protected Boolean call() throws Exception {
-                while (nombre != 4);
+                while (controleur.getNbUserWaitingRoom() != 4);
                 System.out.println("ICICICICICICICCI2");
                 return true;
             }

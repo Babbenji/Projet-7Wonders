@@ -121,5 +121,6 @@ public interface FacadeSevenWondersOnLine {
     Partie getPartie(IJoueur joueur);
     Map<User, IJoueur> getAssociationUserJoueur();
     Map<IJoueur, Partie> getAssociationJoueurPartie();
-
+    Map<User, Partie> getUserDansPreLobby();
+    void setUserDansPreLobby(Map<User, Partie> userDansPreLobby);
 }

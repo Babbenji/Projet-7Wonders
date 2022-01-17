@@ -30,6 +30,8 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
 
 
     public FacadeSevenWondersOnlineImpl() {
+
+
         //mongodb this.user = null;
         this.userDansPreLobby = new HashMap<>();
         this.associationUserJoueur = new HashMap<>();
@@ -190,7 +192,7 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
         return lesMerveilles;
     }
 
-
+    @Override
     public Map<User, Partie> getUserDansPreLobby() {
         return userDansPreLobby;
     }
@@ -199,11 +201,18 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
         return user;
     }
 
+    @Override
     public Map<User, IJoueur> getAssociationUserJoueur() {
         return associationUserJoueur;
     }
 
+    @Override
     public Map<IJoueur, Partie> getAssociationJoueurPartie() {
         return associationJoueurPartie;
+    }
+
+    @Override
+    public void setUserDansPreLobby(Map<User, Partie> userDansPreLobby) {
+        this.userDansPreLobby = userDansPreLobby;
     }
 }

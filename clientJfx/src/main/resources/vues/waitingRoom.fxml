@@ -24,16 +24,7 @@
       </Label>
       <HBox alignment="CENTER" layoutY="145.0" prefHeight="100.0" prefWidth="448.0">
          <children>
-            <Label text="NOMBRE DE JOUEURS EN ATTENTE :  " textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="nombreJoueursEnAttente" prefHeight="27.0" prefWidth="46.0" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
+            <Button fx:id="boutonRetour" mnemonicParsing="false" text="RETOUR" />
             <Button fx:id="lancerPartie" mnemonicParsing="false" onAction="#goToPartie" text="LANCER" />
          </children>
       </HBox>
