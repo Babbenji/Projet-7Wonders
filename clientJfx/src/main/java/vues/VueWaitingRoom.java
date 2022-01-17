@@ -41,6 +41,7 @@ public class VueWaitingRoom implements Vue{
 
     private Stage stage;
     private Controleur controleur;
+    private List<Partie>parties;
     private IPartie partie;
     private int nombre;
 
@@ -50,7 +51,8 @@ public class VueWaitingRoom implements Vue{
 
     private Scene scene;
 
-    private void setStage(Stage stage) {
+    private void setStage(Stage stage)
+    {
         this.stage = stage;
     }
 
@@ -96,7 +98,7 @@ public class VueWaitingRoom implements Vue{
             for (IJoueur joueur : j){
                 this.listJoueurs.getItems().add(joueur.getNom());
             }
-            this.nombre = this.controleur.ajoutUserWaitingRoom();
+            this.nombre = 4;
             this.nombreJoueursEnAttente.setText(Integer.toString(this.nombre));
             this.controleur.setNbUserWaitingRoom(this.nombre);
 

@@ -65,12 +65,6 @@ public class Partie implements IPartie, Serializable {
     public void constructionDesListes()
     {
         Collections.shuffle(this.merveilles);
-        this.merveilles.forEach(m->
-        {
-            this.listeDesJoueurs.forEach(j->{
-                j.setMerveille(m);
-            });
-        });
 
         this.cartes.forEach(c -> {
             if (c.getAge() == 1){
@@ -86,6 +80,7 @@ public class Partie implements IPartie, Serializable {
         Collections.shuffle(this.cartesAgeIII);
 
     }
+
 
     @Override
     public void miseEnPlacePartie()

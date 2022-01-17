@@ -107,9 +107,7 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
         Partie partie = null;
         partie = getPartieById(idPartie);
         partie.addJoueur(joueur);
-        associationJoueurPartie.put(joueur,partie);
-        associationUserJoueur.put(userInvite,joueur);
-        System.out.println("test");
+        userDansPreLobby.put(userInvite,partie);
 
     }
     @Override
@@ -123,9 +121,11 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
         System.out.println("crreeeeeeeeeeeeeeeeeeee");
         ArrayList<IJoueur> listJoueur = new ArrayList<>();
         IJoueur joueur1 = new Joueur(createur.getPseudo());
+        listJoueur.add(joueur1);
         associationUserJoueur.put(createur,joueur1);
         Partie partie = new Partie(listJoueur,lesCartes,lesMerveilles);
         parties.add(partie);
+        userDansPreLobby.put(createur,partie);
 
         for (IJoueur joueur: listJoueur)
         {
@@ -182,15 +182,7 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
     }
 
 
-    public List<ICarte> getLesCartes() {
-        return lesCartes;
-    }
-
-    public List<IMerveille> getLesMerveilles() {
-        return lesMerveilles;
-    }
-
-
+    @Override
     public Map<User, Partie> getUserDansPreLobby() {
         return userDansPreLobby;
     }
@@ -199,10 +191,12 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
         return user;
     }
 
+    @Override
     public Map<User, IJoueur> getAssociationUserJoueur() {
         return associationUserJoueur;
     }
 
+    @Override
     public Map<IJoueur, Partie> getAssociationJoueurPartie() {
         return associationJoueurPartie;
     }

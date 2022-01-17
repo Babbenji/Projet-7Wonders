@@ -176,14 +176,14 @@ public class ProxySevenWondersOnLineImpl  implements ProxySevenWondersOnLine
     }
 
     @Override
-    public Map<User, IJoueur> getAssociationUserJoueur() throws RemoteException {
-
+    public Map<User, IJoueur> getAssociationUserJoueur() throws RemoteException
+    {
         return this.serviceSevenWondersOnline.getAssociationUserJoueur();
-
     }
 
     @Override
-    public Map<IJoueur, Partie> getAssociationJoueurPartie() throws RemoteException {
-        return this.serviceSevenWondersOnline.getAssociationJoueurPartie();
+    public Map<User, Partie> getUserDansPreLobby() throws RemoteException {
+        return this.serviceSevenWondersOnline.getUserDansPreLobby();
     }
+
 }

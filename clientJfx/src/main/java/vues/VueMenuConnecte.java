@@ -45,6 +45,7 @@ public class VueMenuConnecte implements Vue{
 
     private Stage stage;
     private Controleur controleur;
+    User user;
 
     private void setScene(Scene scene) {
         this.scene = scene;

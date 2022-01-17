@@ -136,15 +136,7 @@ public class VuePartie implements Vue
         this.stage.show();
     }
 
-    public void initialiserCarteMerveille() throws RemoteException { // a mettre dans le charge donne quand les tests seront finis
-        this.controleur.miseEnPlaceDuJeu();
-        IMerveille merveille = this.controleur.getJoueur().getMerveille();
-        File file = new File("clientJfx/src/main/resources/images/");
-        Image image = new Image(file.toURI().toString()+merveille.getImage());
-        merveilleIM.setImage(image);
-        affichageInteractifDesVariables();
 
-    }
     public void affichageInteractifDesVariables() throws RemoteException {
         IJoueur joueur = this.controleur.getJoueur();
         argent.setText(joueur.argentString());
@@ -175,9 +167,6 @@ public class VuePartie implements Vue
     public void chargerDonnees() throws RemoteException
     {
         this.controleur.miseEnPlaceDuJeu();
-
-        this.controleur.miseEnPlaceDuJeu();
-        IMerveille merveille = this.controleur.getJoueur().getMerveille();
     }
     public void debutpartie() throws RemoteException {
         IMerveille merveille = this.controleur.getJoueur().getMerveille();
@@ -188,7 +177,6 @@ public class VuePartie implements Vue
 
         this.joueurGauche = this.controleur.getJoueurGauche();
         merveilleVoisinGauche.setImage(new Image(file.toURI().toString()+this.joueurGauche.getMerveille().getImage()));
-
         this.joueurDroite = this.controleur.getJoueurDroite();
         merveilleVoisinDroite.setImage(new Image(file.toURI().toString()+this.joueurDroite.getMerveille().getImage()));
 
