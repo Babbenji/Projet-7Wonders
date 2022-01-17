@@ -47,6 +47,7 @@ public class Merveille implements IMerveille, Serializable {
         this.effetTroisiemeEtape = effetTroisiemeEtape;
     }
 
+
      //fonctions autres
     //getters et setters générés, à voir ensuite les fonctions inutiles à retirer
     //Je me passe de commentaires pour les getters et setters générés, ils n'ont rien de particulier

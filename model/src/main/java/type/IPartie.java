@@ -88,5 +88,6 @@ public interface IPartie {
     void setCartes(ArrayList<ICarte> cartes);
 
     List<IMerveille> getMerveilles();
+    IMerveille iMerveille(IJoueur joueur);
     void suitePartie();
 }

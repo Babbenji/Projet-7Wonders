@@ -125,11 +125,8 @@ public class VueWaitingRoom implements Vue{
         if(this.listJoueurs.getItems().size()<4){
             System.out.println("invitation de "+listAmis.getSelectionModel().getSelectedItem().toString()+" à la partie");
             User user = this.controleur.getFacade().getUserByPseudo(listAmis.getSelectionModel().getSelectedItem().toString());
-            System.out.println(user);
-            int idPartie = this.controleur.getFacade().getPartieById(this.partie.getIdPartie()).getIdPartie();
+            int idPartie = this.controleur.getPartie().getIdPartie();
             this.controleur.inviterUser(idPartie, user);
-            System.out.println("partie dans la vue : "+this.partie+" "+this.partie.getListeDesJoueurs());
-            System.out.println("partie côté serveur : "+this.controleur.getFacade().getPartieById(this.partie.getIdPartie())+this.controleur.getFacade().getPartieById(this.partie.getIdPartie()).getListeDesJoueurs());
             List<IJoueur> j = this.controleur.getFacade().getPartieById(idPartie).getListeDesJoueurs();
             this.listJoueurs.getItems().clear();
             for (IJoueur joueur : j){
@@ -145,20 +142,16 @@ public class VueWaitingRoom implements Vue{
     }
 
     public void goToPartie(ActionEvent actionEvent) {
-        System.out.println("ICICICICICICICCI");
         Task<Boolean> attenteJoueur = new Task<Boolean>() {
             @Override
             protected Boolean call() throws Exception {
                 while (controleur.getNbUserWaitingRoom() != 4);
-                System.out.println("ICICICICICICICCI2");
                 return true;
             }
         };
         attenteJoueur.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, e -> {
             try {
-                System.out.println("ICICICICICICICCI3");
                 controleur.goToPartie();
-                System.out.println("ICICICICICICICCI4");
             } catch (RemoteException remoteException) {
                 remoteException.printStackTrace();
             }

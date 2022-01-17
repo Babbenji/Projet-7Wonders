@@ -162,26 +162,18 @@ public class VuePartie implements Vue
         this.stage.show();
     }
 
-    public void initialiserCarteMerveille() throws RemoteException { // a mettre dans le charge donne quand les tests seront finis
-        this.controleur.miseEnPlaceDuJeu();
-        IMerveille merveille = this.controleur.getJoueur().getMerveille();
-        File file = new File("clientJfx/src/main/resources/images/");
-        Image image = new Image(file.toURI().toString()+merveille.getImage());
-        merveilleIM.setImage(image);
-        affichageInteractifDesVariables();
-
-    }
     public void affichageInteractifDesVariables() throws RemoteException {
         IJoueur joueur = this.controleur.getJoueur();
         int age= this.controleur.getPartie().getAgeEnCours();
+        File file = new File("clientJfx/src/main/resources/images/");
         if(age == 1){
-            Image imageAge = new Image("images/ph1.png");
+            Image imageAge = new Image(file.toURI().toString()+"ph1.png");
             this.imageAge.setImage(imageAge);
         }else if(age== 2){
-            Image imageAge = new Image("images/ph2.png");
+            Image imageAge = new Image(file.toURI().toString()+"ph2.png");
             this.imageAge.setImage(imageAge);
         }else{
-            Image imageAge = new Image("images/ph3.png");
+            Image imageAge = new Image(file.toURI().toString()+"ph1.png");
             this.imageAge.setImage(imageAge);
         }
         nomJoueur.setText(joueur.getNom());
@@ -219,19 +211,17 @@ public class VuePartie implements Vue
         ObservableList<ImageView> observableList = FXCollections.observableList(im);
         lv.setItems(observableList);
         lv.setOrientation(Orientation.HORIZONTAL);
+
     }
 
     @Override
     public void chargerDonnees() throws RemoteException
     {
         this.controleur.miseEnPlaceDuJeu();
-    }
-    public void debutpartie() throws RemoteException {
         IMerveille merveille = this.controleur.getJoueur().getMerveille();
         File file = new File("clientJfx/src/main/resources/images/");
         Image image = new Image(file.toURI().toString()+merveille.getImage());
         merveilleIM.setImage(image);
-        affichageInteractifDesVariables();
 
         this.joueurGauche = this.controleur.getJoueurGauche();
         merveilleVoisinGauche.setImage(new Image(file.toURI().toString()+this.joueurGauche.getMerveille().getImage()));
@@ -241,8 +231,7 @@ public class VuePartie implements Vue
 
         this.joueurEnFace = this.controleur.getJoueurFace();
         merveilleJoueurFace.setImage(new Image(file.toURI().toString()+this.joueurEnFace.getMerveille().getImage()));
-
-
+        affichageInteractifDesVariables();
     }
 
     public void jouerCarte(ActionEvent actionEvent) throws ChoixDejaFaitException, RemoteException, PasAssezDeRessourcesException {
@@ -266,7 +255,9 @@ public class VuePartie implements Vue
                 alert.showAndWait();
             }
         });
+        System.out.println("faut");
         attendreChoixAdversaires(this.controleur.getJoueur().getAJoue());
+        System.out.println("passer");
         affichageInteractifDesVariables();
     }
 
@@ -292,6 +283,7 @@ public class VuePartie implements Vue
                 alert.showAndWait();
             }
         });
+        attendreChoixAdversaires(this.controleur.getJoueur().getAJoue());
     }
 
     public void defausserCarte(ActionEvent actionEvent) throws ChoixDejaFaitException, RemoteException {
@@ -333,12 +325,13 @@ public class VuePartie implements Vue
                     AjoueF = joueurF.getAJoue();
                     AjoueG = joueurG.getAJoue();
                 }
-                    while (!AjoueD || !AjoueF || !AjoueG || !ajoue);
+                    while (AjoueD || AjoueF || AjoueG || ajoue);
                     return true;
                 }
             };
         attenteCoup.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, e -> controleur.passerALaSuite());
         Thread thread = new Thread(attenteCoup);
+        System.out.println("Thread start");
         thread.start();
     }
 

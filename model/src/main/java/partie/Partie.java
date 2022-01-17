@@ -545,6 +545,12 @@ public class Partie implements IPartie, Serializable {
         return "tata";
     }
 
+    public IMerveille getMerveille(IJoueur joueur)
+    {
+        int indice = listeDesJoueurs.indexOf(joueur);
+        return listeDesJoueurs.get(indice).getMerveille();
+    }
+
 
     @Override
     public int getIdPartie() {
@@ -564,7 +570,7 @@ public class Partie implements IPartie, Serializable {
     }
 
 
-    public IMerveille getMerveille(IJoueur joueur)
+    public IMerveille iMerveille(IJoueur joueur)
     {
         int indice = listeDesJoueurs.indexOf(joueur);
         return listeDesJoueurs.get(indice).getMerveille();

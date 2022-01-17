@@ -76,31 +76,16 @@ public class VueMenuConnecte implements Vue{
         vue.setScene(scene);
         vue.initialiserControleur(controleur);
         vue.initialiserBoutonQuitter();
-        try {
-            vue.initialiserBoutonCreer();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
         return vue;
     }
 
     private void initialiserBoutonQuitter() { this.boutonQuitter.setOnAction(e -> goExit()); }
 
-    private void initialiserBoutonCreer() throws RemoteException {
-        /*
-        System.out.println(this.controleur.getUser()+" caca");
-        //IPartie partie = this.controleur.getFacade().creePartie(this.controleur.getUser());
-        this.creerPartie.setOnAction(e -> {
-            this.controleur.ajoutUserWaitingRoom();
-            goToWaitingRoom();
-        });
-         */
-    }
-
     public void buttonCreer(MouseEvent mouseEvent){
         try {
             IPartie partie = this.controleur.getFacade().creePartie(this.controleur.getUser());
-            System.out.println(partie);
+            this.controleur.setPartie(partie);
+            System.out.println("bouton cree" + partie);
             this.controleur.ajoutUserWaitingRoom(this.controleur.getUser(), (Partie) partie);
             this.goToWaitingRoom();
         } catch (RemoteException e) {

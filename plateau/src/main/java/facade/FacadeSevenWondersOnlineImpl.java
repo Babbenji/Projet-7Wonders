@@ -20,6 +20,7 @@ import java.util.*;
 public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
     private List<Partie> parties;
     private User user;
+    private Map<Integer,Partie> associationIdPartie;
     private List<User> joueursInscrits;
     private Map<User,String> utilisateursConnectes;
     private Map<User,Partie> userDansPreLobby;
@@ -33,6 +34,7 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
         //mongodb this.user = null;
         this.userDansPreLobby = new HashMap<>();
         this.associationUserJoueur = new HashMap<>();
+        this.associationIdPartie = new HashMap<>();
         this.parties = new ArrayList<>();
         this.associationJoueurPartie = new HashMap<>();
         //recuperer joueurs inscrits mongodb jsp si on peut ^^ this.joueursInscrits
@@ -104,8 +106,7 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
     public void inviterUser(int idPartie, User userInvite)
     {
         IJoueur joueur = new Joueur(userInvite.getPseudo());
-        Partie partie = null;
-        partie = getPartieById(0);
+        Partie partie = associationIdPartie.get(idPartie);
         partie.addJoueur(joueur);
         this.associationJoueurPartie.put(joueur,partie);
 
@@ -121,9 +122,9 @@ public class FacadeSevenWondersOnlineImpl implements FacadeSevenWondersOnLine {
         ArrayList<IJoueur> listJoueur = new ArrayList<>();
         IJoueur joueur1 = new Joueur(createur.getPseudo());
         listJoueur.add(joueur1);
-        associationUserJoueur.put(createur,joueur1);
         Partie partie = new Partie(listJoueur,lesCartes,lesMerveilles);
         parties.add(partie);
+        associationIdPartie.put(partie.getIdPartie(),partie);
         userDansPreLobby.put(createur,partie);
         this.associationJoueurPartie.put(joueur1,partie);
         return partie;
