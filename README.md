@@ -36,9 +36,9 @@ Si vous ne l'avez pas déjà fait et si l'option n'est pas paramétrée par déf
 
 ***clientJfx/src/main/java/application/Main.java***
 
-[Scheme](images/Capture1.PNG)
-[Scheme](images/Capture2.PNG)
-[Scheme](images/Capture3.PNG)
+<img src="/images/Capture1.PNG"/>
+<img src="/images/Capture2.PNG"/>
+<img src="/images/Capture3.PNG"/>
 
 À partir de là, il vous faudra exécuter 4 instances de ce même fichier et de placer, dans l'idéal, les 4 fenêtres dans les 4 coins de votre écran.
 
@@ -54,8 +54,6 @@ Si toutefois vous avez besoin d'identifiants, en voici 4 :
 |    abenjazia     |   password   |
 
 ## Informations supplémentaires
-
-La base de données est sur serveur distant et est accessible [ici](https://www.mongodb.com/fr-fr/cloud) avec les identifiants suivants
 
 |                Mail                |   Mot de passe   |
 |:----------------------------------:|:----------------:|
