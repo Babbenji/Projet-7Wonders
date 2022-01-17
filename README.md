@@ -36,6 +36,10 @@ Si vous ne l'avez pas déjà fait et si l'option n'est pas paramétrée par déf
 
 ***clientJfx/src/main/java/application/Main.java***
 
+![](/images/Capture1.PNG)
+![](/images/Capture2.PNG)
+![](/images/Capture3.PNG)
+
 À partir de là, il vous faudra exécuter 4 instances de ce même fichier et de placer, dans l'idéal, les 4 fenêtres dans les 4 coins de votre écran.
 
 Pour l'inscription et la connexion, il n'y a pas de secret.
@@ -48,5 +52,9 @@ Si toutefois vous avez besoin d'identifiants, en voici 4 :
 |     tdurand      |   password   |
 |     jlietard     |   password   |
 |    abenjazia     |   password   |
+
+## Informations supplémentaires
+
+![enter image description here](/images/screenshot1.jpg)
 
 
